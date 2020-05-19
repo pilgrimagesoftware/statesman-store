@@ -1,7 +1,7 @@
 __author__ = "Paul Schifferer <paul@schifferers.net>"
 """
-subtract.py
-- Decrement an item's value
+decrement.py
+- Alias for 'subtract'
 """
 
 
@@ -17,10 +17,3 @@ def execute(team_id:str, user_id:str, args:list) -> list:
     # allows for a missing value, assumed to be 1
     updated_args = check_args(args, model_constants.OPERATOR_SYMBOL_SUBTRACT, 1)
     return adjust.execute(team_id, user_id, updated_args)
-
-
-def help_info():
-    return ('subtract',
-            'Subtract',
-            'Subtract from an item\'s value: `sub[tract]] <name> <value>`',
-            None)
