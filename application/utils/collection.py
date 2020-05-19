@@ -76,7 +76,9 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
 
         item_info = f"{label}: *{item.value}*"
 
-        if item.default_value is not None and len(item.default_value) > 0:
+        if ((collection.creator_id == user.user_id or item.creator_id == user.user_id)
+            and
+            (item.default_value is not None and len(item.default_value) > 0)):
             item_info += f"\n_Default value_: *{item.default_value}*"
 
         field = {
