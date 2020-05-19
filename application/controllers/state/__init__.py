@@ -6,11 +6,13 @@ state
 
 
 from flask import current_app
+from flaskthreads import ThreadPoolWithAppContextExecutor
 import yaml, json
 import os
 import logging
 import subprocess, shlex, threading
 import importlib
+import concurrent.futures
 from application import constants
 from application.utils.slack import send_message
 from application.utils.slack import verify_signature
@@ -102,6 +104,12 @@ def process_state_request(request:object):
     params = text.split(" ")
     # current_app.logger.debug("params: %s", params)
 
-    process_state_action(team_id, user_id, params, response_url)
+    # fork to a new thread
+    with ThreadPoolWithAppContextExecutor(max_workers=10) as ex:
+        current_app.logger.debug("Passing work to a thread...")
+        # process_state_action(team_id, user_id, params, response_url)
+        future = ex.submit(process_state_action, team_id, user_id, params, response_url)
+        current_app.logger.debug("future: %s", future)
+        current_app.logger.debug("exception: %s", future.exception())
 
     return "", 200
