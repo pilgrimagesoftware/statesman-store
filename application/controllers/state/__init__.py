@@ -29,7 +29,7 @@ def send_response(response_url:str, blocks:list, private:bool):
     send_message(response_url, blocks, private)
 
 
-def process_state_action(team_id:str, user_id:str, params:list, response_url:str, private:bool = False) -> str:
+def process_state_action(team_id:str, user_id:str, params:list, response_url:str, private:bool = False):
     current_app.logger.debug("team_id: %s, user_id: %s, params: %s, response_url: %s", team_id, user_id, params, response_url)
 
     command, args = validate_action(params)
