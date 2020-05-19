@@ -22,11 +22,18 @@ from application.utils.access import check_collection_permission, check_item_per
 def adjust_item(item:StateItem, op:str, value:str):
     current_app.logger.debug("item: %s, op: %s, value: %s", item, op, value)
 
+    item_value = float(item.value)
+
     if op == model_constants.ADJUST_OP_ADD:
-        item.value += value
+        item_value += float(value)
     elif op == model_constants.ADJUST_OP_SUBTRACT:
-        item.value -= value
+        item_value -= float(value)
     elif op == model_constants.ADJUST_OP_MULTIPLY:
-        item.value *= value
+        item_value *= float(value)
     elif op == model_constants.ADJUST_OP_DIVIDE:
-        item.value /= value
+        item_value /= float(value)
+
+    if item_value.is_integer():
+        item.value = int(item_value)
+    else:
+        item.value = item_value
