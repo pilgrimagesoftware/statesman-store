@@ -42,14 +42,14 @@ def execute(team_id:str, user_id:str, args:list) -> list:
             blocks = build_error_blocks('Unable to adjust item; you do not have permission to write to it.')
             return blocks, True
 
-        if op == '+':
+        if op == model_constants.OPERATOR_SYMBOL_ADD:
             op = model_constants.ADJUST_OP_ADD
-        elif op == '+':
-            op = model_constants.ADJUST_OP_ADD
-        elif op == '+':
-            op = model_constants.ADJUST_OP_ADD
-        elif op == '+':
-            op = model_constants.ADJUST_OP_ADD
+        elif op == model_constants.OPERATOR_SYMBOL_SUBTRACT:
+            op = model_constants.ADJUST_OP_SUBTRACT
+        elif op == model_constants.OPERATOR_SYMBOL_MULTIPLY:
+            op = model_constants.ADJUST_OP_MULTIPLY
+        elif op == model_constants.OPERATOR_SYMBOL_DIVIDE:
+            op = model_constants.ADJUST_OP_DIVIDE
         else:
             blocks = build_error_blocks(f'Unable to adjust item; unknown or unsupported operator: {op}')
             return blocks, True
