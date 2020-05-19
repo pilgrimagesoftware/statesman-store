@@ -42,7 +42,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
 
     db.session.commit()
 
-    blocks = build_message_blocks(f'Collection *{name}* has been reset.')
+    blocks = build_message_blocks(f'Collection *{collection.name}* has been reset.')
 
     return blocks, True
 
