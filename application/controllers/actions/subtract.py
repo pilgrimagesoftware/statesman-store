@@ -21,7 +21,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
     current_app.logger.debug("team_id: %s, user_id: %s, args: %s", team_id, user_id, args)
 
     if len(args) != 2:
-        blocks = build_error_blocks('Usage: `add|inc[rement] <name> <value>`.')
+        blocks = build_error_blocks('Usage: `sub[tract <name> <value>`.')
         return blocks, True
 
     # get current state collection
@@ -50,13 +50,13 @@ def execute(team_id:str, user_id:str, args:list) -> list:
         db.session.add(item)
         db.session.commit()
 
-        blocks = build_message_blocks(f'Updated item *{name}*\'s value by *{value}*: {item.value}.')
+        blocks = build_message_blocks(f'Decremented item *{name}*\'s value by *{value}*: {item.value}.')
 
     return blocks, False
 
 
 def help_info():
-    return ('add',
-            'Add',
-            'Add to an item\'s value: `add|inc[rement] <name> <value>`',
+    return ('subtract',
+            'Subtract',
+            'Subtract from an item\'s value: `sub[tract]] <name> <value>`',
             None)
