@@ -17,14 +17,14 @@ def execute(team_id:str, user_id:str, args:list) -> list:
 
     if len(args) == 0:
         blocks = build_error_blocks('Usage: `create <name>`.')
-        return blocks
+        return blocks, True
 
     # check to see if collection already exists (for team)
     name = args[0]
     collection = StateCollection.query.filter_by(team_id=team_id, name=name).one_or_none()
     if collection is not None:
         blocks = build_error_blocks('A collection with that name already exists.')
-        return blocks
+        return blocks, True
 
     user = create_or_fetch_user(user_id, team_id)
 

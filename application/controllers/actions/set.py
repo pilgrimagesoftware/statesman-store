@@ -21,14 +21,14 @@ def execute(team_id:str, user_id:str, args:list) -> list:
 
     if len(args) < 2:
         blocks = build_error_blocks('Unable to set item; usage: `set <name> <value> [default=<default>] [label=<label>] [permission=<default-permission>]`.')
-        return blocks
+        return blocks, True
 
     # get current state collection
     user = create_or_fetch_user(user_id, team_id)
     collection = get_current_collection(user)
     if collection is None:
         blocks = build_error_blocks('Unable to set item; no current collection is set.\nTry one of these:') + list_collections(user_id, team_id)
-        return blocks
+        return blocks, True
 
     name = args[0]
     value = args[1]
@@ -36,7 +36,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
     if item is None:
         if not check_collection_permission(user, collection, model_constants.PERMISSION_WRITE):
             blocks = build_error_blocks('Unable to create this item; you do not have permission to change this collection.')
-            return blocks
+            return blocks, True
 
         item = StateItem(collection, user_id, team_id, name, value)
 
@@ -44,7 +44,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
     else:
         if not check_item_permission(user, item, model_constants.PERMISSION_WRITE):
             blocks = build_error_blocks('Unable to update this item; you do not have permission to write to it.')
-            return blocks
+            return blocks, True
 
         item.value = value
 

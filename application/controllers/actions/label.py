@@ -21,14 +21,14 @@ def execute(team_id:str, user_id:str, args:list) -> list:
 
     if len(args) != 2:
         blocks = build_error_blocks('Usage: `label <name> <value>`.')
-        return blocks
+        return blocks, True
 
     # get current state collection
     user = create_or_fetch_user(user_id, team_id)
     collection = get_current_collection(user)
     if collection is None:
         blocks = build_error_blocks('Unable to set item label; no current collection is set.\nTry one of these:') + list_collections(user_id, team_id)
-        return blocks
+        return blocks, True
 
     name = args[0]
     value = args[1]
@@ -38,7 +38,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
     else:
         if not check_item_permission(user, item, model_constants.PERMISSION_WRITE):
             blocks = build_error_blocks('Unable to set label on this item; you do not have permission to write to it.')
-            return blocks
+            return blocks, True
 
         item.label = value
 

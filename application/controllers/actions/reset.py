@@ -21,13 +21,13 @@ def execute(team_id:str, user_id:str, args:list) -> list:
 
     if len(args) != 0:
         blocks = build_error_blocks('Usage: `reset`.')
-        return blocks
+        return blocks, True
 
     user = create_or_fetch_user(user_id, team_id)
     collection = get_current_collection(user)
     if collection is None:
         blocks = build_error_blocks('No collection is set for you; try one of these:') + list_collections(user_id, team_id)
-        return blocks
+        return blocks, True
 
     items = StateItem.query.filter_by(collection_id=collection.id).all()
     for item in items:

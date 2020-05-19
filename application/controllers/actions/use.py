@@ -18,14 +18,14 @@ def execute(team_id:str, user_id:str, args:list) -> list:
 
     if len(args) != 0:
         blocks = build_error_blocks('Usage: `use <name>`.')
-        return blocks
+        return blocks, True
 
     # check to see if collection already exists (for team)
     name = args[0]
     collection = StateCollection.query.filter_by(team_id=team_id, name=name).first()
     if collection is None:
         blocks = build_error_blocks('A collection with that name does not exist.')
-        return blocks
+        return blocks, True
 
     user = create_or_fetch_user(user_id, team_id)
     if set_current_collection(name, user) is None:

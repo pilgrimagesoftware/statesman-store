@@ -19,14 +19,14 @@ def execute(team_id:str, user_id:str, args:list) -> list:
 
     if len(args) != 0:
         blocks = build_error_blocks('Usage: `current`.')
-        return blocks
+        return blocks, True
 
     user = create_or_fetch_user(user_id, team_id)
 
     collection = get_current_collection(user)
     if collection is None:
         blocks = build_message_blocks('A current collection is not set for you; try one of these:') + list_collections(user_id)
-        return blocks
+        return blocks, True
 
     blocks = get_collection_items(collection, user)
 
