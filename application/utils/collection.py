@@ -40,7 +40,7 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": f"Collection: *<{collection.name}|{collection.name}>*"
+                "text": f"Collection: *<sc://{collection.name}/{collection.id}|{collection.name}>*"
             },
             "accessory": {
                 "type": "button",
