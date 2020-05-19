@@ -74,7 +74,7 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
         if item.label is not None and len(item.label) > 0:
             label = f"{item.label} (`{item.name}`)"
 
-        item_info = f"*{label}*: {item.value}"
+        item_info = f"{label}: *{item.value}*"
 
         if item.default_value is not None and len(item.default_value) > 0:
             item_info += f"\n_Default value_: *{item.default_value}*"
