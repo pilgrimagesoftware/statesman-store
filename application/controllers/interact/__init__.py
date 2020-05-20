@@ -14,11 +14,13 @@ import subprocess, shlex, threading
 import importlib
 from application import constants
 from application.utils.slack import send_response, verify_signature
+from application.controllers.actions import validate_action, execute_action
 
 
 def process_interaction(team_id:str, user_id:str, action:str, response_url:str):
     current_app.logger.debug("team_id: %s, user_id: %s, action: %s, response_url: %s", team_id, user_id, action, response_url)
 
+    params = action.split(" ")
     command, args = validate_action(params)
     current_app.logger.debug("command: %s, args: %s", command, args)
 
@@ -51,22 +53,24 @@ def handle_action_request(request:object):
     # validate signature
     verify_signature(signature, timestamp, body)
 
-    team_id = request.form.get('team_id')
-    user_id = request.form.get('user_id')
-    response_url = request.form.get('response_url')
-
     payload = json.loads(request.form.get('payload'))
     current_app.logger.debug("payload: '%s'", payload)
+
+    team_id = payload.get('user', {}).get('team_id')
+    user_id = payload.get('user', {}).get('id')
+    response_url = payload.get('response_url')
 
     actions = payload.get('actions')
     current_app.logger.debug("actions: '%s'", actions)
 
     for action in actions:
+        current_app.logger.debug("action: %s", action)
+
         # fork to a new thread
         with ThreadPoolWithAppContextExecutor(max_workers=10) as ex:
             current_app.logger.debug("Passing work to a thread...")
 
-            value = action.get('selected_option', {}).get('value')
+            value = action.get('value')
 
             # process_interaction(team_id, user_id, value, response_url)
             future = ex.submit(process_interaction, team_id, user_id, value, response_url)
