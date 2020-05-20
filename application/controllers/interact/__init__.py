@@ -51,21 +51,29 @@ def handle_action_request(request:object):
     # validate signature
     verify_signature(signature, timestamp, body)
 
+    team_id = request.form.get('team_id')
+    user_id = request.form.get('user_id')
+    response_url = request.form.get('response_url')
+
     payload = json.loads(request.form.get('payload'))
     current_app.logger.debug("payload: '%s'", payload)
 
     actions = payload.get('actions')
     current_app.logger.debug("actions: '%s'", actions)
 
-    # fork to a new thread
-    with ThreadPoolWithAppContextExecutor(max_workers=10) as ex:
-        current_app.logger.debug("Passing work to a thread...")
-        # process_state_action(team_id, user_id, params, response_url)
-        future = ex.submit(process_state_action, team_id, user_id, params, response_url)
-        current_app.logger.debug("future: %s", future)
+    for action in actions:
+        # fork to a new thread
+        with ThreadPoolWithAppContextExecutor(max_workers=10) as ex:
+            current_app.logger.debug("Passing work to a thread...")
 
-        fex = future.exception()
-        if fex:
-            current_app.logger.error("Exception from worker thread: %s", fex)
+            value = action.get('selected_option', {}).get('value')
+
+            # process_interaction(team_id, user_id, value, response_url)
+            future = ex.submit(process_interaction, team_id, user_id, value, response_url)
+            current_app.logger.debug("future: %s", future)
+
+            fex = future.exception()
+            if fex:
+                current_app.logger.error("Exception from worker thread: %s", fex)
 
     return "", 200
