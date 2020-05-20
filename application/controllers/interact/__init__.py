@@ -17,7 +17,7 @@ from application.utils.slack import send_response, verify_signature
 
 
 def process_interaction(team_id:str, user_id:str, action:str, response_url:str):
-    current_app.logger.debug("team_id: %s, user_id: %s, params: %s, response_url: %s", team_id, user_id, params, response_url)
+    current_app.logger.debug("team_id: %s, user_id: %s, action: %s, response_url: %s", team_id, user_id, action, response_url)
 
     command, args = validate_action(params)
     current_app.logger.debug("command: %s, args: %s", command, args)
