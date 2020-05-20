@@ -16,7 +16,7 @@ from application.utils.user import set_current_collection, create_or_fetch_user
 def execute(team_id:str, user_id:str, args:list) -> list:
     current_app.logger.debug("team_id: %s, user_id: %s, args: %s", team_id, user_id, args)
 
-    if len(args) != 0:
+    if len(args) != 1:
         blocks = build_error_blocks('Usage: `use <name>`.')
         return blocks, True
 
