@@ -57,7 +57,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
         try:
             adjust_item(item, op, value)
         except:
-            blocks = build_error_blocks('Unable to adjust item; it\'s value is not a number.')
+            blocks = build_error_blocks('Unable to adjust item; its value is not a number.')
             return blocks, True
 
         db.session.add(item)
