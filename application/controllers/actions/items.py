@@ -1,7 +1,7 @@
 __author__ = "Paul Schifferer <paul@schifferers.net>"
 """
-current.py
-- Get current state action
+items.py
+- Get current state's items
 """
 
 
@@ -18,7 +18,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
     current_app.logger.debug("team_id: %s, user_id: %s, args: %s", team_id, user_id, args)
 
     if len(args) != 0:
-        blocks = build_error_blocks('Usage: `current`.')
+        blocks = build_error_blocks('Usage: `items`.')
         return blocks, True
 
     user = create_or_fetch_user(user_id, team_id)
@@ -34,7 +34,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
 
 
 def help_info():
-    return ('current',
-            'Current',
-            'Get the current state.',
-            'Current')
+    return ('items',
+            'Items',
+            'Get the current state\'s items.',
+            'Items')
