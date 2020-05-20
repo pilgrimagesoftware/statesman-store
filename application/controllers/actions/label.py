@@ -53,5 +53,5 @@ def execute(team_id:str, user_id:str, args:list) -> list:
 def help_info():
     return ('label',
             'Set Label',
-            'Set a item\'s label: `set <name> <value>`',
+            'Set a item\'s label: `label <name> <value>`',
             None)

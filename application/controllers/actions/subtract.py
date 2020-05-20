@@ -22,5 +22,5 @@ def execute(team_id:str, user_id:str, args:list) -> list:
 def help_info():
     return ('subtract',
             'Subtract',
-            'Subtract from an item\'s value: `sub[tract]] <name> <value>`',
+            'Subtract from an item\'s value: `sub[tract] <name> <value>`',
             None)

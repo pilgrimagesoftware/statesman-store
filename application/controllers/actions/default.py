@@ -53,5 +53,5 @@ def execute(team_id:str, user_id:str, args:list) -> list:
 def help_info():
     return ('default',
             'Set Default',
-            'Set a item\'s default value: `set <name> <value>`',
+            'Set a item\'s default value: `default <name> <value>`',
             None)
