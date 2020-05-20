@@ -8,7 +8,7 @@ unset.py
 from flask import current_app
 from application.db import db
 from application.models.state_collection import StateCollection
-from application.models.state_item import StateItem
+from application.models.state_item import StateItem, StateItemUserPermission
 from application.utils import build_message_blocks, build_error_blocks
 from application.utils.user import set_current_collection, create_or_fetch_user, get_current_collection
 from application.utils.collection import list_collections
@@ -36,6 +36,11 @@ def execute(team_id:str, user_id:str, args:list) -> list:
         if not check_item_permission(user, item, model_constants.PERMISSION_WRITE):
             blocks = build_error_blocks('Unable to unset this item; you do not have permission to write to it.')
             return blocks, True
+
+        perms = StateItemUserPermission.query.filter_by(item_id=item.id).all()
+        for p in perms:
+            current_app.logger.debug("p: %s", p)
+            db.session.delete(p)
 
         db.session.delete(item)
         db.session.commit()
