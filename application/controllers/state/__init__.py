@@ -14,19 +14,12 @@ import subprocess, shlex, threading
 import importlib
 import concurrent.futures
 from application import constants
-from application.utils.slack import send_message
-from application.utils.slack import verify_signature
+from application.utils.slack import send_response, verify_signature, handle_ssl_check
 from application.controllers.actions import validate_action, execute_action
 
 
 class SslCheckHandled(Exception):
     pass
-
-
-def send_response(response_url:str, blocks:list, private:bool):
-    current_app.logger.debug("response_url: %s, blocks: %s", response_url, blocks)
-
-    send_message(response_url, blocks, private)
 
 
 def process_state_action(team_id:str, user_id:str, params:list, response_url:str, private:bool = False):
@@ -39,28 +32,6 @@ def process_state_action(team_id:str, user_id:str, params:list, response_url:str
     current_app.logger.debug("blocks: %s, private: %s", blocks, private)
 
     send_response(response_url, blocks, private=private)
-
-
-def handle_ssl_check(request:object):
-    current_app.logger.debug("request: %s", request)
-
-    is_check = bool(request.args.get('ssl_check') or False)
-    if not is_check:
-        current_app.logger.debug("Request is not an SSL check.")
-        return
-
-    token = request.args.get('token')
-    if token is None:
-        current_app.logger.warning("Received an SSL check request, but there was no token.")
-        return
-
-    # check token
-    expected_token = os.environ.get(constants.SLACK_VERIFICATION_TOKEN_ENV)
-    if token != expected_token:
-        current_app.logger.warning("SSL check token didn't match what we expected. Received: %s", token)
-        return
-
-    raise SslCheckHandled()
 
 
 def process_state_request(request:object):
@@ -110,6 +81,9 @@ def process_state_request(request:object):
         # process_state_action(team_id, user_id, params, response_url)
         future = ex.submit(process_state_action, team_id, user_id, params, response_url)
         current_app.logger.debug("future: %s", future)
-        current_app.logger.debug("exception: %s", future.exception())
+
+        fex = future.exception()
+        if fex:
+            current_app.logger.error("Exception from worker thread: %s", fex)
 
     return "", 200

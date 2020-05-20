@@ -6,14 +6,26 @@ interact
 
 
 from flask import current_app
+from flaskthreads import ThreadPoolWithAppContextExecutor
 import yaml, json
 import os
 import logging
 import subprocess, shlex, threading
 import importlib
 from application import constants
-from application.utils.slack import send_message
-from application.utils.slack import verify_signature
+from application.utils.slack import send_response, verify_signature
+
+
+def process_interaction(team_id:str, user_id:str, action:str, response_url:str):
+    current_app.logger.debug("team_id: %s, user_id: %s, params: %s, response_url: %s", team_id, user_id, params, response_url)
+
+    command, args = validate_action(params)
+    current_app.logger.debug("command: %s, args: %s", command, args)
+
+    blocks, private = execute_action(team_id, user_id, command, args)
+    current_app.logger.debug("blocks: %s, private: %s", blocks, private)
+
+    send_response(response_url, blocks, private=private)
 
 
 def handle_action_request(request:object):
@@ -39,4 +51,21 @@ def handle_action_request(request:object):
     # validate signature
     verify_signature(signature, timestamp, body)
 
-    # TODO
+    payload = json.loads(request.form.get('payload'))
+    current_app.logger.debug("payload: '%s'", payload)
+
+    actions = payload.get('actions')
+    current_app.logger.debug("actions: '%s'", actions)
+
+    # fork to a new thread
+    with ThreadPoolWithAppContextExecutor(max_workers=10) as ex:
+        current_app.logger.debug("Passing work to a thread...")
+        # process_state_action(team_id, user_id, params, response_url)
+        future = ex.submit(process_state_action, team_id, user_id, params, response_url)
+        current_app.logger.debug("future: %s", future)
+
+        fex = future.exception()
+        if fex:
+            current_app.logger.error("Exception from worker thread: %s", fex)
+
+    return "", 200

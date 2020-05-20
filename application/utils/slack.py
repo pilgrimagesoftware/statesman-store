@@ -16,6 +16,30 @@ from application import constants
 from application.common.exceptions import SignatureException
 
 
+def send_message(response_url:str, blocks:list, private:bool):
+    current_app.logger.debug("response_url: %s, blocks: %s, private: %s", response_url, blocks, private)
+
+    response_type = 'in_channel' if not private else 'ephemeral'
+
+    body = json.dumps({
+        'response_type': response_type,
+        'blocks': blocks,
+    })
+    current_app.logger.debug("body: %s", body)
+    r = requests.post(response_url,
+                      headers={
+                          'Content-type': 'application/json',
+                      },
+                      data=body)
+    current_app.logger.debug("r: %s", r)
+
+
+def send_response(response_url:str, blocks:list, private:bool):
+    current_app.logger.debug("response_url: %s, blocks: %s", response_url, blocks)
+
+    send_message(response_url, blocks, private)
+
+
 def verify_signature(signature:str, timestamp:str, request_body:str):
     current_app.logger.debug("signature: %s", signature)
 
@@ -34,19 +58,23 @@ def verify_signature(signature:str, timestamp:str, request_body:str):
         raise SignatureException('Signature failed validation')
 
 
-def send_message(response_url:str, blocks:list, private:bool):
-    current_app.logger.debug("response_url: %s, blocks: %s, private: %s", response_url, blocks, private)
+def handle_ssl_check(request:object):
+    current_app.logger.debug("request: %s", request)
 
-    response_type = 'in_channel' if not private else 'ephemeral'
+    is_check = bool(request.args.get('ssl_check') or False)
+    if not is_check:
+        current_app.logger.debug("Request is not an SSL check.")
+        return
 
-    body = json.dumps({
-        'response_type': response_type,
-        'blocks': blocks,
-    })
-    current_app.logger.debug("body: %s", body)
-    r = requests.post(response_url,
-                      headers={
-                          'Content-type': 'application/json',
-                      },
-                      data=body)
-    current_app.logger.debug("r: %s", r)
+    token = request.args.get('token')
+    if token is None:
+        current_app.logger.warning("Received an SSL check request, but there was no token.")
+        return
+
+    # check token
+    expected_token = os.environ.get(constants.SLACK_VERIFICATION_TOKEN_ENV)
+    if token != expected_token:
+        current_app.logger.warning("SSL check token didn't match what we expected. Received: %s", token)
+        return
+
+    raise SslCheckHandled()
