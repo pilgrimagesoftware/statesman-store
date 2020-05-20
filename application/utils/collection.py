@@ -49,7 +49,7 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
                     "emoji": True,
                     "text": "Use"
                 },
-                "value": f"use:{collection.name}"
+                "value": f"use {collection.name}"
             }
         },
         {
@@ -96,7 +96,7 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
                             "emoji": True,
                             "text": "Increment"
                         },
-                        "value": f"add:{item.name}"
+                        "value": f"add {item.name}"
                     },
                     {
                         "text": {
@@ -104,15 +104,7 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
                             "emoji": True,
                             "text": "Decrement"
                         },
-                        "value": f"subtract:{item.name}"
-                    },
-                    {
-                        "text": {
-                            "type": "plain_text",
-                            "emoji": True,
-                            "text": "Reset"
-                        },
-                        "value": f"reset:{item.name}"
+                        "value": f"subtract {item.name}"
                     },
                     {
                         "text": {
@@ -120,7 +112,7 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
                             "emoji": True,
                             "text": "Unset"
                         },
-                        "value": f"unset:{item.name}"
+                        "value": f"unset {item.name}"
                     },
                 ]
             }
@@ -172,7 +164,7 @@ def list_collections(user_id:str, team_id:str) -> list:
                     "emoji": True,
                     "text": "Use"
                 },
-                "value": f"use:{c.name}"
+                "value": f"use {c.name}"
             }
         })
 
