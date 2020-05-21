@@ -19,7 +19,7 @@ def get_action_value(action:dict) -> str:
         value = action.get('value')
     elif action_type == 'overflow':
         current_app.logger.debug("Handling overflow action.")
-        value = action.get('selected_action', {}).get('value')
+        value = action.get('selected_option', {}).get('value')
     else:
         current_app.logger.warning("Unknown action type: %s", action_type)
         value = None
