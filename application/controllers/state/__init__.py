@@ -8,6 +8,7 @@ state
 from flask import current_app
 from flaskthreads import ThreadPoolWithAppContextExecutor
 import yaml, json
+import shlex
 import os
 import logging
 import subprocess, shlex, threading
@@ -72,8 +73,8 @@ def process_state_request(request:object):
         process_state_action(team_id, user_id, ['help'], response_url, private=True)
         return "", 200
 
-    params = text.split(" ")
-    # current_app.logger.debug("params: %s", params)
+    params = list(shlex.split(text, comments=False, posix=False))
+    current_app.logger.debug("params: %s", params)
 
     # fork to a new thread
     with ThreadPoolWithAppContextExecutor(max_workers=10) as ex:
