@@ -15,6 +15,7 @@ import importlib
 from application import constants
 from application.utils.slack import send_response, verify_signature
 from application.controllers.actions import validate_action, execute_action
+from application.utils.action import get_action_value
 
 
 def process_interaction(team_id:str, user_id:str, action:str, response_url:str):
@@ -70,7 +71,7 @@ def handle_action_request(request:object):
         with ThreadPoolWithAppContextExecutor(max_workers=10) as ex:
             current_app.logger.debug("Passing work to a thread...")
 
-            value = action.get('value')
+            value = get_action_value(action)
 
             # process_interaction(team_id, user_id, value, response_url)
             future = ex.submit(process_interaction, team_id, user_id, value, response_url)
