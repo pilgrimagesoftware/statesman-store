@@ -22,7 +22,7 @@ from application.utils.access import check_collection_permission, check_item_per
 def get_collection_items(collection:StateCollection, user:User) -> list:
     current_app.logger.debug("collection: %s, user: %s", collection, user)
 
-    items = StateItem.query.filter_by(collection_id=collection.id).all()
+    items = StateItem.query.filter_by(collection_id=collection.id).order_by(StateItem.name).all()
     if len(items) == 0:
         blocks = [
             {
