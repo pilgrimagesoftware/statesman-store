@@ -19,7 +19,7 @@ from application.models import constants as model_constants
 def execute(team_id:str, user_id:str, args:list) -> list:
     current_app.logger.debug("team_id: %s, user_id: %s, args: %s", team_id, user_id, args)
 
-    if len(args) != 2:
+    if len(args) < 1:
         blocks = build_error_blocks('Usage: `default <name> <value>`.')
         return blocks, True
 
@@ -31,7 +31,11 @@ def execute(team_id:str, user_id:str, args:list) -> list:
         return blocks, True
 
     name = args[0]
-    value = args[1]
+    if len(args) == 1:
+        # value is None, user wants to remove it
+        value = None
+    else:
+        value = " ".join(args[1:])
     item = StateItem.query.filter_by(collection_id=collection.id, name=name).one_or_none()
     if item is None:
         blocks = build_error_blocks(f'No item exists for name *{name}*.')
