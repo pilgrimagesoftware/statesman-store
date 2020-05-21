@@ -23,7 +23,7 @@ def build_error_blocks(msg:str) -> list:
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": f"❗️ {msg} 😢",
+                "text": f"❗️😢 {msg}",
             }
         },
     ]
@@ -37,7 +37,7 @@ def build_message_blocks(msg:str) -> list:
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": f"✅ {msg} 👍🏼",
+                "text": f"✅ {msg}",
             }
         },
     ]
