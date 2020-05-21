@@ -94,7 +94,7 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
                         "text": {
                             "type": "plain_text",
                             "emoji": True,
-                            "text": "Increment"
+                            "text": "+1"
                         },
                         "value": f"add {item.name}"
                     },
@@ -102,9 +102,25 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
                         "text": {
                             "type": "plain_text",
                             "emoji": True,
-                            "text": "Decrement"
+                            "text": "+5"
+                        },
+                        "value": f"add {item.name} 5"
+                    },
+                    {
+                        "text": {
+                            "type": "plain_text",
+                            "emoji": True,
+                            "text": "-1"
                         },
                         "value": f"subtract {item.name}"
+                    },
+                    {
+                        "text": {
+                            "type": "plain_text",
+                            "emoji": True,
+                            "text": "-5"
+                        },
+                        "value": f"subtract {item.name} 5"
                     },
                     {
                         "text": {
@@ -115,9 +131,58 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
                         "value": f"unset {item.name}"
                     },
                 ]
-            }
+            },
         }
         blocks.append(field)
+
+        # blocks.append({
+        #     "type": "actions",
+        #     "elements": [
+        #         {
+        #             "text": {
+        #                 "type": "plain_text",
+        #                 "emoji": True,
+        #                 "text": "+1"
+        #             },
+        #             "style": "primary",
+        #             "value": f"add {item.name}"
+        #         },
+        #         {
+        #             "text": {
+        #                 "type": "plain_text",
+        #                 "emoji": True,
+        #                 "text": "+5"
+        #             },
+        #             "style": "primary",
+        #             "value": f"add {item.name} 5"
+        #         },
+        #         {
+        #             "text": {
+        #                 "type": "plain_text",
+        #                 "emoji": True,
+        #                 "text": "-1"
+        #             },
+        #             "value": f"subtract {item.name}"
+        #         },
+        #         {
+        #             "text": {
+        #                 "type": "plain_text",
+        #                 "emoji": True,
+        #                 "text": "-5"
+        #             },
+        #             "value": f"subtract {item.name} 5"
+        #         },
+        #         {
+        #             "text": {
+        #                 "type": "plain_text",
+        #                 "emoji": True,
+        #                 "text": "Unset"
+        #             },
+        #             "style": "danger",
+        #             "value": f"unset {item.name}"
+        #         },
+        #     ]
+        # })
 
     # blocks.append({
     #     "type": "section",
