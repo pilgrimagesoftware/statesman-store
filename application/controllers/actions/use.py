@@ -34,6 +34,21 @@ def execute(team_id:str, user_id:str, args:list) -> list:
 
     blocks = build_message_blocks(f'Your current collection has been set to *{name}*.')
 
+    blocks.append({
+        "type": "actions",
+        "elements": [
+            {
+                "type": "button",
+                "text": {
+                    "type": "plain_text",
+                    "text": "Show the collection",
+                    "emoji": True
+                },
+                "value": "items"
+            },
+        ]
+    })
+
     return blocks, True
 
 
