@@ -1,4 +1,7 @@
 #!/bin/bash
 
-python migrate.py db migrate
-python migrate.py db upgrade
+set -x
+set -e
+
+python manager.py db migrate
+python manager.py db upgrade
