@@ -9,6 +9,7 @@ rsync -av \
     --exclude=.vscode/ \
     --exclude=.env \
     --exclude=.pgenv \
+    --exclude=.DS_Store \
     --exclude=.redisenv \
     --exclude=venv/ \
     --exclude='*.pyc' \
@@ -17,3 +18,4 @@ rsync -av \
     psw1:/opt/statesman/flask-app
 
 ssh psw1 "chown -R statesman:statesman /opt/statesman"
+ssh psw1 "chmod 400 /opt/statesman/.*env"
