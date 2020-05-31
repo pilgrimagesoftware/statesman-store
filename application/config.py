@@ -11,7 +11,7 @@ import hashlib
 import redis
 
 
-print(os.environ) # TODO: remove
+# print(os.environ) # TODO: remove
 
 class BaseConfig(object):
     DEBUG = bool(os.environ.get('DEBUG') or False)
@@ -22,7 +22,6 @@ class BaseConfig(object):
     POSTGRES_PW = os.environ["PGPASSWORD"]
     POSTGRES_DB = os.environ["PGDATABASE"]
     DB_URL = f'postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PW}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}'
-    # SQLALCHEMY_DATABASE_URI = 'sqlite:///minecraft-manager.db'
     SQLALCHEMY_DATABASE_URI = DB_URL
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # used for encryption and session management
