@@ -17,6 +17,7 @@ from application.models import constants as model_constants
 from application.db import db
 from application.utils.user import create_or_fetch_user
 from application.utils.access import check_collection_permission, check_item_permission
+from application import constants
 
 
 def get_collection_items(collection:StateCollection, user:User) -> list:
@@ -74,7 +75,11 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
         if item.label is not None and len(item.label) > 0:
             label = f"{item.label} (`{item.name}`)"
 
-        item_info = f"{label}: *{item.value}*"
+        item_value = item.value
+        if constants.ITEM_SEPARATOR in item.value:
+            item_value = ", ".join(item.value.split(sep=constants.ITEM_SEPARATOR))
+
+        item_info = f"{label}: *{item_value}*"
 
         if ((collection.creator_id == user.user_id or item.creator_id == user.user_id)
             and
