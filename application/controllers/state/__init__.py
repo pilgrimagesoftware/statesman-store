@@ -23,7 +23,7 @@ class SslCheckHandled(Exception):
     pass
 
 
-def process_state_action(team_id:str, user_id:str, params:list, response_url:str, private:bool = False):
+def process_state_action(team_id:str, user_id:str, params:list, response_url:str):
     current_app.logger.debug("team_id: %s, user_id: %s, params: %s, response_url: %s", team_id, user_id, params, response_url)
 
     command, args = validate_action(params)
@@ -70,10 +70,13 @@ def process_state_request(request:object):
     text = request.form.get('text')
     current_app.logger.debug("text: '%s'", text)
     if text is None or len(text.strip()) == 0:
-        process_state_action(team_id, user_id, ['help'], response_url, private=True)
+        process_state_action(team_id, user_id, ['help'], response_url)
         return "", 200
 
-    params = list(shlex.split(text, comments=False, posix=False))
+    print(shlex.parse('This is "another test"'))
+
+    current_app.logger.debug("text: %s, %s", type(text), text)
+    params = shlex.split(str(text)) # , posix=True, comments=False)
     current_app.logger.debug("params: %s", params)
 
     # fork to a new thread
