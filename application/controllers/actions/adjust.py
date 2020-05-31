@@ -63,7 +63,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
         db.session.add(item)
         db.session.commit()
 
-        blocks = build_message_blocks(f'Adjusted item *{name}*\'s value by *{value}*: {item.value}.')
+        blocks = build_message_blocks(f'Adjusted item *{name}*\'s value: {item.value}.')
 
         blocks.append({
             "type": "actions",
