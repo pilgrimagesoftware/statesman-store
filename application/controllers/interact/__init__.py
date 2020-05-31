@@ -22,7 +22,7 @@ from application.utils.action import get_action_value
 def process_interaction(team_id:str, user_id:str, action:str, response_url:str):
     current_app.logger.debug("team_id: %s, user_id: %s, action: %s, response_url: %s", team_id, user_id, action, response_url)
 
-    print(shlex.parse('This is "one test"'))
+    print(shlex.split('This is "one test"'))
     params = shlex.split(str(action)) #, posix=True, comments=False)
     command, args = validate_action(params)
     current_app.logger.debug("command: %s, args: %s", command, args)

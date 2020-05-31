@@ -73,7 +73,7 @@ def process_state_request(request:object):
         process_state_action(team_id, user_id, ['help'], response_url)
         return "", 200
 
-    print(shlex.parse('This is "another test"'))
+    print(shlex.split('This is "another test"'))
 
     current_app.logger.debug("text: %s, %s", type(text), text)
     params = shlex.split(str(text)) # , posix=True, comments=False)
