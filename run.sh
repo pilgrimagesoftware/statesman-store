@@ -11,6 +11,7 @@ pushd $scriptdir > /dev/null 2>&1
 apt update
 apt install -y supervisor
 
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 
 python appserver.py
