@@ -14,7 +14,7 @@ import redis
 # print(os.environ) # TODO: remove
 
 class BaseConfig(object):
-    DEBUG = bool(os.environ.get('DEBUG') or False)
+    DEBUG = bool(os.environ.get('DEBUG', False))
     # ASSETS_DEBUG = True
     POSTGRES_HOST = os.environ["PGHOST"]
     POSTGRES_PORT = os.environ.get("PGPORT", "5432")
@@ -28,7 +28,7 @@ class BaseConfig(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or hashlib.sha256(f"{random.random()}").hexdigest()
     CSRF_TOKEN = os.environ.get('CSRF_TOKEN') or hashlib.sha256(f"{random.random()}").hexdigest()
     CACHE_REDIS_HOST = os.environ['REDIS_HOST']
-    CACHE_REDIS_PORT = 6379 # int(os.environ.get('REDIS_PORT', "6379"))
-    CACHE_REDIS_DB = int(os.environ.get('REDIS_DB') or 7)
+    CACHE_REDIS_PORT = int(os.environ.get('REDIS_PORT', "6379"))
+    CACHE_REDIS_DB = int(os.environ.get('REDIS_DB', "7"))
     SESSION_TYPE = 'redis'
     SESSION_REDIS = redis.from_url(f"redis://{os.environ['REDIS_HOST']}:6379")
