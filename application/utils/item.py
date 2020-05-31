@@ -40,7 +40,7 @@ def adjust_item(item:StateItem, op:str, value:str):
         else:
             item.value = item_value
 
-    except TypeError:
+    except ValueError:
         item_values = str(item.value).split(sep=constants.ITEM_SEPARATOR)
 
         if op == model_constants.ADJUST_OP_ADD:
