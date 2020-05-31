@@ -55,4 +55,5 @@ def adjust_item(item:StateItem, op:str, value:str):
         item.value = constants.ITEM_SEPARATOR.join(item_values)
 
     except Exception as e:
+        current_app.logger.exception("Exception trying to adjust item: %s", e)
         raise e
