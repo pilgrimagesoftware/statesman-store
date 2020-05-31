@@ -57,7 +57,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
         try:
             adjust_item(item, op, value)
         except:
-            blocks = build_error_blocks('Unable to adjust item; its value is not a number.')
+            blocks = build_error_blocks('Unable to adjust item; its value is not a number or a string.')
             return blocks, True
 
         db.session.add(item)
@@ -86,5 +86,5 @@ def execute(team_id:str, user_id:str, args:list) -> list:
 def help_info():
     return ('adjust',
             'Adjust',
-            'Adjust an item\'s value: `adj[ust] <name> <+|-|*|/> <value>`',
+            'Adjust an item\'s value: `adj[ust] <name> <+|-|*|/> <value>`. Note that this works for both numbers (adjusting numerically) and strings (creating a comma-separated list of values).',
             None)
