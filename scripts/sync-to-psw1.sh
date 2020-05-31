@@ -18,4 +18,4 @@ rsync -av \
     psw1:/opt/statesman/flask-app
 
 ssh psw1 "chown -R statesman:statesman /opt/statesman"
-ssh psw1 "chmod 400 /opt/statesman/.*env"
+ssh psw1 "chmod 400 /opt/statesman/*/.*env"
