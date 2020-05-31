@@ -15,3 +15,4 @@ flask-migrate
 redis
 psycopg2
 flask-threads
+discord.py
