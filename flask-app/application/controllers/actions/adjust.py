@@ -31,7 +31,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
         blocks = build_error_blocks('Unable to adjust item\'s value; no current collection is set.\nTry one of these:') + list_collections(user_id, team_id)
         return blocks, True
 
-    name = args[0]
+    name = args[0].lower()
     op = args[1]
     value = args[2]
     item = StateItem.query.filter_by(collection_id=collection.id, name=name).one_or_none()

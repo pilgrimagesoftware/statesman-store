@@ -31,8 +31,8 @@ def execute(team_id:str, user_id:str, args:list) -> list:
         blocks = build_error_blocks('Unable to spend item; no current collection is set.\nTry one of these:') + list_collections(user_id, team_id)
         return blocks, True
 
-    source_name = args[0]
-    dest_name = args[1]
+    source_name = args[0].lower()
+    dest_name = args[1].lower()
     if len(args) > 2:
         quantity = int(args[2])
     else:

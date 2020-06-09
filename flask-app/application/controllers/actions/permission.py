@@ -54,7 +54,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
             perm = StateCollectionUserPermission(user.user_id, collection, op)
 
     elif thing_type == model_constants.PERMISSION_THING_ITEM:
-        item = StateItem.query.filter_by(team_id=user.team_id, name=thing_name).one_or_none()
+        item = StateItem.query.filter_by(team_id=user.team_id, name=thing_name.lower()).one_or_none()
         if item is None:
             blocks = build_error_blocks(f'Could not find an item named: {thing_name}')
             return blocks, True

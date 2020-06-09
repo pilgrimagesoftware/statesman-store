@@ -30,7 +30,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
         blocks = build_error_blocks('Unable to set item label; no current collection is set.\nTry one of these:') + list_collections(user_id, team_id)
         return blocks, True
 
-    name = args[0]
+    name = args[0].lower()
     if len(args) == 1:
         # value is None, user wants to remove it
         value = None

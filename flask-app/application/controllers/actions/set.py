@@ -30,7 +30,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
         blocks = build_error_blocks('Unable to set item; no current collection is set.\nTry one of these:') + list_collections(user_id, team_id)
         return blocks, True
 
-    name = args[0]
+    name = args[0].lower()
     value = args[1]
     item = StateItem.query.filter_by(collection_id=collection.id, name=name).one_or_none()
     if item is None:

@@ -20,7 +20,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
         return blocks, True
 
     # check to see if collection already exists (for team)
-    name = args[0]
+    name = args[0].lower()
     collection = StateCollection.query.filter_by(team_id=team_id, name=name).one_or_none()
     if collection is not None:
         blocks = build_error_blocks('A collection with that name already exists.')
