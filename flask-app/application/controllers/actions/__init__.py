@@ -17,7 +17,7 @@ def validate_action(params:list):
     if len(params) == 0:
         raise ValidationException('Incorrect number of parameters')
 
-    command = params[0]
+    command = params[0].lower()
     action_spec = importlib.util.find_spec(f'application.controllers.actions.{command}')
     if action_spec is None:
         raise ValidationException(f'Unknown command: {command}')
