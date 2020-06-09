@@ -14,7 +14,6 @@ from werkzeug.exceptions import HTTPException
 from redis.client import Redis
 from sentry_sdk.integrations.wsgi import SentryWsgiMiddleware
 from application.controllers import discord
-import shlex
 
 
 def create_app(app_name=constants.APPLICATION_NAME):
@@ -56,10 +55,10 @@ def create_app(app_name=constants.APPLICATION_NAME):
     # discord_client = discord.discord_proc
     # print("discord_client", discord_client)
 
-    print("Testing shlex")
-    test_str = 'create "Star Trek"'
-    print("test_str", type(test_str))
-    a = shlex.split(test_str, comments=False, posix=True)
-    print("a", a)
+    # print("Testing shlex")
+    # test_str = 'create "Star Trek"'
+    # print("test_str", type(test_str))
+    # a = shlex.split(test_str, comments=False, posix=True)
+    # print("a", a)
 
     return app
