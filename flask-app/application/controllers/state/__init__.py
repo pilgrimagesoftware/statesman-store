@@ -14,6 +14,7 @@ import logging
 import subprocess, shlex, threading
 import importlib
 import concurrent.futures
+from unidecode import unidecode
 from application import constants
 from application.utils.slack import send_response, verify_signature, handle_ssl_check
 from application.controllers.actions import validate_action, execute_action
@@ -73,10 +74,17 @@ def process_state_request(request:object):
         process_state_action(team_id, user_id, ['help'], response_url)
         return "", 200
 
-    print(shlex.split('This is "another test"'))
+    # at = shlex.split('This is "another test"')
+    # current_app.logger.debug("ANOTHER TEST: %s", at)
 
-    current_app.logger.debug("text: %s, %s", type(text), text)
-    params = shlex.split(str(text)) # , posix=True, comments=False)
+    # t = text.encode('utf-8')
+    # current_app.logger.debug("t: %d, %s, %s", len(t), type(t), t)
+    # p = shlex.split(t.decode('utf-8'))
+    # current_app.logger.debug("p: %s", p)
+
+    decoded_text = unidecode(text)
+    current_app.logger.debug("decoded_text: %d, %s, %s", len(decoded_text), type(decoded_text), decoded_text)
+    params = shlex.split(decoded_text) # , posix=True, comments=False)
     current_app.logger.debug("params: %s", params)
 
     # fork to a new thread

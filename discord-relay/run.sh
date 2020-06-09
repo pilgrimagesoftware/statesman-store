@@ -11,9 +11,9 @@ pushd $scriptdir > /dev/null 2>&1
 apt update
 apt install -y supervisor
 
-python -m pip install --upgrade pip
+# python -m pip install --upgrade pip
 pip install -r requirements.txt
 
-python appserver.py
+python -m relayapp --debug
 
 popd > /dev/null 2>&1

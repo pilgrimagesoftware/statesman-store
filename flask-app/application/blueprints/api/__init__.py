@@ -126,3 +126,4 @@ def error_handler(ex):
 
 from application.blueprints.api.state import state
 from application.blueprints.api.interact import interact
+from application.blueprints.api.discord import discord

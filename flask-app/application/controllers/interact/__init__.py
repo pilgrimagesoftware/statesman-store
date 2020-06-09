@@ -13,6 +13,7 @@ import os
 import logging
 import subprocess, shlex, threading
 import importlib
+from unidecode import unidecode
 from application import constants
 from application.utils.slack import send_response, verify_signature
 from application.controllers.actions import validate_action, execute_action
@@ -22,8 +23,8 @@ from application.utils.action import get_action_value
 def process_interaction(team_id:str, user_id:str, action:str, response_url:str):
     current_app.logger.debug("team_id: %s, user_id: %s, action: %s, response_url: %s", team_id, user_id, action, response_url)
 
-    print(shlex.split('This is "one test"'))
-    params = shlex.split(str(action)) #, posix=True, comments=False)
+    # print(shlex.split('This is "one test"'))
+    params = shlex.split(unidecode(action)) #, posix=True, comments=False)
     command, args = validate_action(params)
     current_app.logger.debug("command: %s, args: %s", command, args)
 

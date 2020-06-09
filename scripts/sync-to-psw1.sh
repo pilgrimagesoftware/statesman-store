@@ -15,7 +15,7 @@ rsync -av \
     --exclude='*.pyc' \
     --exclude='__pycache__' \
     ./ \
-    psw1:/opt/statesman/flask-app
+    psw1:/opt/statesman/
 
 ssh psw1 "chown -R statesman:statesman /opt/statesman"
 ssh psw1 "chmod 400 /opt/statesman/*/.*env"

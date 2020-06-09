@@ -41,7 +41,7 @@ def send_response(response_url:str, blocks:list, private:bool):
 
 
 def verify_signature(signature:str, timestamp:str, request_body:str):
-    current_app.logger.debug("signature: %s", signature)
+    current_app.logger.info("Checking signature: %s, timestamp: %s, request_body: %s", signature, timestamp, request_body)
 
     current_app.logger.debug("request_body: %s", request_body)
     our_sig = f'{constants.SLACK_SIGNATURE_VERSION}:{timestamp}:{request_body}'
@@ -56,6 +56,8 @@ def verify_signature(signature:str, timestamp:str, request_body:str):
 
     if f'{constants.SLACK_SIGNATURE_VERSION}={digest}' != signature:
         raise SignatureException('Signature failed validation')
+
+    current_app.logger.info("Signature passed validation.")
 
 
 def handle_ssl_check(request:object):
