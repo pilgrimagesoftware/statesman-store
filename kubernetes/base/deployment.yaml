@@ -1,5 +1,5 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 
 metadata:
@@ -13,6 +13,9 @@ spec:
       maxSurge: 1
       maxUnavailable: 1
     type: RollingUpdate
+  selector:
+    matchLabels:
+      app: statesman
   template:
     metadata:
       labels:
