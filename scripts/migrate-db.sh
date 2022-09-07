@@ -1,9 +1,4 @@
 #!/bin/bash
 
-set -x
-set -e
-
-cd flask-app
-
-python manager.py db migrate
-python manager.py db upgrade
+python migrate.py db migrate
+python migrate.py db upgrade

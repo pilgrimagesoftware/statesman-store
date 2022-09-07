@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: statesman
+  labels:
+    app: statesman
+
+data: {}

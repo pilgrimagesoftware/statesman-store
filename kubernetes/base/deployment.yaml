@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: statesman
+  labels:
+    app: statesman
+
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: statesman
+  template:
+    metadata:
+      labels:
+        app: statesman
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/pilgrimagesoftware/statesman:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+              name: api
+          envFrom:
+            - configMapRef:
+                name: statesman
+            - configMapRef:
+                name: statesman-env
+            - secretRef:
+                name: statesman
+          env: []
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "55Mi"
+            limits:
+              cpu: "50m"
+              memory: "200Mi"
+          # livenessProbe:
+          #   httpGet:
+          #     path: /_status/healthz
+          #     port: 5000
+          #   initialDelaySeconds: 90
+          #   timeoutSeconds: 10
+          # readinessProbe:
+          #   httpGet:
+          #     path: /_status/healthz
+          #     port: 5000
+          #   initialDelaySeconds: 30
+          #   timeoutSeconds: 10
+      restartPolicy: Always

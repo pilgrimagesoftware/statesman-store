@@ -1,13 +1,12 @@
 #!/bin/bash
 
 docker run -d \
-    --name pg-statesman \
-    --env-file .pgenv \
-    --restart=unless-stopped \
+    --name postgres-statesman \
+    -e POSTGRES_PASSWORD=statesman \
+    -e POSTGRES_USER=statesman \
+    -e POSTGRES_DB=statesman \
     postgres:10
 
 docker run -d \
     --name redis-statesman \
-    --env-file .redisenv \
-    --restart=unless-stopped \
     redis:4
