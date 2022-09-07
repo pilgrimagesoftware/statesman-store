@@ -1,0 +1,14 @@
+---
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: statesman
+
+spec:
+  selector:
+    app: statesman
+  ports:
+    - name: api
+      port: 8899
+      targetPort: api
