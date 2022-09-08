@@ -1,0 +1,17 @@
+flask
+flask-dotenv
+flask-sqlalchemy
+flask-session
+pyyaml
+uwsgi
+sentry-sdk[flask]==0.14.4
+python-dotenv
+flask-inputs
+jsonschema
+flask-redis
+slacker
+flask-script
+flask-migrate
+redis
+psycopg2
+uwsgi
