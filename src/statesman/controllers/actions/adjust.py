@@ -6,15 +6,15 @@ adjust.py
 
 
 from flask import current_app
-from application.db import db
-from application.models.state_collection import StateCollection
-from application.models.state_item import StateItem
-from application.utils import build_message_blocks, build_error_blocks
-from application.utils.user import set_current_collection, create_or_fetch_user, get_current_collection
-from application.utils.collection import list_collections
-from application.utils.access import check_collection_permission, check_item_permission
-from application.models import constants as model_constants
-from application.utils.item import adjust_item
+from statesman.db import db
+from statesman.models.state_collection import StateCollection
+from statesman.models.state_item import StateItem
+from statesman.utils import build_message_blocks, build_error_blocks
+from statesman.utils.user import set_current_collection, create_or_fetch_user, get_current_collection
+from statesman.utils.collection import list_collections
+from statesman.utils.access import check_collection_permission, check_item_permission
+from statesman.models import constants as model_constants
+from statesman.utils.item import adjust_item
 
 
 def execute(team_id:str, user_id:str, args:list) -> list:

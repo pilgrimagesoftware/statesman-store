@@ -5,10 +5,10 @@ state_collection.py
 """
 
 from datetime import datetime
-from application.db import db
+from statesman.db import db
 from sqlalchemy.dialects.postgresql import ENUM
-from application.models import constants as model_constants
-from application.models.user import User
+from statesman.models import constants as model_constants
+from statesman.models.user import User
 
 
 class StateCollection(db.Model):

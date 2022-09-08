@@ -11,10 +11,10 @@ import os
 import logging
 import subprocess, shlex, threading
 import importlib
-from application import constants
-from application.utils.slack import send_message
-from application.utils.slack import verify_signature
-from application.controllers.actions import validate_action, execute_action
+from statesman import constants
+from statesman.utils.slack import send_message
+from statesman.utils.slack import verify_signature
+from statesman.controllers.actions import validate_action, execute_action
 
 
 class SslCheckHandled(Exception):

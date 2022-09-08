@@ -7,9 +7,9 @@ list.py
 
 from flask import current_app
 import redis
-from application.models.state_collection import StateCollection
-from application.utils import build_error_blocks
-from application.utils.collection import list_collections
+from statesman.models.state_collection import StateCollection
+from statesman.utils import build_error_blocks
+from statesman.utils.collection import list_collections
 
 
 def execute(team_id:str, user_id:str, args:list) -> list:

@@ -6,8 +6,8 @@ increment.py
 
 
 from flask import current_app
-from application.models import constants as model_constants
-from application.controllers.actions import adjust
+from statesman.models import constants as model_constants
+from statesman.controllers.actions import adjust
 
 
 def execute(team_id:str, user_id:str, args:list) -> list:

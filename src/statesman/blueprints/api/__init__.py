@@ -10,10 +10,10 @@ from werkzeug.exceptions import HTTPException
 import logging
 import json
 import os
-from application import constants
-from application.models import constants as model_constants
-from application.blueprints import render_page, requires_auth
-from application.blueprints.api.exceptions import error_response
+from statesman import constants
+from statesman.models import constants as model_constants
+from statesman.blueprints import render_page, requires_auth
+from statesman.blueprints.api.exceptions import error_response
 from werkzeug.exceptions import Unauthorized, BadRequest, Forbidden
 
 

@@ -7,11 +7,11 @@ current.py
 
 from flask import current_app
 import redis
-from application.db import db
-from application.models.state_collection import StateCollection
-from application.utils import build_message_blocks, build_error_blocks
-from application.utils.user import create_or_fetch_user, get_current_collection
-from application.utils.collection import list_collections, get_collection_items
+from statesman.db import db
+from statesman.models.state_collection import StateCollection
+from statesman.utils import build_message_blocks, build_error_blocks
+from statesman.utils.user import create_or_fetch_user, get_current_collection
+from statesman.utils.collection import list_collections, get_collection_items
 
 
 def execute(team_id:str, user_id:str, args:list) -> list:

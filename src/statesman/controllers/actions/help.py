@@ -8,7 +8,7 @@ help.py
 from flask import current_app
 import redis
 import importlib
-from application.utils import get_package_modules
+from statesman.utils import get_package_modules
 
 
 def execute(team_id:str, user_id:str, args:list) -> list:

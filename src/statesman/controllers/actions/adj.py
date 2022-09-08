@@ -6,7 +6,7 @@ adj.py
 
 
 from flask import current_app
-from application.controllers.actions import adjust
+from statesman.controllers.actions import adjust
 
 
 def execute(team_id:str, user_id:str, args:list) -> list:

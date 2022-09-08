@@ -9,9 +9,9 @@ from flask import Flask, session
 from flask_session import Session
 # from flask_cors import CORS
 # from application.cache import cache
-from application import constants
+from statesman import constants
 from logging.config import dictConfig
-from application.blueprints import error_page
+from statesman.blueprints import error_page
 # from application.controllers.minecraft import load_servers
 from werkzeug.exceptions import HTTPException
 from redis.client import Redis
@@ -51,7 +51,7 @@ def create_app(app_name=constants.APPLICATION_NAME):
     # from application.blueprints.main.home import blueprint as home_blueprint
     # app.register_blueprint(home_blueprint, url_prefix="/")
 
-    from application.blueprints.api import blueprint as api_blueprint
+    from statesman.blueprints.api import blueprint as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix="/api/v1")
 
     # from application.blueprints.apps import blueprint as apps_blueprint
@@ -69,7 +69,7 @@ def create_app(app_name=constants.APPLICATION_NAME):
     # from application.blueprints.billing import blueprint as billing_blueprint
     # app.register_blueprint(billing_blueprint, url_prefix="/billing")
 
-    from application.db import db
+    from statesman.db import db
     # from flask_migrate import Migrate
     db.init_app(app)
     # migrate = Migrate(app, db)

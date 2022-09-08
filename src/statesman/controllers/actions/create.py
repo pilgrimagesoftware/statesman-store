@@ -6,10 +6,10 @@ create.py
 
 
 from flask import current_app
-from application.db import db
-from application.models.state_collection import StateCollection
-from application.utils import build_message_blocks, build_error_blocks
-from application.utils.user import create_or_fetch_user, set_current_collection
+from statesman.db import db
+from statesman.models.state_collection import StateCollection
+from statesman.utils import build_message_blocks, build_error_blocks
+from statesman.utils.user import create_or_fetch_user, set_current_collection
 
 
 def execute(team_id:str, user_id:str, args:list) -> list:

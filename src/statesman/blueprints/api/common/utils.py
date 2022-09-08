@@ -6,7 +6,7 @@ utils.py
 
 
 from flask import session, jsonify, request, current_app
-from application.blueprints.api import blueprint
+from statesman.blueprints.api import blueprint
 import json
 import random
 

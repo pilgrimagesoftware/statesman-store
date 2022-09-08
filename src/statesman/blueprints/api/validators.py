@@ -10,7 +10,7 @@ from flask_inputs import Inputs
 from flask_inputs.validators import JsonSchema
 from functools import wraps
 from werkzeug.exceptions import BadRequest, NotFound, Forbidden
-from application.blueprints.api.exceptions import error_response
+from statesman.blueprints.api.exceptions import error_response
 # from application.utils.users import filtered_server
 
 

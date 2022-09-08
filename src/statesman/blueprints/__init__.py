@@ -5,7 +5,7 @@ __author__ = "Paul Schifferer <paul@schifferers.net>"
 
 from functools import wraps
 from flask import redirect, session, render_template, request
-from application import constants
+from statesman import constants
 import jinja2
 
 

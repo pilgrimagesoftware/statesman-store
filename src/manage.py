@@ -8,11 +8,11 @@ manage.py
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
-from application.main import create_app
-from application.db import db
-from application.models.state_collection import StateCollection, StateCollectionUserPermission
-from application.models.state_item import StateItem, StateItemUserPermission
-from application.models.user import User
+from statesman.main import create_app
+from statesman.db import db
+from statesman.models.state_collection import StateCollection, StateCollectionUserPermission
+from statesman.models.state_item import StateItem, StateItemUserPermission
+from statesman.models.user import User
 
 
 app = create_app()

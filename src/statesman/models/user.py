@@ -5,9 +5,9 @@ state_item.py
 """
 
 from datetime import datetime
-from application.db import db
+from statesman.db import db
 from sqlalchemy.dialects.postgresql import ENUM
-from application.models import constants as model_constants
+from statesman.models import constants as model_constants
 
 
 class User(db.Model):

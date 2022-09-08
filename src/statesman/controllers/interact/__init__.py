@@ -11,9 +11,9 @@ import os
 import logging
 import subprocess, shlex, threading
 import importlib
-from application import constants
-from application.utils.slack import send_message
-from application.utils.slack import verify_signature
+from statesman import constants
+from statesman.utils.slack import send_message
+from statesman.utils.slack import verify_signature
 
 
 def handle_action_request(request:object):

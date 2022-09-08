@@ -9,14 +9,14 @@ import logging
 from datetime import datetime
 from flask import session, jsonify, request, current_app
 from werkzeug.exceptions import Forbidden, BadRequest, NotFound
-from application.blueprints.api import blueprint
-from application import constants
-from application.db import db
-from application.controllers.interact import handle_action_request
-from application.models import constants as model_constants
-from application.blueprints.api import user_required, requires_auth
-from application.blueprints.api.exceptions import error_response
-from application.common.exceptions import SignatureException
+from statesman.blueprints.api import blueprint
+from statesman import constants
+from statesman.db import db
+from statesman.controllers.interact import handle_action_request
+from statesman.models import constants as model_constants
+from statesman.blueprints.api import user_required, requires_auth
+from statesman.blueprints.api.exceptions import error_response
+from statesman.common.exceptions import SignatureException
 
 
 @blueprint.route('/interact', methods=['POST'])

@@ -8,13 +8,13 @@ access.py
 from flask import current_app
 import json
 import os
-from application import constants
-from application.common.exceptions import SignatureException
-from application.models.state_collection import StateCollection, StateCollectionUserPermission
-from application.models.state_item import StateItem, StateItemUserPermission
-from application.models.user import User
-from application.models import constants as model_constants
-from application.db import db
+from statesman import constants
+from statesman.common.exceptions import SignatureException
+from statesman.models.state_collection import StateCollection, StateCollectionUserPermission
+from statesman.models.state_item import StateItem, StateItemUserPermission
+from statesman.models.user import User
+from statesman.models import constants as model_constants
+from statesman.db import db
 
 
 def check_collection_permission(user:User, collection:StateCollection, permission:str) -> bool:

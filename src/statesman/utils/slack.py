@@ -12,8 +12,8 @@ import hmac, hashlib
 import os
 from slacker import Slacker
 import requests
-from application import constants
-from application.common.exceptions import SignatureException
+from statesman import constants
+from statesman.common.exceptions import SignatureException
 
 
 def verify_signature(signature:str, timestamp:str, request_body:str):
