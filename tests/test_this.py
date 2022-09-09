@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-__author__ = "Paul Schifferer <admin@pilgrimagesoftware.com>"
+__author__ = "Paul Schifferer <paul@schifferers.net>"
 """
+Test stub.
 """
 
 
