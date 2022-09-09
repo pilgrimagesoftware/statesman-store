@@ -21,6 +21,9 @@ spec:
       labels:
         app: statesman
     spec:
+      serviceAccountName: statesman
+      imagePullSecrets:
+        - name: statesman-registry
       containers:
         - name: app
           image: ghcr.io/pilgrimagesoftware/statesman:latest
@@ -56,5 +59,3 @@ spec:
           #   initialDelaySeconds: 30
           #   timeoutSeconds: 10
       restartPolicy: Always
-    imagePullSecrets:
-      - name: statesman-registry
