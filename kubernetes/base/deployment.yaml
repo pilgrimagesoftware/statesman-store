@@ -34,7 +34,7 @@ spec:
             - configMapRef:
                 name: statesman-env
             - secretRef:
-                name: statesman
+                name: statesman-slack
           env: []
           resources:
             requests:
