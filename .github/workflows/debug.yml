@@ -54,7 +54,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/pilgrimagesoftware/statesman-slack
+            ghcr.io/pilgrimagesoftware/statesman
           tags: |
             type=raw,value=latest
             type=raw,value=${{ steps.previoustag.outputs.tag }}

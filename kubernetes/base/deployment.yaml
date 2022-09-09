@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/pilgrimagesoftware/statesman-slack:latest
+          image: ghcr.io/pilgrimagesoftware/statesman:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -34,7 +34,7 @@ spec:
             - configMapRef:
                 name: statesman-env
             - secretRef:
-                name: statesman-slack
+                name: statesman
           env: []
           resources:
             requests:
