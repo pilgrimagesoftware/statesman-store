@@ -56,3 +56,5 @@ spec:
           #   initialDelaySeconds: 30
           #   timeoutSeconds: 10
       restartPolicy: Always
+    imagePullSecrets:
+      - name: statesman-registry
