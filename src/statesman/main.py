@@ -69,6 +69,9 @@ def create_app(app_name=constants.APPLICATION_NAME):
     # from application.blueprints.billing import blueprint as billing_blueprint
     # app.register_blueprint(billing_blueprint, url_prefix="/billing")
 
+    from statesman.blueprints.health import blueprint as health_blueprint
+    app.register_blueprint(health_blueprint)
+
     from statesman.db import db
     # from flask_migrate import Migrate
     db.init_app(app)
