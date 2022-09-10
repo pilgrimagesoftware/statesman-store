@@ -18,7 +18,7 @@ if ENV_FILE:
 
 
 sentry_sdk.init(dsn=os.environ[constants.SENTRY_DSN],
-                environment=os.environ.get(constants.SENTRY_ENV) or 'Unknown',
+                environment=os.environ.get(constants.SENTRY_ENV) or 'Development',
                 integrations=[
                     FlaskIntegration(),
                     ])
