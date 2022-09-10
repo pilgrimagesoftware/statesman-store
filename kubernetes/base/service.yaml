@@ -3,7 +3,7 @@ kind: Service
 apiVersion: v1
 
 metadata:
-  name: statesman
+  name: app
 
 spec:
   selector:

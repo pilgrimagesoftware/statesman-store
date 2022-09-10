@@ -8,3 +8,8 @@ resources:
   - configmaps.yaml
   - ../../base
   - secrets.yaml
+  - destination-rules.yaml
+  - virtual-service.yaml
+  - gateway.yaml
+  - ingress-route.yaml
+  - middlewares.yaml

@@ -1,0 +1,29 @@
+---
+# See more at https://istio.io/docs/reference/config/networking/virtual-service/
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+
+metadata:
+  name: statesman
+
+spec:
+  hosts:
+    - statesman.critical-failure.org
+  gateways:
+    - statesman-gateway
+  http:
+    - route:
+        - destination:
+            host: statesman
+            port:
+              number: 8899
+  # tls:
+  #   - match:
+  #       - port: 443
+  #         sniHosts:
+  #           - statesman.critical-failure.org
+  #     route:
+  #       - destination:
+  #           host: statesman
+  #           port:
+  #             number: 8899

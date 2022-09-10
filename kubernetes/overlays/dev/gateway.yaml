@@ -1,0 +1,28 @@
+---
+# See more at https://istio.io/docs/reference/config/networking/gateway/
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+
+metadata:
+  name: statesman-gateway
+
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*/statesman.critical-failure.org"
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      hosts:
+        - "*/statesman.critical-failure.org"
+      tls:
+        mode: PASSTHROUGH
+        # serverCertificate: /etc/istio/ingressgateway-certs/sweetrpg-io-crt.pem
+        # privateKey: /etc/istio/ingressgateway-certs/sweetrpg-io-key.pem

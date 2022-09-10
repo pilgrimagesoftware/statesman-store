@@ -1,0 +1,21 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+
+metadata:
+  name: statesman-app
+
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`statesman.critical-failure.org`)
+      kind: Rule
+      services:
+        - name: app
+          port: 8899
+          passHostHeader: true
+          responseForwarding:
+            flushInterval: 100ms
+      middlewares:
+        - name: cors-headers

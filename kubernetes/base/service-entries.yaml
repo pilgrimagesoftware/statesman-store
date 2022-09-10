@@ -16,3 +16,37 @@ spec:
     - number: 443
       name: https
       protocol: HTTPS
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+
+metadata:
+  name: newrelic
+
+spec:
+  hosts:
+    - "*.newrelic.com"
+  ports:
+    - name: api
+      number: 443
+      protocol: HTTPS
+      targetPort: 443
+  resolution: NONE
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+
+metadata:
+  name: sentry-io
+
+spec:
+  hosts:
+    - "*.sentry.io"
+  ports:
+    - name: api
+      number: 443
+      protocol: HTTPS
+      targetPort: 443
+  resolution: NONE
