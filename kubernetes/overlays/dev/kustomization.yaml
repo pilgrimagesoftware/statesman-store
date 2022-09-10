@@ -5,11 +5,15 @@ kind: Kustomization
 namespace: statesman
 
 resources:
-  - configmaps.yaml
   - ../../base
+  - configmaps.yaml
   - secrets.yaml
-  - destination-rules.yaml
+  # - destination-rules.yaml
   - virtual-service.yaml
   - gateway.yaml
   - ingress-route.yaml
   - middlewares.yaml
+  - hpa.yaml
+  - pdb.yaml
+patchesStrategicMerge:
+  - replicas.yaml

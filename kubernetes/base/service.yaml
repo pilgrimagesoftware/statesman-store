@@ -6,6 +6,7 @@ metadata:
   name: app
 
 spec:
+  type: LoadBalancer
   selector:
     app: statesman
   ports:
