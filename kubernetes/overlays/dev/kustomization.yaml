@@ -8,7 +8,7 @@ resources:
   - ../../base
   - configmaps.yaml
   - secrets.yaml
-  # - destination-rules.yaml
+  - destination-rules.yaml
   - virtual-service.yaml
   - gateway.yaml
   - ingress-route.yaml
