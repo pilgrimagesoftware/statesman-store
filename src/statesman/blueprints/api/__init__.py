@@ -124,5 +124,5 @@ def error_handler(ex):
     return response
 
 
-from application.blueprints.api.state import state
-from application.blueprints.api.interact import interact
+from statesman.blueprints.api.state import state
+from statesman.blueprints.api.interact import interact

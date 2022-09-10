@@ -14,7 +14,7 @@ from statesman.utils import get_package_modules
 def execute(team_id:str, user_id:str, args:list) -> list:
     current_app.logger.debug("team_id: %s, user_id: %s, args: %s", team_id, user_id, args)
 
-    modules = get_package_modules('application.controllers.actions')
+    modules = get_package_modules('statesman.controllers.actions')
     current_app.logger.debug("modules: %s", modules)
 
     blocks = [

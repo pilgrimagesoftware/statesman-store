@@ -18,7 +18,7 @@ def validate_action(params:list):
         raise ValidationException('Incorrect number of parameters')
 
     command = params[0]
-    action_spec = importlib.util.find_spec(f'application.controllers.actions.{command}')
+    action_spec = importlib.util.find_spec(f'statesman.controllers.actions.{command}')
     if action_spec is None:
         raise ValidationException(f'Unknown command: {command}')
 
@@ -28,7 +28,7 @@ def validate_action(params:list):
 def execute_action(team_id:str, user_id:str, command:str, args:list) -> list:
     current_app.logger.debug("team_id: %s, user_id: %s, command: %s, args: %s", team_id, user_id, command, args)
 
-    module = importlib.import_module(f'application.controllers.actions.{command}')
+    module = importlib.import_module(f'statesman.controllers.actions.{command}')
     current_app.logger.debug("module: %s", module)
     func = getattr(module, 'execute')
     current_app.logger.debug("func: %s", func)
