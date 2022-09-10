@@ -38,7 +38,7 @@ def create_app(app_name=constants.APPLICATION_NAME):
     })
 
     app = Flask(app_name)
-    app.config.from_object("application.config.BaseConfig")
+    app.config.from_object("statesman.config.BaseConfig")
     # env = DotEnv(app)
     # cache.init_app(app)
 
