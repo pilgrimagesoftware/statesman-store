@@ -15,15 +15,15 @@ spec:
     - route:
         - destination:
             host: app.statesman.svc.cluster.local
-            # port:
-            #   number: 8899
-  # tls:
-  #   - match:
-  #       - port: 443
-  #         sniHosts:
-  #           - statesman.critical-failure.org
-  #     route:
-  #       - destination:
-  #           host: statesman
-  #           port:
-  #             number: 8899
+            port:
+              number: 8899
+  tls:
+    - match:
+        - port: 443
+          sniHosts:
+            - statesman.critical-failure.org
+      route:
+        - destination:
+            host: app.statesman.svc.cluster.local
+            port:
+              number: 8899
