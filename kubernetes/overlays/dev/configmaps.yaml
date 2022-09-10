@@ -7,11 +7,11 @@ metadata:
 
 data:
   DEBUG: "True"
-  PGHOST: "192.168.1.15"
+  PGHOST: "postgres.internal.dev.pilgrimagesoftware.com"
   PGPORT: "5432"
   PGUSER: statesman
   PGDATABASE: statesman
-  REDIS_HOST: redis
+  REDIS_HOST: redis.statesman.svc.cluster.local
   REDIS_PORT: "6379"
   REDIS_DB: "7"
   SLACK_APP_ID: "A013WAF6Q9F"

@@ -50,3 +50,20 @@ spec:
       protocol: HTTPS
       targetPort: 443
   resolution: NONE
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+
+metadata:
+  name: postgres
+
+spec:
+  hosts:
+    - "postgres.internal.dev.pilgrimagesoftware.com"
+  ports:
+    - name: pgsql
+      number: 5432
+      protocol: TCP
+      targetPort: 5432
+  resolution: NONE
