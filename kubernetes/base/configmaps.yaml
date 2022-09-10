@@ -7,4 +7,5 @@ metadata:
   labels:
     app: statesman
 
-data: {}
+data:
+  SESSION_TYPE: "redis"

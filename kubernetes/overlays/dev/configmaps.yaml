@@ -5,4 +5,12 @@ kind: ConfigMap
 metadata:
   name: statesman-env
 
-data: {}
+data:
+  DEBUG: "True"
+  PGHOST: ""
+  PGPORT: "5432"
+  PGUSER: statesman
+  PGDATABASE: statesman
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+  REDIS_DB: "7"

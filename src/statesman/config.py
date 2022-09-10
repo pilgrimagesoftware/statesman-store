@@ -14,7 +14,7 @@ import redis
 print(os.environ) # TODO: remove
 
 class BaseConfig(object):
-    DEBUG = True # bool(os.environ.get('DEBUG') or True)
+    DEBUG = bool(os.environ.get('DEBUG') or True)
     # ASSETS_DEBUG = True
     POSTGRES_HOST = os.environ["PGHOST"]
     POSTGRES_PORT = os.environ.get("PGPORT", "5432")
