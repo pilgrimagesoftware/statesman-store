@@ -16,13 +16,13 @@ spec:
         protocol: HTTP
       hosts:
         - "*/statesman.critical-failure.org"
-    - port:
-        number: 443
-        name: https
-        protocol: HTTPS
-      hosts:
-        - "*/statesman.critical-failure.org"
-      tls:
-        mode: PASSTHROUGH
-        # serverCertificate: /etc/istio/ingressgateway-certs/sweetrpg-io-crt.pem
-        # privateKey: /etc/istio/ingressgateway-certs/sweetrpg-io-key.pem
+    # - port:
+    #     number: 443
+    #     name: https
+    #     protocol: HTTPS
+    #   hosts:
+    #     - "*/statesman.critical-failure.org"
+    #   tls:
+    #     mode: PASSTHROUGH
+    # serverCertificate: /etc/istio/ingressgateway-certs/sweetrpg-io-crt.pem
+    # privateKey: /etc/istio/ingressgateway-certs/sweetrpg-io-key.pem
