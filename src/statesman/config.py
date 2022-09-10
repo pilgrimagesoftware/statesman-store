@@ -30,6 +30,7 @@ class BaseConfig(object):
     CSRF_TOKEN = os.environ.get('CSRF_TOKEN') or hashlib.sha256(f"{random.random()}").hexdigest()
     CACHE_REDIS_HOST = os.environ['REDIS_HOST']
     CACHE_REDIS_PORT = 6379 # int(os.environ.get('REDIS_PORT', "6379"))
+    CACHE_REDIS_PASSWORD = os.environ.get('REDIS_PASS')
     CACHE_REDIS_DB = int(os.environ.get('REDIS_DB') or 7)
     SESSION_TYPE = 'redis'
     SESSION_REDIS = redis.from_url(f"redis://{os.environ['REDIS_HOST']}:6379")
