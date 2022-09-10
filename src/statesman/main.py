@@ -85,6 +85,6 @@ def create_app(app_name=constants.APPLICATION_NAME):
 
     print(app.url_map)
 
-    app.debug = True
+    # app.debug = True
 
     return app

@@ -7,10 +7,11 @@ metadata:
 
 data:
   DEBUG: "True"
-  PGHOST: "postgres.internal.dev.pilgrimagesoftware.com"
-  PGPORT: "5432"
-  PGUSER: statesman
-  PGDATABASE: statesman
+  LOG_LEVEL: DEBUG
+  DB_HOST: "postgres.internal.dev.pilgrimagesoftware.com"
+  DB_PORT: "5432"
+  DB_USER: statesman
+  DB_NAME: statesman
   REDIS_HOST: redis.statesman.svc.cluster.local
   REDIS_PORT: "6379"
   REDIS_DB: "7"
