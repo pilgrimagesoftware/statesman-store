@@ -14,7 +14,7 @@ spec:
   http:
     - route:
         - destination:
-            host: statesman
+            host: app
             port:
               number: 8899
   # tls:
