@@ -18,7 +18,7 @@ def get_package_modules(package:str) -> list:
     module = importlib.import_module(package)
     pkgpath = os.path.dirname(module.__file__)
     modules = [f'{package}.{name}' for _, name, _ in pkgutil.iter_modules([pkgpath])]
-    return modules
+    return list(set(modules)).sort()
 
 
 def build_error_blocks(msg:str) -> list:
