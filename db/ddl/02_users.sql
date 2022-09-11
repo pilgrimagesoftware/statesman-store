@@ -6,3 +6,4 @@ CREATE TABLE users (
     team_id CHAR(20) NOT NULL,
     current_state_id INT REFERENCES state_collections (id)
 );
+ALTER TABLE users OWNER TO statesman;

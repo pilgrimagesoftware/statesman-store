@@ -10,3 +10,4 @@ CREATE TABLE state_items (
     default_value CHAR(100),
     label CHAR(50)
 );
+ALTER TABLE state_items OWNER TO statesman;

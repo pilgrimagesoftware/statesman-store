@@ -6,3 +6,4 @@ CREATE TABLE state_collections (
     team_id CHAR(20) NOT NULL,
     name CHAR(50) NOT NULL
 );
+ALTER TABLE state_collections OWNER TO statesman;

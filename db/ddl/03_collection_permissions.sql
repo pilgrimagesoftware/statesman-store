@@ -5,3 +5,4 @@ CREATE TABLE collection_permissions (
     collection_id INT REFERENCES state_collections (id),
     permission CHAR(10) DEFAULT 'read'
 );
+ALTER TABLE collection_permissions OWNER TO statesman;

@@ -5,3 +5,4 @@ CREATE TABLE item_permissions (
     item_id INT REFERENCES state_items (id),
     permission CHAR(10) DEFAULT 'read'
 );
+ALTER TABLE item_permissions OWNER TO statesman;
