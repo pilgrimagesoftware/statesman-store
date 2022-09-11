@@ -161,7 +161,7 @@ def list_collections(user_id:str, team_id:str) -> list:
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": f"*{c.name}*\nCreated by <@{str(c.creator_id).strip()}>"
+                "text": f"*{c.name}*\nCreated by <@{c.creator_id}>"
             },
             "accessory": {
                 "type": "button",
