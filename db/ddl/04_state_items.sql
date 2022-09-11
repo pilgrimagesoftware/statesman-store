@@ -1,5 +1,8 @@
+CREATE SEQUENCE state_items_id_seq;
+ALTER SEQUENCE state_items_id_seq OWNER TO statesman;
+
 CREATE TABLE state_items (
-    id INT PRIMARY KEY NOT NULL,
+    id INT PRIMARY KEY NOT NULL DEFAULT nextval('state_items_id_seq'),
     creator_id CHAR(20) NOT NULL,
     created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
