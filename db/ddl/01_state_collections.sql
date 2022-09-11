@@ -1,0 +1,8 @@
+CREATE TABLE state_collections (
+    id INT PRIMARY KEY NOT NULL,
+    creator_id CHAR(20) NOT NULL,
+    created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    team_id CHAR(20) NOT NULL,
+    name CHAR(50) NOT NULL
+);
