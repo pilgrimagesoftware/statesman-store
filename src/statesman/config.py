@@ -12,11 +12,9 @@ import redis
 from statesman import constants
 
 
-print(os.environ) # TODO: remove
-
 class BaseConfig(object):
     DEBUG = bool(os.environ.get(constants.DEBUG) or True)
-    PORT = os.environ.get(constants.PORT) or 5000
+    PORT = int(os.environ.get(constants.PORT, "5000"))
     LOG_LEVEL = os.environ.get(constants.LOG_LEVEL) or "INFO"
     # ASSETS_DEBUG = True
     POSTGRES_HOST = os.environ[constants.DB_HOST]
