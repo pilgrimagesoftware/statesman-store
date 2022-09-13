@@ -41,6 +41,7 @@ jobs:
         with:
           images: |
             ghcr.io/pilgrimagesoftware/statesman
+            paulyhedral/statesman
           tags: |
             type=raw,value=latest
             type=raw,value=${{ steps.previoustag.outputs.tag }}

@@ -24,8 +24,6 @@ spec:
         version: v1
     spec:
       serviceAccountName: statesman
-      imagePullSecrets:
-        - name: statesman-registry
       containers:
         - name: app
           image: ghcr.io/pilgrimagesoftware/statesman:latest
