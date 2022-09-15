@@ -70,7 +70,7 @@ def create_app(app_name=constants.APPLICATION_NAME):
     # app.register_blueprint(billing_blueprint, url_prefix="/billing")
 
     from statesman.blueprints.health import blueprint as health_blueprint
-    app.register_blueprint(health_blueprint)
+    app.register_blueprint(health_blueprint, url_prefix="/health")
 
     from statesman.db import db
     # from flask_migrate import Migrate
