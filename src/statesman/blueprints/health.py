@@ -46,7 +46,7 @@ def health_check():
         except:
             r['services'][k] = 'Unknown'
 
-    words = ['secret', 'pass', 'key', 'sentry_dsn', '_pw']
+    words = ['secret', 'pass', 'key', 'sentry_dsn', '_pw', 'token']
     for k, v in os.environ.items():
         for word in words:
             if word in k.lower():
