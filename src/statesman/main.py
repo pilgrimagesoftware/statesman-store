@@ -49,7 +49,7 @@ def create_app(app_name=constants.APPLICATION_NAME):
 
     wsgi = SentryWsgiMiddleware(app)
 
-    executor = Executor(app)
+    app.executor = Executor(app)
 
     # from application.blueprints.main.home import blueprint as home_blueprint
     # app.register_blueprint(home_blueprint, url_prefix="/")
