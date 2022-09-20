@@ -2,6 +2,7 @@ flask
 flask-dotenv
 flask-sqlalchemy
 flask-session
+flask-executor
 pyyaml
 uwsgi
 sentry-sdk[flask]==1.9.8

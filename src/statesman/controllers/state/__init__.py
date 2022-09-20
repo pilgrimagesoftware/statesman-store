@@ -15,7 +15,7 @@ from statesman import constants
 from statesman.utils.slack import send_message
 from statesman.utils.slack import verify_signature
 from statesman.controllers.actions import validate_action, execute_action
-from threading import Thread
+# from threading import Thread
 
 
 class SslCheckHandled(Exception):
@@ -103,8 +103,9 @@ def process_state_request(request:object):
     params = text.split(" ")
     # current_app.logger.debug("params: %s", params)
 
-    thread = Thread(target=process_state_action, args=(team_id, user_id, params, response_url))
-    thread.start()
+    current_app.executor.submit(process_state_action, team_id, user_id, params, response_url)
+    # thread = Thread(target=process_state_action, args=(team_id, user_id, params, response_url))
+    # thread.start()
     # process_state_action(team_id, user_id, params, response_url)
 
     return "", 200

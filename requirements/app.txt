@@ -39,3 +39,4 @@ uwsgi==2.0.20
 werkzeug==2.2.2
 wrapt==1.14.1
 wtforms==3.0.1
+flask-executor==0.9.3
