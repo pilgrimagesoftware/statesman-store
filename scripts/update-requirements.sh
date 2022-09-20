@@ -12,7 +12,7 @@ which pyenv || true
 if [ $? -eq 0 ]; then
     compile=$(pyenv which pip-compile)
 else
-    compile=$(which pip-compile)
+    compile=pip-compile
 fi
 set -e
 
