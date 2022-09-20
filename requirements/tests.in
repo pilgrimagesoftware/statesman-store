@@ -6,4 +6,3 @@ greenlet==1.1.3
 pytest
 pytest-cov==3.0
 tox==3.26.0
-tox==3.25.1
