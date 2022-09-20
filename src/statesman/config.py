@@ -35,3 +35,6 @@ class BaseConfig(object):
     CACHE_REDIS_DB = int(os.environ.get(constants.REDIS_DB, "7"))
     SESSION_TYPE = os.environ.get(constants.SESSION_TYPE, 'redis')
     SESSION_REDIS = redis.from_url(f"redis://{os.environ[constants.REDIS_HOST]}:6379")
+    EXECUTOR_TYPE = 'thread'
+    EXECUTOR_MAX_WORKERS = 5
+    EXECUTOR_PROPAGATE_EXCEPTIONS = True

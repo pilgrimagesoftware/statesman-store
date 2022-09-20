@@ -23,19 +23,19 @@ class SslCheckHandled(Exception):
 
 
 def send_response(response_url:str, blocks:list, private:bool):
-    current_app.logger.debug("response_url: %s, blocks: %s", response_url, blocks)
+    logging.debug("response_url: %s, blocks: %s", response_url, blocks)
 
     send_message(response_url, blocks, private)
 
 
 def process_state_action(team_id:str, user_id:str, params:list, response_url:str, private:bool = False):
-    current_app.logger.debug("team_id: %s, user_id: %s, params: %s, response_url: %s", team_id, user_id, params, response_url)
+    logging.debug("team_id: %s, user_id: %s, params: %s, response_url: %s", team_id, user_id, params, response_url)
 
     command, args = validate_action(params)
-    current_app.logger.debug("command: %s, args: %s", command, args)
+    logging.debug("command: %s, args: %s", command, args)
 
     blocks, private = execute_action(team_id, user_id, command, args)
-    current_app.logger.debug("blocks: %s, private: %s", blocks, private)
+    logging.debug("blocks: %s, private: %s", blocks, private)
 
     send_response(response_url, blocks, private=private)
 

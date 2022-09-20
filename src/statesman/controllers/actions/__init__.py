@@ -5,6 +5,7 @@ __author__ = "Paul Schifferer <paul@schifferers.net>"
 
 from flask import current_app
 import importlib
+import logging
 
 
 class ValidationException(Exception):
@@ -26,13 +27,13 @@ def validate_action(params:list):
 
 
 def execute_action(team_id:str, user_id:str, command:str, args:list) -> list:
-    current_app.logger.debug("team_id: %s, user_id: %s, command: %s, args: %s", team_id, user_id, command, args)
+    logging.debug("team_id: %s, user_id: %s, command: %s, args: %s", team_id, user_id, command, args)
 
     module = importlib.import_module(f'statesman.controllers.actions.{command}')
-    current_app.logger.debug("module: %s", module)
+    logging.debug("module: %s", module)
     func = getattr(module, 'execute')
-    current_app.logger.debug("func: %s", func)
+    logging.debug("func: %s", func)
     blocks = func(team_id, user_id, args)
-    current_app.logger.debug("blocks: %s", blocks)
+    logging.debug("blocks: %s", blocks)
 
     return blocks
