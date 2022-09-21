@@ -23,19 +23,19 @@ class SslCheckHandled(Exception):
 
 
 def send_response(response_url:str, blocks:list, private:bool):
-    logging.debug("response_url: %s, blocks: %s", response_url, blocks)
+    current_app.logger.debug("response_url: %s, blocks: %s", response_url, blocks)
 
     send_message(response_url, blocks, private)
 
 
 def process_state_action(team_id:str, user_id:str, params:list, response_url:str, private:bool = False):
-    logging.debug("team_id: %s, user_id: %s, params: %s, response_url: %s", team_id, user_id, params, response_url)
+    current_app.logger.debug("team_id: %s, user_id: %s, params: %s, response_url: %s", team_id, user_id, params, response_url)
 
     command, args = validate_action(params)
-    logging.debug("command: %s, args: %s", command, args)
+    current_app.logger.debug("command: %s, args: %s", command, args)
 
     blocks, private = execute_action(team_id, user_id, command, args)
-    logging.debug("blocks: %s, private: %s", blocks, private)
+    current_app.logger.debug("blocks: %s, private: %s", blocks, private)
 
     send_response(response_url, blocks, private=private)
 
@@ -103,7 +103,8 @@ def process_state_request(request:object):
     params = text.split(" ")
     # current_app.logger.debug("params: %s", params)
 
-    current_app.executor.submit(process_state_action, team_id, user_id, params, response_url)
+    with current_app.app_context():
+        current_app.executor.submit(process_state_action, team_id, user_id, params, response_url)
     # thread = Thread(target=process_state_action, args=(team_id, user_id, params, response_url))
     # thread.start()
     # process_state_action(team_id, user_id, params, response_url)

@@ -36,7 +36,7 @@ def verify_signature(signature:str, timestamp:str, request_body:str):
 
 
 def send_message(response_url:str, blocks:list, private:bool):
-    logging.debug("response_url: %s, blocks: %s, private: %s", response_url, blocks, private)
+    current_app.logger.debug("response_url: %s, blocks: %s, private: %s", response_url, blocks, private)
 
     response_type = 'in_channel' if not private else 'ephemeral'
 
@@ -44,10 +44,10 @@ def send_message(response_url:str, blocks:list, private:bool):
         'response_type': response_type,
         'blocks': blocks,
     })
-    logging.debug("body: %s", body)
+    current_app.logger.debug("body: %s", body)
     r = requests.post(response_url,
                       headers={
                           'Content-type': 'application/json',
                       },
                       data=body)
-    logging.debug("r: %s", r)
+    current_app.logger.debug("r: %s", r)
