@@ -1,6 +1,6 @@
 -r app.in
 Pallets-Sphinx-Themes
-Sphinx==5.2.1
+Sphinx==5.3.0
 sphinx-issues
 sphinxcontrib-log-cabinet
 sphinx-tabs
