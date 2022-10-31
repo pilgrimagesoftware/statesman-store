@@ -76,7 +76,7 @@ markupsafe==2.1.1
     #   wtforms
 packaging==21.3
     # via redis
-psycopg2==2.9.3
+psycopg2==2.9.5
     # via -r requirements/app.in
 pyparsing==3.0.9
     # via packaging
