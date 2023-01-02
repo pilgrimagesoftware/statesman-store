@@ -18,7 +18,7 @@ attrs==22.1.0
     #   pytest
 babel==2.10.3
     # via sphinx
-black==22.8.0
+black==22.12.0
     # via -r requirements/dev.in
 blinker==1.5
     # via
