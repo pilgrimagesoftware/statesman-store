@@ -37,10 +37,10 @@ RUN apt-get update \
     && apt-get install -y postgresql-client \
     #
     # Stripe
-    && apt-key adv --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys 379CE192D401AB61 \
-    && echo "deb https://dl.bintray.com/stripe/stripe-cli-deb stable main" | tee -a /etc/apt/sources.list \
-    && apt-get update \
-    && apt-get install stripe \
+    # && apt-key adv --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys 379CE192D401AB61 \
+    # && echo "deb https://dl.bintray.com/stripe/stripe-cli-deb stable main" | tee -a /etc/apt/sources.list \
+    # && apt-get update \
+    # && apt-get install stripe \
     #
     # Update Python environment based on requirements.txt
     && pip --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
