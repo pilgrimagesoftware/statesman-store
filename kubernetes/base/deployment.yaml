@@ -3,9 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: statesman
-  labels:
-    component: api
+  name: api
 
 spec:
   strategy:
@@ -22,7 +20,6 @@ spec:
       labels:
         app: statesman
         version: v1
-        component: api
     spec:
       serviceAccountName: statesman
       containers:
