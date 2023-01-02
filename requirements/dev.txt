@@ -148,7 +148,7 @@ pluggy==1.0.0
     # via
     #   pytest
     #   tox
-psycopg2==2.9.3
+psycopg2==2.9.5
     # via -r requirements/app.in
 py==1.11.0
     # via
