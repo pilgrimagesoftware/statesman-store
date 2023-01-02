@@ -203,7 +203,7 @@ slacker==0.14.0
     # via -r requirements/app.in
 snowballstemmer==2.2.0
     # via sphinx
-sphinx==5.2.1
+sphinx==6.0.0
     # via
     #   -r requirements/docs.in
     #   pallets-sphinx-themes
@@ -233,13 +233,7 @@ sqlalchemy==1.4.41
     #   alembic
     #   flask-sqlalchemy
 tomli==2.0.1
-    # via
-    #   black
-    #   build
-    #   coverage
-    #   pep517
-    #   pytest
-    #   tox
+    # via pytest
 tox==3.26.0
     # via -r requirements/tests.in
 typer[all]==0.6.1
