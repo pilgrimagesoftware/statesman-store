@@ -37,7 +37,9 @@ spec:
             - configMapRef:
                 name: api-env
             - secretRef:
-                name: credentials
+                name: common
+            - secretRef:
+                name: api
           env: []
           resources:
             requests:
