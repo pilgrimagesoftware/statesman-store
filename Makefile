@@ -11,10 +11,10 @@ test-readme:
 	python setup.py check --restructuredtext --strict && ([ $$? -eq 0 ] && echo "README.rst and HISTORY.rst ok") || echo "Invalid markup in README.rst or HISTORY.rst!"
 
 flake8:
-	flake8 --ignore=E501,F401,E128,E402,E731,F821 sweetrpg_shared_web
+	flake8 --ignore=E501,F401,E128,E402,E731,F821 statesman_api
 
 coverage:
-	pytest --cov-config .coveragerc --verbose --cov-report term --cov-report xml --cov=sweetrpg_shared_web tests
+	pytest --cov-config .coveragerc --verbose --cov-report term --cov-report xml --cov=statesman_api tests
 
 publish:
 	pip install 'twine>=1.5.0'
