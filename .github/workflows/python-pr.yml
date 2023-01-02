@@ -22,9 +22,9 @@ jobs:
                 include:
                     - {
                           name: Linux,
-                          python: "3.9",
+                          python: "3.10",
                           os: ubuntu-latest,
-                          tox: py39,
+                          tox: py310,
                       }
                     # - {
                     #       name: Windows,
