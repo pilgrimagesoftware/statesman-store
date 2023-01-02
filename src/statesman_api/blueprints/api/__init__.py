@@ -125,4 +125,3 @@ def error_handler(ex):
 
 
 from statesman_api.blueprints.api.state import state
-from statesman_api.blueprints.api.interact import interact
