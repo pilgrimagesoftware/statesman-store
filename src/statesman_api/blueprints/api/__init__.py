@@ -21,7 +21,7 @@ blueprint = Blueprint("api", __name__)
 
 
 class UserAuthorizationException(Exception):
-    def __init__(self, reason:str):
+    def __init__(self, reason: str):
         self.reason = reason
 
 
@@ -31,12 +31,12 @@ def _check_user():
     logging.debug("data: %s", data)
     user_id = None
     if data is not None:
-        user_id = data.get('user')
+        user_id = data.get("user")
         logging.debug("user_id: %s", user_id)
 
     if user_id is None:
         # check headers: X-User-ID
-        user_id = request.headers.get('X-User-ID')
+        user_id = request.headers.get("X-User-ID")
         logging.debug("user_id: %s", user_id)
 
     # user_id = session.get(constants.CURRENT_USER_ID)
@@ -57,20 +57,16 @@ def _check_user():
 def requires_auth(f):
     @wraps(f)
     def _check_auth(*args, **kwargs):
-        auth_header = request.headers.get('Authorization')
+        auth_header = request.headers.get("Authorization")
         if auth_header is None:
-            raise error_response(Unauthorized, 'unauthorized',
-                                 f'The endpoint requires authorization')
+            raise error_response(Unauthorized, "unauthorized", f"The endpoint requires authorization")
         auth_parts = auth_header.split(" ", maxsplit=2)
         if len(auth_parts) != 2:
-            raise error_response(BadRequest, 'bad_request',
-                                 f'Invalid Authorization header')
-        if auth_parts[0].lower() != 'bearer':
-            raise error_response(Forbidden, 'forbidden',
-                                 f'Authorization method not accepted')
+            raise error_response(BadRequest, "bad_request", f"Invalid Authorization header")
+        if auth_parts[0].lower() != "bearer":
+            raise error_response(Forbidden, "forbidden", f"Authorization method not accepted")
         if auth_parts[1] != os.environ[constants.CLIENT_AUTH_TOKEN]:
-            raise error_response(Forbidden, 'forbidden',
-                                 f'Authorization token not accepted')
+            raise error_response(Forbidden, "forbidden", f"Authorization token not accepted")
         return f(*args, **kwargs)
 
     return _check_auth
@@ -97,9 +93,7 @@ def user_required(f):
             user = _check_user()
             return f(user, *args, **kwargs)
         except UserAuthorizationException as e:
-            return jsonify({
-                'error': "Unauthorized; " + e.reason
-            }), 401
+            return jsonify({"error": "Unauthorized; " + e.reason}), 401
 
     return _get_user
 
@@ -120,7 +114,7 @@ def user_optional(f):
 def error_handler(ex):
     current_app.logger.exception(f"Exception caught: {ex}")
     response = jsonify(message=str(ex))
-    response.status_code = (ex.code if isinstance(ex, HTTPException) else 500)
+    response.status_code = ex.code if isinstance(ex, HTTPException) else 500
     return response
 
 
