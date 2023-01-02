@@ -3,9 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 
 metadata:
-  name: statesman
-  labels:
-    app: statesman
+  name: api
 
 data:
   SESSION_TYPE: "redis"

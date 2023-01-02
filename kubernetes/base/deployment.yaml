@@ -21,7 +21,7 @@ spec:
         app: statesman
         version: v1
     spec:
-      serviceAccountName: statesman
+      serviceAccountName: api
       containers:
         - name: api
           image: ghcr.io/pilgrimagesoftware/statesman-api:latest
@@ -31,9 +31,11 @@ spec:
               name: api
           envFrom:
             - configMapRef:
-                name: statesman
+                name: common
             - configMapRef:
-                name: statesman-env
+                name: api
+            - configMapRef:
+                name: api-env
             - secretRef:
                 name: credentials
           env: []

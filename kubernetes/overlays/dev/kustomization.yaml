@@ -21,3 +21,4 @@ patchesStrategicMerge:
 commonLabels:
   app: statesman
   version: v1
+  component: api
