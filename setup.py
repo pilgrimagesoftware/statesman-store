@@ -15,7 +15,6 @@ setup(
         "flask-inputs",
         "jsonschema",
         "flask-redis",
-        "slacker",
         "flask-script",
         "flask-migrate",
         "redis",

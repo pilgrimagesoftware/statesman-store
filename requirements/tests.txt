@@ -137,8 +137,6 @@ sentry-sdk[flask]==1.9.8
     # via -r requirements/app.in
 six==1.16.0
     # via tox
-slacker==0.14.0
-    # via -r requirements/app.in
 sqlalchemy==1.4.41
     # via
     #   alembic
