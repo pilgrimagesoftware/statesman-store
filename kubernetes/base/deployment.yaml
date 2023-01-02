@@ -35,7 +35,7 @@ spec:
             - configMapRef:
                 name: statesman-env
             - secretRef:
-                name: statesman
+                name: credentials
           env: []
           resources:
             requests:
