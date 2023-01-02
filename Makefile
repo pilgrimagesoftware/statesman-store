@@ -20,7 +20,7 @@ publish:
 	pip install 'twine>=1.5.0'
 	python setup.py sdist bdist_wheel
 	twine upload dist/*
-	rm -fr build dist .egg sweetrpg_shared_web.egg-info
+	rm -fr build dist .egg statesman_api.egg-info
 
 docs:
 	cd docs && make html

@@ -17,3 +17,7 @@ resources:
   - pdb.yaml
 patchesStrategicMerge:
   - replicas.yaml
+
+commonLabels:
+  app: statesman
+  version: v1

@@ -1,1 +1,3 @@
-# state-manager-slack-bot
+# Statesman
+
+Statesman keeps track of state for you.

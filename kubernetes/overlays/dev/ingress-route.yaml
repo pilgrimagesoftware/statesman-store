@@ -3,16 +3,16 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 
 metadata:
-  name: statesman-app
+  name: statesman-api
 
 spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`statesman.critical-failure.org`)
+    - match: Host(`api.statesman.pilgrimagesoftware.com`)
       kind: Rule
       services:
-        - name: app
+        - name: api
           port: 8899
           passHostHeader: true
           responseForwarding:

@@ -1,8 +1,8 @@
 // If you want to run as a non-root user in the container, see .devcontainer/docker-compose.yml.
 {
-    "name": "Statesman",
+    "name": "Statesman API",
     "dockerComposeFile": "docker-compose.yml",
-    "service": "app",
+    "service": "api",
     "workspaceFolder": "/workspace",
     "appPort": 5000,
     // Use 'settings' to set *default* container specific settings.json values on container create.

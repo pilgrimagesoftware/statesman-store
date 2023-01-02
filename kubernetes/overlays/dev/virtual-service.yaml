@@ -8,22 +8,22 @@ metadata:
 
 spec:
   hosts:
-    - statesman.critical-failure.org
+    - api.statesman.pilgrimagesoftware.com
   gateways:
     - statesman-gateway
   http:
     - route:
         - destination:
-            host: app.statesman.svc.cluster.local
+            host: api.statesman.svc.cluster.local
             port:
               number: 8899
   tls:
     - match:
         - port: 443
           sniHosts:
-            - statesman.critical-failure.org
+            - api.statesman.pilgrimagesoftware.com
       route:
         - destination:
-            host: app.statesman.svc.cluster.local
+            host: api.statesman.svc.cluster.local
             port:
               number: 8899

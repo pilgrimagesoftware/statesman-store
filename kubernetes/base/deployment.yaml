@@ -5,7 +5,7 @@ kind: Deployment
 metadata:
   name: statesman
   labels:
-    app: statesman
+    component: api
 
 spec:
   strategy:
@@ -22,11 +22,12 @@ spec:
       labels:
         app: statesman
         version: v1
+        component: api
     spec:
       serviceAccountName: statesman
       containers:
-        - name: app
-          image: ghcr.io/pilgrimagesoftware/statesman:latest
+        - name: api
+          image: ghcr.io/pilgrimagesoftware/statesman-api:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
