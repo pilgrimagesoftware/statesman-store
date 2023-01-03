@@ -20,7 +20,7 @@ services:
       - REDIS_HOST=redis
       - REDIS_PASSWORD=redis
 
-    hostname: vscode
+    hostname: statesman-api
 
     volumes:
       - ..:/workspace
@@ -29,7 +29,7 @@ services:
     command: sleep infinity
 
     networks:
-      - statesman
+      - statesman-api
 
   db:
     image: postgres:13-alpine
@@ -46,7 +46,7 @@ services:
       - POSTGRES_PASSWORD=statesman
 
     networks:
-      - statesman
+      - statesman-api
 
   redis:
     image: redis:4
@@ -61,7 +61,7 @@ services:
       - REDIS_PW=redis
 
     networks:
-      - statesman
+      - statesman-api
 
 networks:
-  statesman:
+  statesman-api:
