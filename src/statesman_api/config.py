@@ -28,8 +28,8 @@ class BaseConfig(object):
     SQLALCHEMY_DATABASE_URI = DB_URL
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # used for encryption and session management
-    SECRET_KEY = os.environ.get(constants.SECRET_KEY, hashlib.sha256(f"{random.random()}").hexdigest())
-    CSRF_TOKEN = os.environ.get(constants.CSRF_TOKEN, hashlib.sha256(f"{random.random()}").hexdigest())
+    SECRET_KEY = os.environ.get(constants.SECRET_KEY) or hashlib.sha256(f"{random.random()}").hexdigest()
+    CSRF_TOKEN = os.environ.get(constants.CSRF_TOKEN) or hashlib.sha256(f"{random.random()}").hexdigest()
     CACHE_REDIS_HOST = os.environ[constants.REDIS_HOST]
     CACHE_REDIS_PORT = int(os.environ.get(constants.REDIS_PORT, "6379"))
     CACHE_REDIS_PASSWORD = os.environ.get(constants.REDIS_PW)
