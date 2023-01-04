@@ -6,4 +6,4 @@ metadata:
     name: api
 
 spec:
-    replicas: 2
+    replicas: 0
