@@ -5,7 +5,7 @@ flask-session
 flask-executor
 pyyaml
 uwsgi
-sentry-sdk[flask]==1.9.8
+sentry-sdk[flask]==1.12.1
 python-dotenv
 flask-inputs
 jsonschema
