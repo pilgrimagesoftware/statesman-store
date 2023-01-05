@@ -14,3 +14,4 @@ flask-script
 flask-migrate
 redis
 psycopg2
+pika
