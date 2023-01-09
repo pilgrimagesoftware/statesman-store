@@ -17,7 +17,7 @@ from statesman_api.models import constants as model_constants
 
 
 def execute(org_id:str, user_id:str, args:list) -> list:
-    current_app.logger.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
+    logging.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
 
     if len(args) != 2:
         blocks = build_error_blocks('Usage: `label <name> <value>`.')

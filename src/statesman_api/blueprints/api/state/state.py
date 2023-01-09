@@ -22,15 +22,15 @@ from statesman_api.common.exceptions import SignatureException
 
 @blueprint.route('/state', methods=['POST'])
 def post_state_action():
-    current_app.logger.debug("POST /state: %s", request)
+    logging.debug("POST /state: %s", request)
 
     try:
         handle_ssl_check(request)
         return process_state_request(request)
     except SslCheckHandled:
-        current_app.logger.info("Handled SSL check request.")
+        logging.info("Handled SSL check request.")
     except:
-        current_app.logger.exception("Exception while processing command")
+        logging.exception("Exception while processing command")
         response = {
             "response_type": "ephemeral",
             "text": "Sorry, that didn't work. Please try again."

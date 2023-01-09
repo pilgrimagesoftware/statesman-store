@@ -15,7 +15,7 @@ from statesman_api.blueprints.api.exceptions import error_response
 
 
 # def validate_server(server_id:str, user:str):
-#     current_app.logger.info(f"Validating server {server_id} for user {user}.")
+#     logging.info(f"Validating server {server_id} for user {user}.")
 
 #     server = filtered_server(server_id, user)
 #     if server is None:
@@ -30,14 +30,14 @@ from statesman_api.blueprints.api.exceptions import error_response
 
 
 # def validate_payload(validator, request: object):
-#     current_app.logger.info(f"Validating request {request} using {validator}.")
+#     logging.info(f"Validating request {request} using {validator}.")
 #     inputs = validator(request)
-#     current_app.logger.debug(f"inputs: {inputs}")
+#     logging.debug(f"inputs: {inputs}")
 #     if not inputs.validate():
-#         current_app.logger.debug(f"errors: {inputs.errors}")
+#         logging.debug(f"errors: {inputs.errors}")
 #         raise BadRequest(inputs.errors)
 
-#     current_app.logger.info("Payload is valid.")
+#     logging.info("Payload is valid.")
 
 
 # def validate_user(obj, user):

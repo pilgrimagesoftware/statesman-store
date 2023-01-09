@@ -13,7 +13,7 @@ from statesman_api.utils.user import create_or_fetch_user, set_current_collectio
 
 
 def execute(org_id:str, user_id:str, args:list) -> list:
-    current_app.logger.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
+    logging.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
 
     if len(args) == 0:
         blocks = build_error_blocks('Usage: `create <name>`.')

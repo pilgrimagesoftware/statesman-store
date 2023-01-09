@@ -20,7 +20,7 @@ from statesman_api.utils.access import check_collection_permission, check_item_p
 
 
 def adjust_item(item:StateItem, op:str, value:str):
-    current_app.logger.debug("item: %s, op: %s, value: %s", item, op, value)
+    logging.debug("item: %s, op: %s, value: %s", item, op, value)
 
     if op == model_constants.ADJUST_OP_ADD:
         item.value += value

@@ -13,7 +13,7 @@ import random
 
 # @blueprint.route('/random/name', methods=['GET'])
 # def random_name():
-#     current_app.logger.debug(f"GET /random/name: {request}")
+#     logging.debug(f"GET /random/name: {request}")
 #     name_type = request.args.get('type')
 #     if not name_type:
 #         return {}

@@ -17,7 +17,7 @@ from statesman_api.models import constants as model_constants
 
 
 def execute(org_id:str, user_id:str, args:list) -> list:
-    current_app.logger.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
+    logging.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
 
     if len(args) < 2:
         blocks = build_error_blocks('Unable to set item; usage: `set <name> <value> [default=<default>] [label=<label>] [permission=<default-permission>]`.')
@@ -52,10 +52,10 @@ def execute(org_id:str, user_id:str, args:list) -> list:
 
     # handle additional params
     if len(args) > 2:
-        current_app.logger.debug("Processing additional parameters to set command: %s", args[2:])
+        logging.debug("Processing additional parameters to set command: %s", args[2:])
 
         for other in args[2:]:
-            current_app.logger.debug("other: %s", other)
+            logging.debug("other: %s", other)
             k,v = other.split(sep='=', maxsplit=2)
 
             if k == 'default':
@@ -66,7 +66,7 @@ def execute(org_id:str, user_id:str, args:list) -> list:
                 # TODO
                 pass
             else:
-                current_app.logger.warning("Unknown extra parameter item: %s", k)
+                logging.warning("Unknown extra parameter item: %s", k)
 
     db.session.add(item)
     db.session.commit()

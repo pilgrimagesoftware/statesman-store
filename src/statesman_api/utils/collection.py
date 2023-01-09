@@ -20,7 +20,7 @@ from statesman_api.utils.access import check_collection_permission, check_item_p
 
 
 def get_collection_items(collection:StateCollection, user:User) -> list:
-    current_app.logger.debug("collection: %s, user: %s", collection, user)
+    logging.debug("collection: %s, user: %s", collection, user)
 
     items = StateItem.query.filter_by(collection_id=collection.id).all()
     if len(items) == 0:
@@ -67,7 +67,7 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
     # fields = []
     for item in items:
         if not check_item_permission(user, item, model_constants.PERMISSION_READ):
-            current_app.logger.debug("User %s does not have permission to read item %s.", user, item)
+            logging.debug("User %s does not have permission to read item %s.", user, item)
             continue
 
         label = item.name
@@ -134,7 +134,7 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
 
 
 def list_collections(user_id:str, team_id:str) -> list:
-    current_app.logger.debug("user_id: %s, team_id: %s", user_id, team_id)
+    logging.debug("user_id: %s, team_id: %s", user_id, team_id)
 
     user = create_or_fetch_user(user_id, team_id)
     collections = StateCollection.query.filter_by(team_id=team_id).all()
@@ -154,7 +154,7 @@ def list_collections(user_id:str, team_id:str) -> list:
 
     for c in collections:
         if not check_collection_permission(user, c, model_constants.PERMISSION_READ):
-            current_app.logger.debug("User %s does not have permission to read collection %s.", user, c)
+            logging.debug("User %s does not have permission to read collection %s.", user, c)
             continue
 
         blocks.append({

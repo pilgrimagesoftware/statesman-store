@@ -15,7 +15,7 @@ from statesman_api.utils.collection import list_collections, get_collection_item
 
 
 def execute(org_id:str, user_id:str, args:list) -> list:
-    current_app.logger.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
+    logging.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
 
     if len(args) != 0:
         blocks = build_error_blocks('Usage: `current`.')

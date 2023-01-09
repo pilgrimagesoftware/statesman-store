@@ -13,7 +13,7 @@ class ValidationException(Exception):
 
 
 def validate_action(params:list):
-    current_app.logger.debug("params: %s", params)
+    logging.debug("params: %s", params)
 
     if len(params) == 0:
         raise ValidationException('Incorrect number of parameters')
@@ -27,13 +27,13 @@ def validate_action(params:list):
 
 
 def execute_action(org_id:str, user_id:str, command:str, args:list) -> list:
-    current_app.logger.debug("org_id: %s, user_id: %s, command: %s, args: %s", org_id, user_id, command, args)
+    logging.debug("org_id: %s, user_id: %s, command: %s, args: %s", org_id, user_id, command, args)
 
     module = importlib.import_module(f'statesman_api.controllers.actions.{command}')
-    current_app.logger.debug("module: %s", module)
+    logging.debug("module: %s", module)
     func = getattr(module, 'execute')
-    current_app.logger.debug("func: %s", func)
+    logging.debug("func: %s", func)
     blocks = func(org_id, user_id, args)
-    current_app.logger.debug("blocks: %s", blocks)
+    logging.debug("blocks: %s", blocks)
 
     return blocks
