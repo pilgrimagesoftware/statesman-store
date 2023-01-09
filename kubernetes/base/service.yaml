@@ -1,18 +1,18 @@
----
-kind: Service
-apiVersion: v1
+# ---
+# kind: Service
+# apiVersion: v1
 
-metadata:
-  name: api-v1
+# metadata:
+#   name: api-v1
 
-spec:
-  type: ClusterIP
-  selector:
-    app: statesman
-    version: v1
-    component: api
-  ports:
-    - name: api
-      port: 5000
-      targetPort: api
-      protocol: TCP
+# spec:
+#   type: ClusterIP
+#   selector:
+#     app: statesman
+#     version: v1
+#     component: api
+#   ports:
+#     - name: api
+#       port: 5000
+#       targetPort: api
+#       protocol: TCP

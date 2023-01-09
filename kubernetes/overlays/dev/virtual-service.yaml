@@ -1,29 +1,29 @@
----
-# See more at https://istio.io/docs/reference/config/networking/virtual-service/
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
+# ---
+# # See more at https://istio.io/docs/reference/config/networking/virtual-service/
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
 
-metadata:
-  name: statesman
+# metadata:
+#   name: statesman
 
-spec:
-  hosts:
-    - api.statesman.pilgrimagesoftware.com
-  gateways:
-    - statesman-gateway
-  http:
-    - route:
-        - destination:
-            host: api.statesman.svc.cluster.local
-            port:
-              number: 8899
-  tls:
-    - match:
-        - port: 443
-          sniHosts:
-            - api.statesman.pilgrimagesoftware.com
-      route:
-        - destination:
-            host: api.statesman.svc.cluster.local
-            port:
-              number: 8899
+# spec:
+#   hosts:
+#     - api.statesman.pilgrimagesoftware.com
+#   gateways:
+#     - statesman-gateway
+#   http:
+#     - route:
+#         - destination:
+#             host: api.statesman.svc.cluster.local
+#             port:
+#               number: 8899
+#   tls:
+#     - match:
+#         - port: 443
+#           sniHosts:
+#             - api.statesman.pilgrimagesoftware.com
+#       route:
+#         - destination:
+#             host: api.statesman.svc.cluster.local
+#             port:
+#               number: 8899

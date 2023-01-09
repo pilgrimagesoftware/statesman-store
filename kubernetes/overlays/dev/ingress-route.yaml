@@ -1,21 +1,21 @@
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
 
-metadata:
-  name: statesman-api
+# metadata:
+#   name: statesman-api
 
-spec:
-  entryPoints:
-    - web
-  routes:
-    - match: Host(`api.statesman.pilgrimagesoftware.com`)
-      kind: Rule
-      services:
-        - name: api
-          port: 8899
-          passHostHeader: true
-          responseForwarding:
-            flushInterval: 100ms
-      middlewares:
-        - name: cors-headers
+# spec:
+#   entryPoints:
+#     - web
+#   routes:
+#     - match: Host(`api.statesman.pilgrimagesoftware.com`)
+#       kind: Rule
+#       services:
+#         - name: api
+#           port: 8899
+#           passHostHeader: true
+#           responseForwarding:
+#             flushInterval: 100ms
+#       middlewares:
+#         - name: cors-headers
