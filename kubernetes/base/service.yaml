@@ -3,14 +3,16 @@ kind: Service
 apiVersion: v1
 
 metadata:
-  name: app
+  name: api-v1
 
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: statesman
     version: v1
+    component: api
   ports:
     - name: api
-      port: 8899
+      port: 5000
       targetPort: api
+      protocol: TCP

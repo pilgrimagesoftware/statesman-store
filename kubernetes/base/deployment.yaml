@@ -15,11 +15,13 @@ spec:
     matchLabels:
       app: statesman
       version: v1
+      component: api
   template:
     metadata:
       labels:
         app: statesman
         version: v1
+        component: api
     spec:
       serviceAccountName: api
       containers:
@@ -40,7 +42,15 @@ spec:
                 name: common
             - secretRef:
                 name: api
-          env: []
+          env:
+            - name: POD
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
           resources:
             requests:
               cpu: "20m"
@@ -48,16 +58,16 @@ spec:
             limits:
               cpu: "50m"
               memory: "200Mi"
-          # livenessProbe:
-          #   httpGet:
-          #     path: /_status/healthz
-          #     port: 5000
-          #   initialDelaySeconds: 90
-          #   timeoutSeconds: 10
-          # readinessProbe:
-          #   httpGet:
-          #     path: /_status/healthz
-          #     port: 5000
-          #   initialDelaySeconds: 30
-          #   timeoutSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health/ping
+              port: 5000
+            initialDelaySeconds: 90
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health/ping
+              port: 5000
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
       restartPolicy: Always
