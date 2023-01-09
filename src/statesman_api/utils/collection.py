@@ -1,13 +1,12 @@
 __author__ = "Paul Schifferer <paul@schifferers.net>"
 """
-user.py
-- User utilities
+collection.py
+- Collection utilities
 """
 
 
-from flask import current_app
 import json
-import os
+import os, logging
 from statesman_api import constants
 from statesman_api.common.exceptions import SignatureException
 from statesman_api.models.state_collection import StateCollection

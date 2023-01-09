@@ -98,7 +98,7 @@ def process_state_request(request:object):
         return "", 200
 
     params = text.split(" ")
-    # logging.debug("params: %s", params)
+    logging.debug("params: %s", params)
 
     with current_app.app_context():
         current_app.executor.submit(process_state_action, team_id, user_id, params, response_url)
