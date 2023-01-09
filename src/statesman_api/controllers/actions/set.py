@@ -16,18 +16,18 @@ from statesman_api.utils.access import check_collection_permission, check_item_p
 from statesman_api.models import constants as model_constants
 
 
-def execute(team_id:str, user_id:str, args:list) -> list:
-    current_app.logger.debug("team_id: %s, user_id: %s, args: %s", team_id, user_id, args)
+def execute(org_id:str, user_id:str, args:list) -> list:
+    current_app.logger.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
 
     if len(args) < 2:
         blocks = build_error_blocks('Unable to set item; usage: `set <name> <value> [default=<default>] [label=<label>] [permission=<default-permission>]`.')
         return blocks
 
     # get current state collection
-    user = create_or_fetch_user(user_id, team_id)
+    user = create_or_fetch_user(user_id, org_id)
     collection = get_current_collection(user)
     if collection is None:
-        blocks = build_error_blocks('Unable to set item; no current collection is set.\nTry one of these:') + list_collections(user_id, team_id)
+        blocks = build_error_blocks('Unable to set item; no current collection is set.\nTry one of these:') + list_collections(user_id, org_id)
         return blocks
 
     name = args[0]
@@ -38,7 +38,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
             blocks = build_error_blocks('Unable to create this item; you do not have permission to change this collection.')
             return blocks
 
-        item = StateItem(collection, user_id, team_id, name, value)
+        item = StateItem(collection, user_id, org_id, name, value)
 
         blocks = build_message_blocks(f'Created new item *{name}* with value *{value}*.')
     else:

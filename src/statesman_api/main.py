@@ -17,6 +17,7 @@ from werkzeug.exceptions import HTTPException
 from redis.client import Redis
 from sentry_sdk.integrations.wsgi import SentryWsgiMiddleware
 from flask_executor import Executor
+import os
 
 
 def create_app(app_name=constants.APPLICATION_NAME):
@@ -33,7 +34,7 @@ def create_app(app_name=constants.APPLICATION_NAME):
             'formatter': 'default'
         }},
         'root': {
-            'level': 'INFO',
+            'level': os.environ.get(constants.LOG_LEVEL, 'INFO'),
             'handlers': ['wsgi']
         }
     })
@@ -59,6 +60,9 @@ def create_app(app_name=constants.APPLICATION_NAME):
     # from flask_migrate import Migrate
     db.init_app(app)
     # migrate = Migrate(app, db)
+
+    from statesman_api.messaging import channel
+    app.messaging_channel = channel
 
     print(app.url_map)
 

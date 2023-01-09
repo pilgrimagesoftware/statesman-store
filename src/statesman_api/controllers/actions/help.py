@@ -11,8 +11,8 @@ import importlib
 from statesman_api.utils import get_package_modules
 
 
-def execute(team_id:str, user_id:str, args:list) -> list:
-    current_app.logger.debug("team_id: %s, user_id: %s, args: %s", team_id, user_id, args)
+def execute(org_id:str, user_id:str, args:list) -> list:
+    current_app.logger.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
 
     modules = get_package_modules('statesman_api.controllers.actions')
     current_app.logger.debug("modules: %s", modules)

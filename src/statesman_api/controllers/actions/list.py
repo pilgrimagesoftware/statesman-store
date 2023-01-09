@@ -12,14 +12,14 @@ from statesman_api.utils import build_error_blocks
 from statesman_api.utils.collection import list_collections
 
 
-def execute(team_id:str, user_id:str, args:list) -> list:
-    current_app.logger.debug("team_id: %s, user_id: %s, args: %s", team_id, user_id, args)
+def execute(org_id:str, user_id:str, args:list) -> list:
+    current_app.logger.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
 
     if len(args) != 0:
         blocks = build_error_blocks('Usage: `list`.')
         return blocks, True
 
-    count = StateCollection.query.filter_by(team_id=team_id).count()
+    count = StateCollection.query.filter_by(org_id=org_id).count()
 
     if count == 0:
         blocks = [
@@ -33,7 +33,7 @@ def execute(team_id:str, user_id:str, args:list) -> list:
         ]
         return blocks, True
     else:
-        return list_collections(user_id, team_id), True
+        return list_collections(user_id, org_id), True
 
 
 def help_info():

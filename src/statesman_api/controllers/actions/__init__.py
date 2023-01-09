@@ -26,14 +26,14 @@ def validate_action(params:list):
     return command, params[1:]
 
 
-def execute_action(team_id:str, user_id:str, command:str, args:list) -> list:
-    current_app.logger.debug("team_id: %s, user_id: %s, command: %s, args: %s", team_id, user_id, command, args)
+def execute_action(org_id:str, user_id:str, command:str, args:list) -> list:
+    current_app.logger.debug("org_id: %s, user_id: %s, command: %s, args: %s", org_id, user_id, command, args)
 
     module = importlib.import_module(f'statesman_api.controllers.actions.{command}')
     current_app.logger.debug("module: %s", module)
     func = getattr(module, 'execute')
     current_app.logger.debug("func: %s", func)
-    blocks = func(team_id, user_id, args)
+    blocks = func(org_id, user_id, args)
     current_app.logger.debug("blocks: %s", blocks)
 
     return blocks

@@ -14,14 +14,14 @@ from statesman_api.utils.user import create_or_fetch_user, get_current_collectio
 from statesman_api.utils.collection import list_collections, get_collection_items
 
 
-def execute(team_id:str, user_id:str, args:list) -> list:
-    current_app.logger.debug("team_id: %s, user_id: %s, args: %s", team_id, user_id, args)
+def execute(org_id:str, user_id:str, args:list) -> list:
+    current_app.logger.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
 
     if len(args) != 0:
         blocks = build_error_blocks('Usage: `current`.')
         return blocks
 
-    user = create_or_fetch_user(user_id, team_id)
+    user = create_or_fetch_user(user_id, org_id)
 
     collection = get_current_collection(user)
     if collection is None:
