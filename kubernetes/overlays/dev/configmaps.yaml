@@ -22,7 +22,7 @@ data:
   BUILD_INFO_PATH: /app/build-info.json
   RABBITMQ_HOST: "rabbitmq.statesman.svc.cluster.local"
   RABBITMQ_PORT: "5672"
-  RABBITMQ_VHOST: "/statesman"
+  RABBITMQ_VHOST: "statesman"
   RABBITMQ_EXCHANGE: "statesman"
   RABBITMQ_USER: "statesman-api"
   RABBITMQ_QUEUE: "api"
