@@ -57,8 +57,6 @@ docutils==0.18.1
     #   rstcheck-core
     #   sphinx
     #   sphinx-tabs
-exceptiongroup==1.1.0
-    # via pytest
 filelock==3.9.0
     # via
     #   tox
@@ -193,7 +191,7 @@ six==1.16.0
     # via tox
 snowballstemmer==2.2.0
     # via sphinx
-sphinx==6.0.0
+sphinx==6.1.2
     # via
     #   -r requirements/docs.in
     #   pallets-sphinx-themes
@@ -222,14 +220,6 @@ sqlalchemy==1.4.46
     # via
     #   alembic
     #   flask-sqlalchemy
-tomli==2.0.1
-    # via
-    #   black
-    #   build
-    #   coverage
-    #   pep517
-    #   pytest
-    #   tox
 tox==3.26.0
     # via -r requirements/tests.in
 typer[all]==0.7.0
