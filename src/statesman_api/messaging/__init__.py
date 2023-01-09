@@ -42,58 +42,51 @@ def send_amqp_response(msg, response_data:dict, is_private:bool=False):
     channel.basic_publish(exchange=os.environ[constants.RABBITMQ_EXCHANGE], routing_key=response_data['queue'], body=body)
 
 
-class MessageConsumer(Thread):
+def amqp_message_callback(ch, method, properties, body):
     """_summary_
 
     Args:
-        Thread (_type_): _description_
+        ch (_type_): _description_
+        method (_type_): _description_
+        properties (_type_): _description_
+        body (_type_): _description_
     """
+    logging.info("ch: %s, method: %s, properties: %s, body: %s", ch, method, properties, body)
 
-    def message_callback(self, ch, method, properties, body):
-        """_summary_
+    # extract info
+    msg = json.loads(body)
+    logging.debug("msg: %s", msg)
+    sender = msg['sender']
+    timestamp = msg['timestamp']
+    response_data = msg['response_data']
+    logging.debug("response_data: %s", response_data)
+    user = msg['user']
+    user_data = user['data']
+    user_id = user['canonical_id']
+    org_id = user['org_id']
+    logging.debug("user: %s", user)
+    command = msg['data']['command']
+    logging.debug("command: %s", command)
 
-        Args:
-            ch (_type_): _description_
-            method (_type_): _description_
-            properties (_type_): _description_
-            body (_type_): _description_
-        """
-        logging.info("ch: %s, method: %s, properties: %s, body: %s", ch, method, properties, body)
+    # process the command
+    params = command.split(" ")
+    with current_app.app_context():
+        logging.debug("params: %s", params)
+        command, args = validate_action(params)
+        logging.debug("command: %s, args: %s", command, args)
+        body_data, private = execute_action(org_id, user_id, command, args)
+        logging.debug("body_data: %s, private: %s", body_data, private)
 
-        # extract info
-        msg = json.loads(body)
-        logging.debug("msg: %s", msg)
-        sender = msg['sender']
-        timestamp = msg['timestamp']
-        response_data = msg['response_data']
-        logging.debug("response_data: %s", response_data)
-        user = msg['user']
-        user_data = user['data']
-        user_id = user['canonical_id']
-        org_id = user['org_id']
-        logging.debug("user: %s", user)
-        command = msg['data']['command']
-        logging.debug("command: %s", command)
-
-        # process the command
-        params = command.split(" ")
-        with current_app.app_context():
-            logging.debug("params: %s", params)
-            command, args = validate_action(params)
-            logging.debug("command: %s, args: %s", command, args)
-            body_data, private = execute_action(org_id, user_id, command, args)
-            logging.debug("body_data: %s, private: %s", body_data, private)
-
-        # send reponse
-        send_amqp_response(body_data, response_data, private)
+    # send reponse
+    send_amqp_response(body_data, response_data, private)
 
 
-    def run(self):
-        logging.info("Consumer thread started.")
-        channel.basic_consume(queue=os.environ[constants.RABBITMQ_QUEUE], on_message_callback=self.message_callback, auto_ack=True)
-        channel.start_consuming()
+def amqp_run():
+    logging.info("Consumer thread started.")
+    channel.basic_consume(queue=os.environ[constants.RABBITMQ_QUEUE], on_message_callback=amqp_message_callback, auto_ack=True)
+    channel.start_consuming()
 
 
-consumer_thread = MessageConsumer()
-consumer_thread.setDaemon(True)
-consumer_thread.start()
+# consumer_thread = MessageConsumer()
+# consumer_thread.setDaemon(True)
+# consumer_thread.start()

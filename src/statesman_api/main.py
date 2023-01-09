@@ -61,8 +61,8 @@ def create_app(app_name=constants.APPLICATION_NAME):
     db.init_app(app)
     # migrate = Migrate(app, db)
 
-    from statesman_api.messaging import channel
-    app.messaging_channel = channel
+    from statesman_api.messaging import amqp_run
+    app.executor.submit(amqp_run)
 
     print(app.url_map)
 
