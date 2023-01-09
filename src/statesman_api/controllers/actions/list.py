@@ -10,6 +10,7 @@ import redis
 from statesman_api.models.state_collection import StateCollection
 from statesman_api.utils import build_error_blocks
 from statesman_api.utils.collection import list_collections
+import logging
 
 
 def execute(org_id:str, user_id:str, args:list) -> list:

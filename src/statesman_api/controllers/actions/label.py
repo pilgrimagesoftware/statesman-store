@@ -14,6 +14,7 @@ from statesman_api.utils.user import set_current_collection, create_or_fetch_use
 from statesman_api.utils.collection import list_collections
 from statesman_api.utils.access import check_collection_permission, check_item_permission
 from statesman_api.models import constants as model_constants
+import logging
 
 
 def execute(org_id:str, user_id:str, args:list) -> list:
