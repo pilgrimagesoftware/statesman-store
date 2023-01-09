@@ -24,12 +24,15 @@ def get_package_modules(package:str) -> list:
 def build_error_blocks(msg:str) -> list:
     blocks = [
         {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": f"❗️ {msg} 😢",
-            }
-        },
+            "text": f"❗️ {msg} 😢",
+        }
+        #     {
+        #         "type": "section",
+        #         "text": {
+        #             "type": "mrkdwn",
+        #             "text": f"❗️ {msg} 😢",
+        #         }
+        #     },
     ]
 
     return blocks
@@ -38,11 +41,7 @@ def build_error_blocks(msg:str) -> list:
 def build_message_blocks(msg:str) -> list:
     blocks = [
         {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": f"✅ {msg} 👍🏼",
-            }
+            "text":  f"✅ {msg} 👍🏼",
         },
     ]
 

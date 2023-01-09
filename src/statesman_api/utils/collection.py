@@ -25,41 +25,30 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
     if len(items) == 0:
         blocks = [
             {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
                     "text": f"_Collection *{collection.name}* is empty_."
-                }
-            },
+            }
         ]
         return blocks
 
     blocks = [
         {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
                 "text": f"Collection: *<{collection.name}|{collection.name}>*"
-            },
-            "accessory": {
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "emoji": True,
-                    "text": "Use"
-                },
-                "value": f"use:{collection.name}"
-            }
+            # },
+            # "accessory": {
+            #     "type": "button",
+            #     "text": {
+            #         "type": "plain_text",
+            #         "emoji": True,
+            #         "text": "Use"
+            #     },
+            #     "value": f"use:{collection.name}"
+            # }
         },
         {
             "type": "divider"
         },
         {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
                 "text": f"_Items_:"
-            }
         },
     ]
 
@@ -79,48 +68,45 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
             item_info += f"\n_Default value_: *{item.default_value}*"
 
         field = {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
                 "text": item_info,
-            },
-            "accessory": {
-                "type": "overflow",
-                "options": [
-                    {
-                        "text": {
-                            "type": "plain_text",
-                            "emoji": True,
-                            "text": "Increment"
-                        },
-                        "value": f"add:{item.name}"
-                    },
-                    {
-                        "text": {
-                            "type": "plain_text",
-                            "emoji": True,
-                            "text": "Decrement"
-                        },
-                        "value": f"subtract:{item.name}"
-                    },
-                    {
-                        "text": {
-                            "type": "plain_text",
-                            "emoji": True,
-                            "text": "Reset"
-                        },
-                        "value": f"reset:{item.name}"
-                    },
-                    {
-                        "text": {
-                            "type": "plain_text",
-                            "emoji": True,
-                            "text": "Unset"
-                        },
-                        "value": f"unset:{item.name}"
-                    },
-                ]
-            }
+            # },
+            # "accessory": {
+            #     "type": "overflow",
+            #     "options": [
+            #         {
+            #             "text": {
+            #                 "type": "plain_text",
+            #                 "emoji": True,
+            #                 "text": "Increment"
+            #             },
+            #             "value": f"add:{item.name}"
+            #         },
+            #         {
+            #             "text": {
+            #                 "type": "plain_text",
+            #                 "emoji": True,
+            #                 "text": "Decrement"
+            #             },
+            #             "value": f"subtract:{item.name}"
+            #         },
+            #         {
+            #             "text": {
+            #                 "type": "plain_text",
+            #                 "emoji": True,
+            #                 "text": "Reset"
+            #             },
+            #             "value": f"reset:{item.name}"
+            #         },
+            #         {
+            #             "text": {
+            #                 "type": "plain_text",
+            #                 "emoji": True,
+            #                 "text": "Unset"
+            #             },
+            #             "value": f"unset:{item.name}"
+            #         },
+            #     ]
+            # }
         }
         blocks.append(field)
 
@@ -140,11 +126,7 @@ def list_collections(user_id:str, team_id:str) -> list:
 
     blocks = [
         {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
                 "text": "_Here are the state collections you can use_:"
-            }
         },
         {
             "type": "divider"
@@ -157,20 +139,17 @@ def list_collections(user_id:str, team_id:str) -> list:
             continue
 
         blocks.append({
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
                 "text": f"*{c.name}*\nCreated by <@{c.creator_id}>"
-            },
-            "accessory": {
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "emoji": True,
-                    "text": "Use"
-                },
-                "value": f"use:{c.name}"
-            }
+            # },
+            # "accessory": {
+            #     "type": "button",
+            #     "text": {
+            #         "type": "plain_text",
+            #         "emoji": True,
+            #         "text": "Use"
+            #     },
+            #     "value": f"use:{c.name}"
+            # }
         })
 
     return blocks

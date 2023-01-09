@@ -25,16 +25,12 @@ def execute(org_id:str, user_id:str, args:list) -> list:
     if count == 0:
         blocks = [
             {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "_There are no collections in your team._"
-                }
+                    "text": "_There are no collections that you can access._"
             },
         ]
         return blocks, True
-    else:
-        return list_collections(user_id, org_id), True
+
+    return list_collections(user_id, org_id), True
 
 
 def help_info():

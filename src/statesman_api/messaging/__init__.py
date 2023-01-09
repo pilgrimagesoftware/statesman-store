@@ -3,6 +3,7 @@ __author__ = "Paul Schifferer <paul@schifferers.net>"
 - Messaging
 """
 
+from flask import current_app
 import logging, os, json, time
 import pika
 from statesman_api import constants
@@ -76,11 +77,12 @@ class MessageConsumer(Thread):
 
         # process the command
         params = command.split(" ")
-        logging.debug("params: %s", params)
-        command, args = validate_action(params)
-        logging.debug("command: %s, args: %s", command, args)
-        body_data, private = execute_action(org_id, user_id, command, args)
-        logging.debug("body_data: %s, private: %s", body_data, private)
+        with current_app.app_context():
+            logging.debug("params: %s", params)
+            command, args = validate_action(params)
+            logging.debug("command: %s, args: %s", command, args)
+            body_data, private = execute_action(org_id, user_id, command, args)
+            logging.debug("body_data: %s, private: %s", body_data, private)
 
         # send reponse
         send_amqp_response(body_data, response_data, private)
