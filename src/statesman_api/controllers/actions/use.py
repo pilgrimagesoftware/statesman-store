@@ -11,6 +11,7 @@ from statesman_api.db import db
 from statesman_api.models.state_collection import StateCollection
 from statesman_api.utils import build_message_blocks, build_error_blocks
 from statesman_api.utils.user import set_current_collection, create_or_fetch_user
+import logging
 
 
 def execute(org_id:str, user_id:str, args:list) -> list:

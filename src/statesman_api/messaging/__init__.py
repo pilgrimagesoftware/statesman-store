@@ -7,6 +7,7 @@ import logging, os, json, time
 import pika
 from statesman_api import constants
 from threading import Thread
+from statesman_api.controllers.actions import validate_action, execute_action
 
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
@@ -18,7 +19,7 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(
 channel = connection.channel()
 
 
-def send_amqp_response(msg, response_data:dict):
+def send_amqp_response(msg, response_data:dict, is_private:bool=False):
     """_summary_
 
     Args:
@@ -30,7 +31,10 @@ def send_amqp_response(msg, response_data:dict):
         "sender": os.environ[constants.POD],
         "timestamp": time.time(),
         "response_data": response_data,
-        "answer": msg,
+        "answer": {
+            "private": is_private,
+            "data": msg,
+        }
     }
     body = json.dumps(body_data)
     logging.debug("body: %s", body)
@@ -63,15 +67,23 @@ class MessageConsumer(Thread):
         response_data = msg['response_data']
         logging.debug("response_data: %s", response_data)
         user = msg['user']
+        user_data = user['data']
+        user_id = user['canonical_id']
+        org_id = user['org_id']
         logging.debug("user: %s", user)
         command = msg['data']['command']
         logging.debug("command: %s", command)
 
-        # TODO: process the command
-        body_data = {}
+        # process the command
+        params = command.split(" ")
+        logging.debug("params: %s", params)
+        command, args = validate_action(params)
+        logging.debug("command: %s, args: %s", command, args)
+        body_data, private = execute_action(org_id, user_id, command, args)
+        logging.debug("body_data: %s, private: %s", body_data, private)
 
         # send reponse
-        send_amqp_response(body_data, response_data)
+        send_amqp_response(body_data, response_data, private)
 
 
     def run(self):
