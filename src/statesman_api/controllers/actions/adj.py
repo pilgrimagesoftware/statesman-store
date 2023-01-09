@@ -7,6 +7,7 @@ adj.py
 
 from flask import current_app
 from statesman_api.controllers.actions import adjust
+import logging
 
 
 def execute(org_id:str, user_id:str, args:list) -> list:
