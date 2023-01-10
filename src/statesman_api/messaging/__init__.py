@@ -84,7 +84,7 @@ class MessageConsumer(Thread):
 
         # send to local endpoint
         headers = {
-            'Authorization': f'Private {get_private_key()}'
+            'Authorization': f'{constants.INTERNAL_AUTH_TYPE} {get_private_key()}'
         }
         state_body = {
             'org_id': org_id,
