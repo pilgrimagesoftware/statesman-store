@@ -4,6 +4,10 @@ on:
     workflow_dispatch:
     repository_dispatch:
         types: []
+    push:
+        branches: [develop]
+        paths:
+            - "requirements/**"
 
 jobs:
     update-reqs:
