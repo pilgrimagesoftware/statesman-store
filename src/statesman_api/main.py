@@ -23,7 +23,7 @@ def create_app(app_name=constants.APPLICATION_NAME):
         'version': 1,
         'formatters': {
             'default': {
-                'format': '[%(asctime)s] %(levelname)s %(module)s, line %(lineno)d: %(message)s',
+                'format': '[%(asctime)s] %(levelname)s %(pathname)s %(func)s, line %(lineno)d: %(message)s',
             }
         },
         'handlers': {'wsgi': {
