@@ -1,6 +1,5 @@
 __author__ = "Paul Schifferer <paul@schifferers.net>"
 """
-state.py
 - State API
 """
 
@@ -8,8 +7,8 @@ state.py
 from datetime import datetime
 import logging
 from werkzeug.exceptions import Forbidden, BadRequest, NotFound
-from flask import session, jsonify, request, current_app
-from statesman_api.blueprints.api import blueprint
+from flask import session, jsonify, request, current_app, Blueprint
+# from statesman_api.blueprints.api import blueprint
 from statesman_api import constants
 from statesman_api.db import db
 from statesman_api.controllers.state import process_state_request, handle_ssl_check, SslCheckHandled
@@ -20,9 +19,12 @@ from statesman_api.blueprints.api.exceptions import error_response
 from statesman_api.common.exceptions import SignatureException
 
 
-@blueprint.route('/state', methods=['POST'])
+blueprint = Blueprint("state", __name__, url_prefix="/state")
+
+
+@blueprint.route('/', methods=['POST'])
 def post_state_action():
-    logging.debug("POST /state: %s", request)
+    logging.debug("POST /state/: %s", request)
 
     try:
         handle_ssl_check(request)

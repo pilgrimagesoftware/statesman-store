@@ -17,9 +17,6 @@ from statesman_api.blueprints.api.exceptions import error_response
 from werkzeug.exceptions import Unauthorized, BadRequest, Forbidden
 
 
-blueprint = Blueprint("api", __name__)
-
-
 class UserAuthorizationException(Exception):
     def __init__(self, reason: str):
         self.reason = reason
@@ -110,12 +107,12 @@ def user_optional(f):
     return _get_user
 
 
-@blueprint.errorhandler(Exception)
-def error_handler(ex):
-    logging.exception(f"Exception caught: {ex}")
-    response = jsonify(message=str(ex))
-    response.status_code = ex.code if isinstance(ex, HTTPException) else 500
-    return response
+# @blueprint.errorhandler(Exception)
+# def error_handler(ex):
+#     logging.exception(f"Exception caught: {ex}")
+#     response = jsonify(message=str(ex))
+#     response.status_code = ex.code if isinstance(ex, HTTPException) else 500
+#     return response
 
 
-from statesman_api.blueprints.api.state import state
+# from statesman_api.blueprints.api.state import state

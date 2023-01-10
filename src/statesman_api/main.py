@@ -48,11 +48,11 @@ def create_app(app_name=constants.APPLICATION_NAME):
 
     app.executor = Executor(app)
 
-    from statesman_api.blueprints.api import blueprint as api_blueprint
-    app.register_blueprint(api_blueprint, url_prefix="/api/v1")
+    from statesman_api.blueprints.api.state import blueprint as state_blueprint
+    app.register_blueprint(state_blueprint)
 
     from statesman_api.blueprints.health import blueprint as health_blueprint
-    app.register_blueprint(health_blueprint, url_prefix="/health")
+    app.register_blueprint(health_blueprint)
 
     from statesman_api.db import db
     # from flask_migrate import Migrate
