@@ -7,12 +7,10 @@ main.py
 
 from flask import Flask, session
 from flask_session import Session
-# from flask_cors import CORS
 # from application.cache import cache
 from statesman_api import constants
 from logging.config import dictConfig
 from statesman_api.blueprints import error_page
-# from application.controllers.minecraft import load_servers
 from werkzeug.exceptions import HTTPException
 from redis.client import Redis
 from sentry_sdk.integrations.wsgi import SentryWsgiMiddleware
@@ -61,8 +59,10 @@ def create_app(app_name=constants.APPLICATION_NAME):
     db.init_app(app)
     # migrate = Migrate(app, db)
 
-    from statesman_api.messaging import amqp_run
-    app.executor.submit(amqp_run)
+    # from statesman_api.messaging import amqp_run
+    # app.executor.submit(amqp_run)
+    from statesman_api.messaging import channel
+    app.messaging_channel = channel
 
     print(app.url_map)
 
