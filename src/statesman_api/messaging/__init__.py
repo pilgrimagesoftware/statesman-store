@@ -21,7 +21,7 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(
 channel = connection.channel()
 
 
-def send_amqp_response(msg, response_data:dict, is_private:bool=False):
+def send_amqp_response(msg, response_data:dict, is_private:bool=False) -> bool:
     """_summary_
 
     Args:
@@ -40,7 +40,13 @@ def send_amqp_response(msg, response_data:dict, is_private:bool=False):
     }
     body = json.dumps(body_data)
     logging.debug("body: %s", body)
-    channel.basic_publish(exchange=os.environ[constants.RABBITMQ_EXCHANGE], routing_key=response_data['queue'], body=body)
+    try:
+        channel.basic_publish(exchange=os.environ[constants.RABBITMQ_EXCHANGE], routing_key=response_data['queue'], body=body)
+    except Exception as e:
+        logging.exception("Exception while attempting to publish message:", e)
+        return False
+
+    return True
 
 
 class MessageConsumer(Thread):
@@ -101,7 +107,8 @@ class MessageConsumer(Thread):
         # logging.debug("body_data: %s, private: %s", body_data, private)
 
         # send reponse
-        send_amqp_response(body_data, response_data, private)
+        was_sent = send_amqp_response(body_data, response_data, private)
+        logging.info("Message was sent? %s", was_sent)
 
 
     def run(self):
