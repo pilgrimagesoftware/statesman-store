@@ -61,8 +61,8 @@ def create_app(app_name=constants.APPLICATION_NAME):
 
     # from statesman_api.messaging import amqp_run
     # app.executor.submit(amqp_run)
-    from statesman_api.messaging import connection
-    app.messaging_connection = connection
+    from statesman_api.messaging import consumer_thread
+    app.consumer_thread = consumer_thread
 
     print(app.url_map)
 
