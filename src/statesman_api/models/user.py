@@ -20,16 +20,16 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.String(20), nullable=False)
-    team_id = db.Column(db.String(20), nullable=False)
+    org_id = db.Column(db.String(20), nullable=False)
     current_state_id = db.Column(db.Integer, db.ForeignKey('state_collections.id'))
 
-    def __init__(self, team_id:str, user_id:str):
-        self.team_id = team_id
+    def __init__(self, org_id:str, user_id:str):
+        self.org_id = org_id
         self.user_id = user_id
 
     def to_dict(self):
         return dict(id=self.id,
-                    team_id=self.team_id,
+                    org_id=self.org_id,
                     user_id=self.user_id,
                     current_state_id=self.current_state_id,
                     creator_id=self.creator_id,

@@ -22,22 +22,22 @@ class StateItem(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
     collection_id = db.Column(db.Integer, db.ForeignKey('state_collections.id'))
-    team_id = db.Column(db.String(20), nullable=False)
+    org_id = db.Column(db.String(20), nullable=False)
     name = db.Column(db.String(50), nullable=False)
     value = db.Column(db.String(100), nullable=True)
     default_value = db.Column(db.String(100), nullable=True)
     label = db.Column(db.String(50), nullable=True)
 
-    def __init__(self, collection:StateCollection, creator_id:str, team_id:str, name:str, value:str):
+    def __init__(self, collection:StateCollection, creator_id:str, org_id:str, name:str, value:str):
         self.collection_id = collection.id
         self.creator_id = creator_id
-        self.team_id = team_id
+        self.org_id = org_id
         self.name = name
         self.value = value
 
     def to_dict(self):
         return dict(id=self.id,
-                    team_id=self.team_id,
+                    org_id=self.org_id,
                     name=self.name,
                     value=self.value,
                     default_value=self.default_value,
@@ -61,7 +61,7 @@ class StateItemUserPermission(db.Model):
     permission = db.Column(db.String(10), default=model_constants.PERMISSION_READ)
 
     def __init__(self, user_id:str, item:StateItem, permission:str = model_constants.PERMISSION_READ):
-        self.team_id = team_id
+        self.user_id = user_id
         self.item_id = item.id
         self.permission = permission
 

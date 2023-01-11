@@ -21,17 +21,17 @@ class StateCollection(db.Model):
     creator_id = db.Column(db.String(20), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
-    team_id = db.Column(db.String(20), nullable=False)
+    org_id = db.Column(db.String(20), nullable=False)
     name = db.Column(db.String(50), nullable=False)
 
     def __init__(self, user:User, name:str):
         self.creator_id = user.user_id
-        self.team_id = user.team_id
+        self.org_id = user.org_id
         self.name = name
 
     def to_dict(self):
         return dict(id=self.id,
-                    team_id=self.team_id,
+                    org_id=self.org_id,
                     name=self.name,
                     creator_id=self.creator_id,
                     created_at=self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
@@ -51,7 +51,7 @@ class StateCollectionUserPermission(db.Model):
     permission = db.Column(db.String(10), default=model_constants.PERMISSION_READ)
 
     def __init__(self, user_id:str, collection:StateCollection, permission:str = model_constants.PERMISSION_READ):
-        self.team_id = team_id
+        self.user_id = user_id
         self.collection_id = collection.id
         self.permission = permission
 
