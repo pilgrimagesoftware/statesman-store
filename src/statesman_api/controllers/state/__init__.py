@@ -98,16 +98,16 @@ def process_state_request(request:object):
 
     text = body.get('text')
     logging.debug("text: '%s'", text)
-    if text is None or len(text.strip()) == 0:
+    if text is None or len(text) == 0:
         return process_state_action(org_id, user_id, ['help'], private=True)
         # return "", 200
 
-    params = text.split(" ")
-    logging.debug("params: %s", params)
+    # params = text.split(" ")
+    # logging.debug("params: %s", params)
 
     # with current_app.app_context():
     #     current_app.executor.submit(process_state_action, org_id, user_id, params, response_url)
     # thread = Thread(target=process_state_action, args=(org_id, user_id, params, response_url))
     # thread.start()
 
-    return process_state_action(org_id, user_id, params), 200
+    return process_state_action(org_id, user_id, text), 200
