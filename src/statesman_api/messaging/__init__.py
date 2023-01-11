@@ -18,7 +18,6 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(
             os.environ[constants.RABBITMQ_VHOST],
             pika.PlainCredentials(os.environ[constants.RABBITMQ_USER], os.environ[constants.RABBITMQ_PASSWORD]),
         ))
-channel = connection.channel()
 
 
 def send_amqp_response(msg, response_data:dict, is_private:bool=False) -> bool:
@@ -40,11 +39,14 @@ def send_amqp_response(msg, response_data:dict, is_private:bool=False) -> bool:
     }
     body = json.dumps(body_data)
     logging.debug("body: %s", body)
+    channel = connection.channel()
     try:
         channel.basic_publish(exchange=os.environ[constants.RABBITMQ_EXCHANGE], routing_key=response_data['queue'], body=body)
     except Exception as e:
         logging.exception("Exception while attempting to publish message:", e)
         return False
+    finally:
+        channel.close()
 
     return True
 
@@ -91,7 +93,7 @@ class MessageConsumer(Thread):
             'user_id': user_id,
             'text': command.split(" ")
         }
-        url = f"http://localhost:{os.environ[constants.PORT]}/state"
+        url = f"http://localhost:{os.environ.get(constants.PORT, 5000)}/state/"
         r = requests.post(url, headers=headers, json=state_body)
         logging.info("code: %d, headers: %s, body: %s", r.status_code, r.headers, r.text)
         response_body = r.json()
@@ -113,8 +115,10 @@ class MessageConsumer(Thread):
 
     def run(self):
         logging.info("Consumer thread started.")
+        channel = connection.channel()
         channel.basic_consume(queue=os.environ[constants.RABBITMQ_QUEUE], on_message_callback=self.message_callback, auto_ack=True)
         channel.start_consuming()
+        channel.close()
 
 
 consumer_thread = MessageConsumer()
