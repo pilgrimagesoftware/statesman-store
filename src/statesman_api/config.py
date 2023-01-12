@@ -14,7 +14,7 @@ from statesman_api import constants
 
 class BaseConfig(object):
     DEBUG = bool(os.environ.get(constants.DEBUG, True))
-    PORT = int(os.environ.get(constants.PORT, "5000"))
+    PORT = int(os.environ.get(constants.PORT, "5001"))
     LOG_LEVEL = os.environ.get(constants.LOG_LEVEL, "INFO")
     APP_SHARED_SECRET = os.environ.get(constants.APP_SHARED_SECRET, "")
     # ASSETS_DEBUG = True

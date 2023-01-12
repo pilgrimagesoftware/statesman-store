@@ -4,7 +4,10 @@ appserver.py
 - creates an application instance and runs the dev server
 """
 
-if __name__ == '__main__':
+import os
+
+if __name__ == "__main__":
     from statesman_api.main import create_app
+
     app = create_app()
-    app.run(host='0.0.0.0', port=8899, debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", "5000")), debug=True)
