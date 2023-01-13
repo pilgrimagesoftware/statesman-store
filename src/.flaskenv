@@ -1,0 +1,2 @@
+FLASK_ENV=Development
+FLASK_APP=statesman_api.main
