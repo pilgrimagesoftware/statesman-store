@@ -23,22 +23,22 @@ def execute(org_id: str, user_id: str, args: list) -> list:
 
     if len(args) != 1:
         data = build_error_data("Usage: `unset <name>`.")
-        return data
+        return data, True
 
     # get current state collection
     user = create_or_fetch_user(user_id, org_id)
     collection = get_current_collection(user)
     if collection is None:
         data = build_error_data("Unable to uset item; no current collection is set.\nTry one of these:") + list_collections(user_id, org_id)
-        return data
+        return data, True
 
     parsed_args = parse_args(args)
-    name = parsed_args['name']
+    name = parsed_args["name"]
     item = StateItem.query.filter_by(collection_id=collection.id, name=name).one_or_none()
     if item is not None:
         if not check_item_permission(user, item, model_constants.PERMISSION_WRITE):
             data = build_error_data("Unable to unset this item; you do not have permission to write to it.")
-            return data
+            return data, True
 
         db.session.delete(item)
         db.session.commit()

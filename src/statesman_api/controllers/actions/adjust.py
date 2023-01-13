@@ -24,14 +24,14 @@ def execute(org_id: str, user_id: str, args: list) -> list:
 
     if len(args) != 3:
         data = build_error_data("Usage: `adj[ust] <name> <+|-|*|/> <value>`.")
-        return data
+        return data, True
 
     # get current state collection
     user = create_or_fetch_user(user_id, org_id)
     collection = get_current_collection(user)
     if collection is None:
         data = build_error_data("Unable to adjust item's value; no current collection is set.\nTry one of these:") + list_collections(user_id, org_id)
-        return data
+        return data, True
 
     parsed_args = parse_args(args)
     name = parsed_args['name']
@@ -43,7 +43,7 @@ def execute(org_id: str, user_id: str, args: list) -> list:
     else:
         if not check_item_permission(user, item, model_constants.PERMISSION_WRITE):
             data = build_error_data("Unable to adjust item; you do not have permission to write to it.")
-            return data
+            return data, True
 
         if op == "+":
             op = model_constants.ADJUST_OP_ADD
@@ -55,13 +55,13 @@ def execute(org_id: str, user_id: str, args: list) -> list:
             op = model_constants.ADJUST_OP_DIVIDE
         else:
             data = build_error_data(f"Unable to adjust item; unknown or unsupported operator: {op}")
-            return data
+            return data, True
 
         try:
             adjust_item(item, op, value)
         except:
             data = build_error_data("Unable to adjust item; it's value is not an number.")
-            return data
+            return data, True
 
         db.session.add(item)
         db.session.commit()

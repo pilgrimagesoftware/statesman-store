@@ -25,23 +25,23 @@ def execute(org_id: str, user_id: str, args: list) -> list:
         data = build_error_data(
             "Unable to set item; usage: `set <name> <value> [default=<default>] [label=<label>] [permission=<default-permission>]`."
         )
-        return data
+        return data, True
 
     # get current state collection
     user = create_or_fetch_user(user_id, org_id)
     collection = get_current_collection(user)
     if collection is None:
         data = build_error_data("Unable to set item; no current collection is set.\nTry one of these:") + list_collections(user_id, org_id)
-        return data
+        return data, True
 
     parsed_args = parse_args(args)
-    name = parsed_args['name']
-    value = parsed_args['value']
+    name = parsed_args["name"]
+    value = parsed_args["value"]
     item = StateItem.query.filter_by(collection_id=collection.id, name=name).one_or_none()
     if item is None:
         if not check_collection_permission(user, collection, model_constants.PERMISSION_WRITE):
             data = build_error_data("Unable to create this item; you do not have permission to change this collection.")
-            return data
+            return data, True
 
         item = StateItem(collection, user_id, org_id, name, value)
 
@@ -49,7 +49,7 @@ def execute(org_id: str, user_id: str, args: list) -> list:
     else:
         if not check_item_permission(user, item, model_constants.PERMISSION_WRITE):
             data = build_error_data("Unable to update this item; you do not have permission to write to it.")
-            return data
+            return data, True
 
         item.value = value
 

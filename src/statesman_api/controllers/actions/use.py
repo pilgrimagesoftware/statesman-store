@@ -20,7 +20,7 @@ def execute(org_id: str, user_id: str, args: list) -> list:
 
     if len(args) != 0:
         data = build_error_data("Usage: `use <name>`.")
-        return data
+        return data, True
 
     # check to see if collection already exists (for team)
     parsed_args = parse_args(args)

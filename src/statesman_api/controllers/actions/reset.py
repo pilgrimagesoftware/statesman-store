@@ -23,13 +23,13 @@ def execute(org_id: str, user_id: str, args: list) -> list:
 
     if len(args) != 0:
         data = build_error_data("Usage: `reset`.")
-        return data
+        return data, True
 
     user = create_or_fetch_user(user_id, org_id)
     collection = get_current_collection(user)
     if collection is None:
         data = build_error_data("No collection is set for you; try one of these:") + list_collections(user_id, org_id)
-        return data
+        return data, True
 
     items = StateItem.query.filter_by(collection_id=collection.id).all()
     for item in items:

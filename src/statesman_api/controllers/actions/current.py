@@ -20,14 +20,14 @@ def execute(org_id: str, user_id: str, args: list) -> list:
 
     if len(args) != 0:
         data = build_error_data("Usage: `current`.")
-        return data
+        return data, True
 
     user = create_or_fetch_user(user_id, org_id)
 
     collection = get_current_collection(user)
     if collection is None:
         data = build_message_data("A current collection is not set for you; try one of these:") + list_collections(user_id)
-        return data
+        return data, True
 
     data = get_collection_items(collection, user)
 

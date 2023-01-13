@@ -23,30 +23,23 @@ def get_package_modules(package: str) -> list:
 
 
 def build_error_data(msg: str) -> list:
-    blocks = [
+    data = [
         {
             "text": f"❗️ {msg} 😢",
         }
-        #     {
-        #         "type": "section",
-        #         "text": {
-        #             "type": "mrkdwn",
-        #             "text": f"❗️ {msg} 😢",
-        #         }
-        #     },
     ]
 
-    return blocks
+    return data
 
 
 def build_message_data(msg: str) -> list:
-    blocks = [
+    data = [
         {
             "text": f"✅ {msg} 👍🏼",
         },
     ]
 
-    return blocks
+    return data
 
 
 class SafeEncoder(json.JSONEncoder):

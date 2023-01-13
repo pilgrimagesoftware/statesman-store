@@ -23,91 +23,31 @@ def get_collection_items(collection: StateCollection, user: User) -> list:
 
     items = StateItem.query.filter_by(collection_id=collection.id).all()
     if len(items) == 0:
-        blocks = [{"text": f"_Collection *{collection.name}* is empty_."}]
-        return blocks
+        data = [{"text": f"_Collection *{collection.name}* is empty_."}]
+        return data
 
-    blocks = [
-        {
-            "text": f"Collection: *<{collection.name}|{collection.name}>*"
-            # },
-            # "accessory": {
-            #     "type": "button",
-            #     "text": {
-            #         "type": "plain_text",
-            #         "emoji": True,
-            #         "text": "Use"
-            #     },
-            #     "value": f"use:{collection.name}"
-            # }
-        },
+    data = [
+        {"text": f"Collection: *<{collection.name}|{collection.name}>*"},
         {"type": "divider"},
         {"text": f"_Items_:"},
     ]
 
-    # fields = []
     for item in items:
         if not check_item_permission(user, item, model_constants.PERMISSION_READ):
             logging.debug("User %s does not have permission to read item %s.", user, item)
             continue
 
-        label = item.name
-        if item.label is not None and len(item.label) > 0:
-            label = f"{item.label} ({item.name})"
+        item_info = {"value": item.value, "name": item.name}
 
-        item_info = f"*{label}*: {item.value}"
+        if item.label is not None and len(item.label) > 0:
+            item_info["label"] = item.label
 
         if item.default_value is not None and len(item.default_value) > 0:
-            item_info += f"\n_Default value_: *{item.default_value}*"
+            item_info["default"] = item.default_value
 
-        field = {
-            "text": item_info,
-            # },
-            # "accessory": {
-            #     "type": "overflow",
-            #     "options": [
-            #         {
-            #             "text": {
-            #                 "type": "plain_text",
-            #                 "emoji": True,
-            #                 "text": "Increment"
-            #             },
-            #             "value": f"add:{item.name}"
-            #         },
-            #         {
-            #             "text": {
-            #                 "type": "plain_text",
-            #                 "emoji": True,
-            #                 "text": "Decrement"
-            #             },
-            #             "value": f"subtract:{item.name}"
-            #         },
-            #         {
-            #             "text": {
-            #                 "type": "plain_text",
-            #                 "emoji": True,
-            #                 "text": "Reset"
-            #             },
-            #             "value": f"reset:{item.name}"
-            #         },
-            #         {
-            #             "text": {
-            #                 "type": "plain_text",
-            #                 "emoji": True,
-            #                 "text": "Unset"
-            #             },
-            #             "value": f"unset:{item.name}"
-            #         },
-            #     ]
-            # }
-        }
-        blocks.append(field)
+        data.append({"item": item_info})
 
-    # blocks.append({
-    #     "type": "section",
-    #     "fields": fields,
-    # })
-
-    return blocks
+    return data
 
 
 def list_collections(user_id: str, org_id: str) -> list:
