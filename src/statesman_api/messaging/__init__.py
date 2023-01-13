@@ -4,7 +4,7 @@ __author__ = "Paul Schifferer <paul@schifferers.net>"
 """
 
 from flask import current_app
-import logging, os, json, time
+import logging, os, json, time, socket
 import pika, requests
 from statesman_api import constants
 from threading import Thread
@@ -12,7 +12,7 @@ from statesman_api.controllers.actions import validate_action, execute_action
 from statesman_api.utils.misc import get_private_key
 
 
-def send_amqp_response(msg, response_data:dict, is_private:bool=False) -> bool:
+def send_amqp_response(msg, response_data: dict, is_private: bool = False) -> bool:
     """_summary_
 
     Args:
@@ -21,25 +21,27 @@ def send_amqp_response(msg, response_data:dict, is_private:bool=False) -> bool:
     logging.debug("msg: %s", msg)
 
     body_data = {
-        "sender": os.environ[constants.POD],
+        "sender": os.environ.get(constants.POD, socket.gethostname()),
         "timestamp": time.time(),
         "response_data": response_data,
         "answer": {
             "private": is_private,
             "data": msg,
-        }
+        },
     }
     body = json.dumps(body_data)
     logging.debug("body: %s", body)
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-                os.environ[constants.RABBITMQ_HOST],
-                os.environ[constants.RABBITMQ_PORT],
-                os.environ[constants.RABBITMQ_VHOST],
-                pika.PlainCredentials(os.environ[constants.RABBITMQ_USER], os.environ[constants.RABBITMQ_PASSWORD]),
-            ))
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(
+            os.environ[constants.RABBITMQ_HOST],
+            os.environ[constants.RABBITMQ_PORT],
+            os.environ[constants.RABBITMQ_VHOST],
+            pika.PlainCredentials(os.environ[constants.RABBITMQ_USER], os.environ[constants.RABBITMQ_PASSWORD]),
+        )
+    )
     channel = connection.channel()
     try:
-        channel.basic_publish(exchange=os.environ[constants.RABBITMQ_EXCHANGE], routing_key=response_data['queue'], body=body)
+        channel.basic_publish(exchange=os.environ[constants.RABBITMQ_EXCHANGE], routing_key=response_data["queue"], body=body)
     except Exception as e:
         logging.exception("Exception while attempting to publish message:", e)
         return False
@@ -70,33 +72,27 @@ class MessageConsumer(Thread):
         # extract info
         msg = json.loads(body)
         logging.debug("msg: %s", msg)
-        sender = msg['sender']
-        timestamp = msg['timestamp']
-        response_data = msg['response_data']
+        sender = msg["sender"]
+        timestamp = msg["timestamp"]
+        response_data = msg["response_data"]
         logging.debug("response_data: %s", response_data)
-        user = msg['user']
-        user_data = user['data']
-        user_id = user['canonical_id']
-        org_id = user['org_id']
+        user = msg["user"]
+        user_data = user["data"]
+        user_id = user["canonical_id"]
+        org_id = user["org_id"]
         logging.debug("user: %s", user)
-        command = msg['data']['command']
+        command = msg["data"]["command"]
         logging.debug("command: %s", command)
 
         # send to local endpoint
-        headers = {
-            'Authorization': f'{constants.INTERNAL_AUTH_TYPE} {get_private_key()}'
-        }
-        state_body = {
-            'org_id': org_id,
-            'user_id': user_id,
-            'text': command.split(" ")
-        }
+        headers = {"Authorization": f"{constants.INTERNAL_AUTH_TYPE} {get_private_key()}"}
+        state_body = {"org_id": org_id, "user_id": user_id, "text": command.split(" ")}
         url = f"http://localhost:{os.environ.get(constants.PORT, 5000)}/state/"
         r = requests.post(url, headers=headers, json=state_body)
         logging.info("code: %d, headers: %s, body: %s", r.status_code, r.headers, r.text)
         response_body = r.json()
-        body_data = response_body['data']
-        private = response_body.get('private', False)
+        body_data = response_body["data"]
+        private = response_body.get("private", False)
 
         # # process the command
         # params = command.split(" ")
@@ -110,15 +106,16 @@ class MessageConsumer(Thread):
         was_sent = send_amqp_response(body_data, response_data, private)
         logging.info("Message was sent? %s", was_sent)
 
-
     def run(self):
         logging.info("Consumer thread started.")
-        connection = pika.BlockingConnection(pika.ConnectionParameters(
-                    os.environ[constants.RABBITMQ_HOST],
-                    os.environ[constants.RABBITMQ_PORT],
-                    os.environ[constants.RABBITMQ_VHOST],
-                    pika.PlainCredentials(os.environ[constants.RABBITMQ_USER], os.environ[constants.RABBITMQ_PASSWORD]),
-                ))
+        connection = pika.BlockingConnection(
+            pika.ConnectionParameters(
+                os.environ[constants.RABBITMQ_HOST],
+                os.environ[constants.RABBITMQ_PORT],
+                os.environ[constants.RABBITMQ_VHOST],
+                pika.PlainCredentials(os.environ[constants.RABBITMQ_USER], os.environ[constants.RABBITMQ_PASSWORD]),
+            )
+        )
         channel = connection.channel()
         channel.basic_consume(queue=os.environ[constants.RABBITMQ_QUEUE], on_message_callback=self.message_callback, auto_ack=True)
         channel.start_consuming()
