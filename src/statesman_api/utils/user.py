@@ -6,7 +6,7 @@ user.py
 
 
 from flask import current_app
-import json
+import json, logging
 import os
 from statesman_api import constants
 from statesman_api.common.exceptions import SignatureException
@@ -18,7 +18,7 @@ from statesman_api.db import db
 from statesman_api.utils.access import check_collection_permission, check_item_permission
 
 
-def create_or_fetch_user(user_id:str, org_id:str) -> User:
+def create_or_fetch_user(user_id: str, org_id: str) -> User:
     logging.debug("user_id: %s, org_id: %s", user_id, org_id)
 
     user = User.query.filter_by(user_id=user_id).one_or_none()
@@ -31,7 +31,7 @@ def create_or_fetch_user(user_id:str, org_id:str) -> User:
     return user
 
 
-def get_current_collection(user:User) -> StateCollection:
+def get_current_collection(user: User) -> StateCollection:
     logging.debug("user: %s", user)
 
     collection_id = user.current_state_id
@@ -44,7 +44,7 @@ def get_current_collection(user:User) -> StateCollection:
     return collection
 
 
-def set_current_collection(name:str, user:User) -> StateCollection:
+def set_current_collection(name: str, user: User) -> StateCollection:
     logging.debug("name: %s, user: %s", name, user)
 
     collection = StateCollection.query.filter_by(name=name, org_id=user.org_id).one_or_none()
