@@ -24,11 +24,11 @@ def execute(org_id: str, user_id: str, args: list) -> list:
 
     # check to see if collection already exists (for team)
     parsed_args = parse_args(args)
-    name = parsed_args['name']
+    name = parsed_args["name"]
     collection = StateCollection.query.filter_by(org_id=org_id, name=name).first()
     if collection is None:
         data = build_error_data("A collection with that name does not exist.")
-        return data
+        return data, True
 
     user = create_or_fetch_user(user_id, org_id)
     if set_current_collection(name, user) is None:

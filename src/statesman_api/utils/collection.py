@@ -18,21 +18,17 @@ from statesman_api.utils.user import create_or_fetch_user
 from statesman_api.utils.access import check_collection_permission, check_item_permission
 
 
-def get_collection_items(collection:StateCollection, user:User) -> list:
+def get_collection_items(collection: StateCollection, user: User) -> list:
     logging.debug("collection: %s, user: %s", collection, user)
 
     items = StateItem.query.filter_by(collection_id=collection.id).all()
     if len(items) == 0:
-        blocks = [
-            {
-                    "text": f"_Collection *{collection.name}* is empty_."
-            }
-        ]
+        blocks = [{"text": f"_Collection *{collection.name}* is empty_."}]
         return blocks
 
     blocks = [
         {
-                "text": f"Collection: *<{collection.name}|{collection.name}>*"
+            "text": f"Collection: *<{collection.name}|{collection.name}>*"
             # },
             # "accessory": {
             #     "type": "button",
@@ -44,12 +40,8 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
             #     "value": f"use:{collection.name}"
             # }
         },
-        {
-            "type": "divider"
-        },
-        {
-                "text": f"_Items_:"
-        },
+        {"type": "divider"},
+        {"text": f"_Items_:"},
     ]
 
     # fields = []
@@ -68,7 +60,7 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
             item_info += f"\n_Default value_: *{item.default_value}*"
 
         field = {
-                "text": item_info,
+            "text": item_info,
             # },
             # "accessory": {
             #     "type": "overflow",
@@ -118,38 +110,19 @@ def get_collection_items(collection:StateCollection, user:User) -> list:
     return blocks
 
 
-def list_collections(user_id:str, team_id:str) -> list:
-    logging.debug("user_id: %s, team_id: %s", user_id, team_id)
+def list_collections(user_id: str, org_id: str) -> list:
+    logging.debug("user_id: %s, org_id: %s", user_id, org_id)
 
-    user = create_or_fetch_user(user_id, team_id)
-    collections = StateCollection.query.filter_by(team_id=team_id).all()
+    user = create_or_fetch_user(user_id, org_id)
+    collections = StateCollection.query.filter_by(org_id=org_id).all()
 
-    blocks = [
-        {
-                "text": "_Here are the state collections you can use_:"
-        },
-        {
-            "type": "divider"
-        },
-    ]
+    data = [{"text": "Here are the collections you can use:"}, {"type": "divider"}]
 
     for c in collections:
         if not check_collection_permission(user, c, model_constants.PERMISSION_READ):
             logging.debug("User %s does not have permission to read collection %s.", user, c)
             continue
 
-        blocks.append({
-                "text": f"*{c.name}*\nCreated by <@{c.creator_id}>"
-            # },
-            # "accessory": {
-            #     "type": "button",
-            #     "text": {
-            #         "type": "plain_text",
-            #         "emoji": True,
-            #         "text": "Use"
-            #     },
-            #     "value": f"use:{c.name}"
-            # }
-        })
+        data.append({"collection": c.name, "creator": c.creator_id})
 
-    return blocks
+    return data

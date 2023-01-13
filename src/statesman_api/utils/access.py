@@ -6,7 +6,7 @@ access.py
 
 
 from flask import current_app
-import json
+import json, logging
 import os
 from statesman_api import constants
 from statesman_api.common.exceptions import SignatureException
@@ -17,7 +17,7 @@ from statesman_api.models import constants as model_constants
 from statesman_api.db import db
 
 
-def check_collection_permission(user:User, collection:StateCollection, permission:str) -> bool:
+def check_collection_permission(user: User, collection: StateCollection, permission: str) -> bool:
     logging.debug("user: %s, collection: %s, permission: %s", user, collection, permission)
 
     perm = StateCollectionUserPermission.query.filter_by(user_id=user.id, collection_id=collection.id).one_or_none()
@@ -29,7 +29,7 @@ def check_collection_permission(user:User, collection:StateCollection, permissio
         return True
 
     # is the user blocked?
-    if perm.permission == model_constants.PERMISSION_BLOCKED:
+    if perm.permission == model_constants.PERMISSION_BLOCK:
         logging.debug("Permission for user is set to 'blocked'; disallowing.")
         return False
 
@@ -47,7 +47,7 @@ def check_collection_permission(user:User, collection:StateCollection, permissio
     return False
 
 
-def check_item_permission(user:User, item:StateItem, permission:str) -> bool:
+def check_item_permission(user: User, item: StateItem, permission: str) -> bool:
     logging.debug("user: %s, item: %s, permission: %s", user, item, permission)
 
     perm = StateItemUserPermission.query.filter_by(user_id=user.id, item_id=item.id).one_or_none()
@@ -59,7 +59,7 @@ def check_item_permission(user:User, item:StateItem, permission:str) -> bool:
         return True
 
     # is the user blocked?
-    if perm.permission == model_constants.PERMISSION_BLOCKED:
+    if perm.permission == model_constants.PERMISSION_BLOCK:
         logging.debug("Permission for user is set to 'blocked'; disallowing.")
         return False
 
@@ -77,7 +77,7 @@ def check_item_permission(user:User, item:StateItem, permission:str) -> bool:
     return False
 
 
-def update_collection_permission(user:User, collection:StateCollection, permission:str):
+def update_collection_permission(user: User, collection: StateCollection, permission: str):
     logging.debug("user: %s, collection: %s, permission: %s", user, collection, permission)
 
     perm = StateCollectionUserPermission.query.filter_by(user_id=user.id, collection_id=collection.id).one_or_none()
@@ -94,7 +94,7 @@ def update_collection_permission(user:User, collection:StateCollection, permissi
     db.session.commit()
 
 
-def update_item_permission(user:User, item:StateItem, permission:str):
+def update_item_permission(user: User, item: StateItem, permission: str):
     logging.debug("user: %s, item: %s, permission: %s", user, item, permission)
 
     perm = StateCollectionUserPermission.query.filter_by(user_id=user.id, collection_id=collection.id).one_or_none()
@@ -111,7 +111,7 @@ def update_item_permission(user:User, item:StateItem, permission:str):
     db.session.commit()
 
 
-def remove_collection_permission(user:User, collection:StateCollection):
+def remove_collection_permission(user: User, collection: StateCollection):
     logging.debug("user: %s, collection: %s", user, collection)
 
     perm = StateCollectionUserPermission.query.filter_by(user_id=user.id, collection_id=collection.id).one_or_none()
@@ -123,7 +123,7 @@ def remove_collection_permission(user:User, collection:StateCollection):
         db.session.commit()
 
 
-def remove_item_permission(user:User, item:StateItem):
+def remove_item_permission(user: User, item: StateItem):
     logging.debug("user: %s, item: %s", user, item)
 
     perm = StateCollectionUserPermission.query.filter_by(user_id=user.id, item_id=item.id).one_or_none()
