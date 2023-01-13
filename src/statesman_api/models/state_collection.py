@@ -18,10 +18,10 @@ class StateCollection(db.Model):
     __tablename__ = 'state_collections'
 
     id = db.Column(db.Integer, primary_key=True)
-    creator_id = db.Column(db.String(20), nullable=False)
+    creator_id = db.Column(db.String(50), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
-    org_id = db.Column(db.String(20), nullable=False)
+    org_id = db.Column(db.String(30), nullable=False)
     name = db.Column(db.String(50), nullable=False)
 
     def __init__(self, user:User, name:str):

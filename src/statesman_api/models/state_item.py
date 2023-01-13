@@ -18,11 +18,11 @@ class StateItem(db.Model):
     __tablename__ = 'state_items'
 
     id = db.Column(db.Integer, primary_key=True)
-    creator_id = db.Column(db.String(20), nullable=False)
+    creator_id = db.Column(db.String(50), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
     collection_id = db.Column(db.Integer, db.ForeignKey('state_collections.id'))
-    org_id = db.Column(db.String(20), nullable=False)
+    org_id = db.Column(db.String(30), nullable=False)
     name = db.Column(db.String(50), nullable=False)
     value = db.Column(db.String(100), nullable=True)
     default_value = db.Column(db.String(100), nullable=True)
