@@ -15,6 +15,7 @@ from statesman_api.utils.collection import list_collections
 from statesman_api.utils.access import check_collection_permission, check_item_permission
 from statesman_api.models import constants as model_constants
 from statesman_api.utils.item import adjust_item
+from statesman_api.utils.args import parse_args
 import logging
 
 
@@ -34,8 +35,9 @@ def execute(org_id: str, user_id: str, args: list) -> list:
         )
         return data
 
-    name = args[0]
-    value = args[1]
+    parsed_args = parse_args(args)
+    name = parsed_args['name']
+    value = parsed_args['value']
     item = StateItem.query.filter_by(collection_id=collection.id, name=name).one_or_none()
     if item is None:
         data = build_error_data(f"No item exists for name *{name}*.")

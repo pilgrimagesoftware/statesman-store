@@ -11,6 +11,7 @@ from statesman_api.db import db
 from statesman_api.models.state_collection import StateCollection
 from statesman_api.utils import build_message_data, build_error_data
 from statesman_api.utils.user import set_current_collection, create_or_fetch_user
+from statesman_api.utils.args import parse_args
 import logging
 
 
@@ -22,7 +23,8 @@ def execute(org_id: str, user_id: str, args: list) -> list:
         return data
 
     # check to see if collection already exists (for team)
-    name = args[0]
+    parsed_args = parse_args(args)
+    name = parsed_args['name']
     collection = StateCollection.query.filter_by(org_id=org_id, name=name).first()
     if collection is None:
         data = build_error_data("A collection with that name does not exist.")

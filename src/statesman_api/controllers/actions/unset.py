@@ -14,6 +14,7 @@ from statesman_api.utils.user import set_current_collection, create_or_fetch_use
 from statesman_api.utils.collection import list_collections
 from statesman_api.utils.access import check_collection_permission, check_item_permission
 from statesman_api.models import constants as model_constants
+from statesman_api.utils.args import parse_args
 import logging
 
 
@@ -31,7 +32,8 @@ def execute(org_id: str, user_id: str, args: list) -> list:
         data = build_error_data("Unable to uset item; no current collection is set.\nTry one of these:") + list_collections(user_id, org_id)
         return data
 
-    name = args[0]
+    parsed_args = parse_args(args)
+    name = parsed_args['name']
     item = StateItem.query.filter_by(collection_id=collection.id, name=name).one_or_none()
     if item is not None:
         if not check_item_permission(user, item, model_constants.PERMISSION_WRITE):
