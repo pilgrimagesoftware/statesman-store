@@ -18,7 +18,7 @@ def execute(org_id:str, user_id:str, args:list) -> list:
     modules = get_package_modules('statesman_api.controllers.actions')
     logging.debug("modules: %s", modules)
 
-    blocks = [
+    data = [
         {
             "type": "section",
             "text": {
@@ -56,10 +56,10 @@ def execute(org_id:str, user_id:str, args:list) -> list:
                     "value": help_cmd,
                 }
 
-            blocks.append(action)
+            data.append(action)
         except:
             logging.debug("Module %s didn't have help information, skipping it.", module_name)
 
-    logging.debug("blocks: %s", blocks)
+    logging.debug("blocks: %s", data)
 
-    return blocks, True
+    return data, True

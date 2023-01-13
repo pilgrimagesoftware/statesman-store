@@ -10,25 +10,25 @@ import redis
 from statesman_api.db import db
 from statesman_api.models.state_collection import StateCollection
 from statesman_api.models.state_item import StateItem
-from statesman_api.utils import build_message_blocks, build_error_blocks
+from statesman_api.utils import build_message_data, build_error_data
 from statesman_api.utils.user import set_current_collection, get_current_collection, create_or_fetch_user
 from statesman_api.utils.collection import list_collections
 from statesman_api.models import constants as model_constants
 import logging
 
 
-def execute(org_id:str, user_id:str, args:list) -> list:
+def execute(org_id: str, user_id: str, args: list) -> list:
     logging.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
 
     if len(args) != 0:
-        blocks = build_error_blocks('Usage: `reset`.')
-        return blocks
+        data = build_error_data("Usage: `reset`.")
+        return data
 
     user = create_or_fetch_user(user_id, org_id)
     collection = get_current_collection(user)
     if collection is None:
-        blocks = build_error_blocks('No collection is set for you; try one of these:') + list_collections(user_id, org_id)
-        return blocks
+        data = build_error_data("No collection is set for you; try one of these:") + list_collections(user_id, org_id)
+        return data
 
     items = StateItem.query.filter_by(collection_id=collection.id).all()
     for item in items:
@@ -43,13 +43,10 @@ def execute(org_id:str, user_id:str, args:list) -> list:
 
     db.session.commit()
 
-    blocks = build_message_blocks(f'Collection *{name}* has been reset.')
+    data = build_message_data(f"Collection *{name}* has been reset.")
 
-    return blocks, True
+    return data, True
 
 
 def help_info():
-    return ('reset',
-            'Reset',
-            'Reset a collection\'s item values to their defaults.',
-            'Reset')
+    return ("reset", "Reset", "Reset a collection's item values to their defaults.", "Reset")

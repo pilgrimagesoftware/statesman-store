@@ -19,30 +19,30 @@ class SslCheckHandled(Exception):
     pass
 
 
-def send_response(response_url:str, blocks:list, private:bool):
+def send_response(response_url: str, blocks: list, private: bool):
     logging.debug("response_url: %s, blocks: %s", response_url, blocks)
 
     # send_message(response_url, blocks, private)
 
 
-def process_state_action(org_id:str, user_id:str, params:list, private:bool = False):
+def process_state_action(org_id: str, user_id: str, params: list, private: bool = False):
     logging.debug("org_id: %s, user_id: %s, params: %s", org_id, user_id, params)
 
     command, args = validate_action(params)
     logging.debug("command: %s, args: %s", command, args)
 
-    blocks, private = execute_action(org_id, user_id, command, args)
-    logging.debug("blocks: %s, private: %s", blocks, private)
+    data, private = execute_action(org_id, user_id, command, args)
+    logging.debug("blocks: %s, private: %s", data, private)
 
-    return { 'blocks':blocks, 'private':private }
+    return {"data": data, "private": private}
     # send_response(response_url, blocks, private=private)
 
 
-def handle_auth_check(request:object):
+def handle_auth_check(request: object):
     logging.debug("request: %s", request)
 
 
-def handle_ssl_check(request:object):
+def handle_ssl_check(request: object):
     logging.debug("request: %s", request)
 
     # is_check = bool(request.args.get('ssl_check') or False)
@@ -64,11 +64,11 @@ def handle_ssl_check(request:object):
     # raise SslCheckHandled()
 
 
-def process_state_request(request:object):
+def process_state_request(request: object):
     logging.debug("request: %s", request)
 
     # content_length = request.headers.get('content-length')
-    body = request.get_json() # data().decode('utf-8')
+    body = request.get_json()  # data().decode('utf-8')
     logging.debug("body: %s", body)
 
     # logging.debug("headers: %s", request.headers)
@@ -87,19 +87,19 @@ def process_state_request(request:object):
     # # validate signature
     # verify_signature(signature, timestamp, body)
 
-    org_id = body.get('org_id')
+    org_id = body.get("org_id")
     # logging.debug("org_id: %s", org_id)
-    user_id = body.get('user_id')
+    user_id = body.get("user_id")
     # logging.debug("user_id: %s", user_id)
     # command = request.form.get('command')
     # logging.debug("command: %s", command)
     # response_url = request.form.get('response_url')
     # logging.debug("response_url: %s", response_url)
 
-    text = body.get('text')
+    text = body.get("text")
     logging.debug("text: '%s'", text)
     if text is None or len(text) == 0:
-        return process_state_action(org_id, user_id, ['help'], private=True)
+        return process_state_action(org_id, user_id, ["help"], private=True)
         # return "", 200
 
     # params = text.split(" ")

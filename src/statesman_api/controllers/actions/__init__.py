@@ -33,7 +33,7 @@ def execute_action(org_id:str, user_id:str, command:str, args:list) -> list:
     logging.debug("module: %s", module)
     func = getattr(module, 'execute')
     logging.debug("func: %s", func)
-    blocks = func(org_id, user_id, args)
-    logging.debug("blocks: %s", blocks)
+    data = func(org_id, user_id, args)
+    logging.debug("data: %s", data)
 
-    return blocks
+    return data
