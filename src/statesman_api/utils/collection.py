@@ -23,14 +23,12 @@ def get_collection_items(collection: StateCollection, user: User) -> list:
 
     items = StateItem.query.filter_by(collection_id=collection.id).all()
     if len(items) == 0:
-        data = [{"text": f"_Collection *{collection.name}* is empty_."}]
-        return data
+        return []
 
-    data = [
-        {"text": f"Collection: *<{collection.name}|{collection.name}>*"},
-        {"type": "divider"},
-        {"text": f"_Items_:"},
-    ]
+    data = []
+    # {"text": f"Collection: *<{collection.name}|{collection.name}>*"},
+    # {"type": "divider"},
+    # {"text": f"_Items_:"},
 
     for item in items:
         if not check_item_permission(user, item, model_constants.PERMISSION_READ):
@@ -56,7 +54,9 @@ def list_collections(user_id: str, org_id: str) -> list:
     user = create_or_fetch_user(user_id, org_id)
     collections = StateCollection.query.filter_by(org_id=org_id).all()
 
-    data = [{"text": "Here are the collections you can use:"}, {"type": "divider"}]
+    data = [
+        # {"text": "Here are the collections you can use:"}, {"type": "divider"}
+    ]
 
     for c in collections:
         if not check_collection_permission(user, c, model_constants.PERMISSION_READ):

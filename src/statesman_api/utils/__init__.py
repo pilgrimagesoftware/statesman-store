@@ -22,23 +22,35 @@ def get_package_modules(package: str) -> list:
     return list(set(modules)).sort()
 
 
-def build_error_data(msg: str) -> list:
-    data = [
-        {
-            "text": f"❗️ {msg} 😢",
-        }
-    ]
+def build_error_response(msg: str) -> dict:
+    return {
+        "success": False,
+        "messages": [{"text": msg}],
+        "private": True,
+    }
+
+
+def build_response(msg: str, private: bool = False, with_emoji: bool = True) -> dict:
+    data = {
+        "success": True,
+        "messages": [{"text": f"✅ {msg} 👍🏼" if with_emoji else msg}],
+        "private": private,
+    }
 
     return data
 
 
-def build_message_data(msg: str) -> list:
-    data = [
-        {
-            "text": f"✅ {msg} 👍🏼",
-        },
-    ]
+def add_response_message(data: dict, msg: str, msg_type: str = "text") -> dict:
+    messages = data.get("messages", [])
+    messages.append({msg_type: msg})
+    data["messages"] = messages
+    return data
 
+
+def add_response_items(data: dict, items: list) -> dict:
+    messages = data.get("messages", [])
+    messages.append({"items": items})
+    data["messages"] = messages
     return data
 
 

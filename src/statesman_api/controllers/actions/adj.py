@@ -10,7 +10,7 @@ from statesman_api.controllers.actions import adjust
 import logging
 
 
-def execute(org_id:str, user_id:str, args:list) -> list:
+def execute(org_id:str, user_id:str, args:list) -> dict:
     logging.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
 
     return adjust.execute(org_id, user_id, args)

@@ -26,7 +26,7 @@ def validate_action(params:list):
     return command, params[1:]
 
 
-def execute_action(org_id:str, user_id:str, command:str, args:list) -> list:
+def execute_action(org_id:str, user_id:str, command:str, args:list) -> dict:
     logging.debug("org_id: %s, user_id: %s, command: %s, args: %s", org_id, user_id, command, args)
 
     module = importlib.import_module(f'statesman_api.controllers.actions.{command}')
@@ -36,4 +36,4 @@ def execute_action(org_id:str, user_id:str, command:str, args:list) -> list:
     data = func(org_id, user_id, args)
     logging.debug("data: %s", data)
 
-    return data
+    return data.update('command', command)

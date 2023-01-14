@@ -12,7 +12,7 @@ from statesman_api.utils import get_package_modules
 import logging
 
 
-def execute(org_id: str, user_id: str, args: list) -> list:
+def execute(org_id: str, user_id: str, args: list) -> dict:
     logging.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
 
     modules = get_package_modules("statesman_api.controllers.actions")
@@ -50,4 +50,4 @@ def execute(org_id: str, user_id: str, args: list) -> list:
 
     logging.debug("data: %s", data)
 
-    return data, True
+    return {'data': data, 'private': True}

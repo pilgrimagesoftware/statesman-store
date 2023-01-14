@@ -37,6 +37,10 @@ def get_current_collection(user: User) -> StateCollection:
     collection_id = user.current_state_id
     collection = StateCollection.query.filter_by(id=collection_id).one_or_none()
 
+    if collection is None:
+        logging.info("User %s does not have a current collection set.", user)
+        return None
+
     if not check_collection_permission(user, collection, model_constants.PERMISSION_READ):
         logging.info("User %s is not permitted to read collection %s", user, collection)
         return None
