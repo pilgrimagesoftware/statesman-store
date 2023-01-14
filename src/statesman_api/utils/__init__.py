@@ -6,9 +6,7 @@ __author__ = "Paul Schifferer <paul@schifferers.net>"
 
 import json
 from typing import Any
-
-# from bson.timestamp import Timestamp
-import base64
+import base64, logging
 import os.path
 import pkgutil
 import importlib
@@ -31,7 +29,7 @@ def build_error_response(msg: str) -> dict:
 
 def build_response(
     title: str = None,
-    messages: list[str] = [],
+    messages: list[str] = None,
     collection: dict = None,
     collection_list: list[dict] = None,
     items: list[dict] = None,
@@ -45,17 +43,16 @@ def build_response(
 
     return add_response_data(data, title=title, messages=messages, collection=collection, collection_list=collection_list, items=items)
 
-    return data
-
 
 def add_response_data(
-    data: dict, title: str = None, messages: list[str] = [], collection: dict = None, collection_list: list[dict] = None, items: list[dict] = None
+    data: dict, title: str = None, messages: list[str] = None, collection: dict = None, collection_list: list[dict] = None, items: list[dict] = None
 ) -> dict:
+    logging.debug("data: %s", data)
 
-    if messages:
-        messages = data.get(constants.MESSAGE_KEY_MESSAGES, [])
-        messages += list(map(lambda m: {"text": m}, messages))
-        data[constants.MESSAGE_KEY_MESSAGES] = messages
+    if messages is not None:
+        new_messages = data.get(constants.MESSAGE_KEY_MESSAGES, [])
+        new_messages += list(map(lambda m: {"text": m}, messages))
+        data[constants.MESSAGE_KEY_MESSAGES] = new_messages
 
     if title:
         data[constants.MESSAGE_KEY_TITLE] = title
@@ -65,6 +62,9 @@ def add_response_data(
         data[constants.MESSAGE_KEY_COLLECTION_LIST] = collection_list
     if items:
         data[constants.MESSAGE_KEY_ITEM_LIST] = items
+
+    logging.debug("data: %s", data)
+    return data
 
 
 class SafeEncoder(json.JSONEncoder):

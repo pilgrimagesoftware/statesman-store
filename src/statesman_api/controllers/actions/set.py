@@ -34,7 +34,7 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
         return data
 
     parsed_args = parse_args(args)
-    name = parsed_args["name"]
+    name = parsed_args["item"]
     value = parsed_args["value"]
     item = StateItem.query.filter_by(collection_id=collection.id, name=name).one_or_none()
     if item is None:
@@ -43,16 +43,20 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
             return data
 
         item = StateItem(collection, user_id, org_id, name, value)
+        logging.debug("item: %s", item)
 
         data = build_response(messages=[f"Created new item *{name}* with value *{value}*."])
     else:
         if not check_item_permission(user, item, model_constants.PERMISSION_WRITE):
             data = build_error_response("Unable to update this item; you do not have permission to write to it.")
-            return {"data": data, "private": True}
+            return data
 
         item.value = value
+        logging.debug("item: %s", item)
 
         data = build_response(messages=[f"Updated item *{name}* with value *{value}*."])
+
+    logging.debug("data: %s", data)
 
     # handle additional params
     if len(args) > 2:
@@ -75,6 +79,7 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
     db.session.add(item)
     db.session.commit()
 
+    logging.debug("data: %s", data)
     return data
 
 

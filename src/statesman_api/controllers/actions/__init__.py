@@ -36,6 +36,6 @@ def execute_action(org_id: str, user_id: str, command: str, args: list) -> dict:
     data = func(org_id, user_id, args)
     logging.debug("data: %s", data)
 
-    data["command"] = command.split(" ")[0]
+    data["command"] = command
 
     return data

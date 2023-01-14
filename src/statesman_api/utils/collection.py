@@ -45,6 +45,7 @@ def get_collection_items(collection: StateCollection, user: User) -> list[dict]:
 
         data.append({"item": item_info})
 
+    logging.debug("data: %s", data)
     return data
 
 
