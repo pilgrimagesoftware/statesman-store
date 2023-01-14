@@ -37,7 +37,7 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
 
     set_current_collection(name, user)
 
-    data = build_response(f"Your collection, *{name}*, has been created.", private=True)
+    data = build_response(messages=[f"Your collection, *{name}*, has been created."], private=True)
 
     return data
 

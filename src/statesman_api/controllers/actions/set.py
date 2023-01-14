@@ -9,7 +9,7 @@ from flask import current_app
 from statesman_api.db import db
 from statesman_api.models.state_collection import StateCollection
 from statesman_api.models.state_item import StateItem
-from statesman_api.utils import build_response, build_error_response, add_response_items
+from statesman_api.utils import build_response, build_error_response, add_response_data
 from statesman_api.utils.user import set_current_collection, create_or_fetch_user, get_current_collection
 from statesman_api.utils.collection import list_collections
 from statesman_api.utils.access import check_collection_permission, check_item_permission
@@ -30,8 +30,7 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
     user = create_or_fetch_user(user_id, org_id)
     collection = get_current_collection(user)
     if collection is None:
-        data = build_error_response("Unable to set item; no current collection is set.")
-        data = add_response_items(data, list_collections(user_id, org_id))
+        data = build_response(messages=["Unable to set item; no current collection is set."], collection_list=list_collections(user_id, org_id))
         return data
 
     parsed_args = parse_args(args)
@@ -41,11 +40,11 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
     if item is None:
         if not check_collection_permission(user, collection, model_constants.PERMISSION_WRITE):
             data = build_error_response("Unable to create this item; you do not have permission to change this collection.")
-            return {"data": data, "private": True}
+            return data
 
         item = StateItem(collection, user_id, org_id, name, value)
 
-        data = build_response(f"Created new item *{name}* with value *{value}*.")
+        data = build_response(messages=[f"Created new item *{name}* with value *{value}*."])
     else:
         if not check_item_permission(user, item, model_constants.PERMISSION_WRITE):
             data = build_error_response("Unable to update this item; you do not have permission to write to it.")
@@ -53,7 +52,7 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
 
         item.value = value
 
-        data = build_response(f"Updated item *{name}* with value *{value}*.")
+        data = build_response(messages=[f"Updated item *{name}* with value *{value}*."])
 
     # handle additional params
     if len(args) > 2:

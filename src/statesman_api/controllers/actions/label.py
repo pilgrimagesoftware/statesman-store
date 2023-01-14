@@ -9,7 +9,7 @@ from flask import current_app
 from statesman_api.db import db
 from statesman_api.models.state_collection import StateCollection
 from statesman_api.models.state_item import StateItem
-from statesman_api.utils import build_response, build_error_response, add_response_items
+from statesman_api.utils import build_response, build_error_response, add_response_data
 from statesman_api.utils.user import set_current_collection, create_or_fetch_user, get_current_collection
 from statesman_api.utils.collection import list_collections
 from statesman_api.utils.access import check_collection_permission, check_item_permission
@@ -28,8 +28,9 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
     user = create_or_fetch_user(user_id, org_id)
     collection = get_current_collection(user)
     if collection is None:
-        data = build_error_response("Unable to set item label; no current collection is set.")
-        data = add_response_items(data, list_collections(user_id, org_id))
+        data = build_response(
+            messages=["Unable to set item label; no current collection is set."], collection_list=list_collections(user_id, org_id), success=False
+        )
         return data
 
     parsed_args = parse_args(args)
@@ -38,18 +39,18 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
     item = StateItem.query.filter_by(collection_id=collection.id, name=name).one_or_none()
     if item is None:
         return build_error_response(f"No item exists for name *{name}*.")
-    else:
-        if not check_item_permission(user, item, model_constants.PERMISSION_WRITE):
-            return build_error_response("Unable to set label on this item; you do not have permission to write to it.")
 
-        item.label = value
+    if not check_item_permission(user, item, model_constants.PERMISSION_WRITE):
+        return build_error_response("Unable to set label on this item; you do not have permission to write to it.")
 
-        db.session.add(item)
-        db.session.commit()
+    item.label = value
 
-        data = build_response(f"Updated item *{name}* with label *{value}*.")
+    db.session.add(item)
+    db.session.commit()
 
-    return {"data": data}
+    data = build_response(messages=[f"Updated item *{name}* with label *{value}*."])
+
+    return data
 
 
 def help_info():

@@ -31,7 +31,7 @@ def process_state_action(org_id: str, user_id: str, params: list, private: bool 
     command, args = validate_action(params)
     logging.debug("command: %s, args: %s", command, args)
 
-    data, private = execute_action(org_id, user_id, command, args)
+    data = execute_action(org_id, user_id, command, args)
     logging.debug("blocks: %s, private: %s", data, private)
 
     return {"data": data, "private": private}

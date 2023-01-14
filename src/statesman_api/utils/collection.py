@@ -18,7 +18,7 @@ from statesman_api.utils.user import create_or_fetch_user
 from statesman_api.utils.access import check_collection_permission, check_item_permission
 
 
-def get_collection_items(collection: StateCollection, user: User) -> list:
+def get_collection_items(collection: StateCollection, user: User) -> list[dict]:
     logging.debug("collection: %s, user: %s", collection, user)
 
     items = StateItem.query.filter_by(collection_id=collection.id).all()
@@ -48,7 +48,7 @@ def get_collection_items(collection: StateCollection, user: User) -> list:
     return data
 
 
-def list_collections(user_id: str, org_id: str) -> list:
+def list_collections(user_id: str, org_id: str) -> list[dict]:
     logging.debug("user_id: %s, org_id: %s", user_id, org_id)
 
     user = create_or_fetch_user(user_id, org_id)

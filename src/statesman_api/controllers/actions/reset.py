@@ -10,7 +10,7 @@ import redis
 from statesman_api.db import db
 from statesman_api.models.state_collection import StateCollection
 from statesman_api.models.state_item import StateItem
-from statesman_api.utils import build_response, build_error_response, add_response_items
+from statesman_api.utils import build_response, build_error_response, add_response_data
 from statesman_api.utils.user import set_current_collection, get_current_collection, create_or_fetch_user
 from statesman_api.utils.collection import list_collections
 from statesman_api.models import constants as model_constants
@@ -23,13 +23,12 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
 
     if len(args) != 0:
         data = build_error_response("Usage: `reset`.")
-        return {"data": data, "private": True}
+        return data
 
     user = create_or_fetch_user(user_id, org_id)
     collection = get_current_collection(user)
     if collection is None:
-        data = build_error_response("No collection is set for you.")
-        data = add_response_items(data, list_collections(user_id, org_id))
+        data = build_response(messages=["No collection is set for you."], collection_list=list_collections(user_id, org_id))
         return data
 
     items = StateItem.query.filter_by(collection_id=collection.id).all()
@@ -45,7 +44,7 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
 
     db.session.commit()
 
-    data = build_response(f"Collection *{collection.name}* has been reset.")
+    data = build_response(messages=[f"Collection *{collection.name}* has been reset."])
 
     return data
 

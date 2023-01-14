@@ -12,6 +12,7 @@ import base64
 import os.path
 import pkgutil
 import importlib
+from statesman_api import constants
 
 
 def get_package_modules(package: str) -> list:
@@ -23,35 +24,47 @@ def get_package_modules(package: str) -> list:
 
 
 def build_error_response(msg: str) -> dict:
-    return {
-        "success": False,
-        "messages": [{"text": msg}],
-        "private": True,
-    }
+    data = build_response(messages=[msg], success=False, private=True)
+    data[constants.MESSAGE_KEY_ERROR] = True
+    return data
 
 
-def build_response(msg: str, private: bool = False, with_emoji: bool = True) -> dict:
+def build_response(
+    title: str = None,
+    messages: list[str] = [],
+    collection: dict = None,
+    collection_list: list[dict] = None,
+    items: list[dict] = None,
+    success: bool = True,
+    private: bool = False,
+) -> dict:
     data = {
-        "success": True,
-        "messages": [{"text": f"✅ {msg} 👍🏼" if with_emoji else msg}],
-        "private": private,
+        constants.MESSAGE_KEY_SUCCESS: success,
+        constants.MESSAGE_KEY_PRIVATE: private,
     }
 
+    return add_response_data(data, title=title, messages=messages, collection=collection, collection_list=collection_list, items=items)
+
     return data
 
 
-def add_response_message(data: dict, msg: str, msg_type: str = "text") -> dict:
-    messages = data.get("messages", [])
-    messages.append({msg_type: msg})
-    data["messages"] = messages
-    return data
+def add_response_data(
+    data: dict, title: str = None, messages: list[str] = [], collection: dict = None, collection_list: list[dict] = None, items: list[dict] = None
+) -> dict:
 
+    if messages:
+        messages = data.get(constants.MESSAGE_KEY_MESSAGES, [])
+        messages += list(map(lambda m: {"text": m}, messages))
+        data[constants.MESSAGE_KEY_MESSAGES] = messages
 
-def add_response_items(data: dict, items: list) -> dict:
-    messages = data.get("messages", [])
-    messages.append({"items": items})
-    data["messages"] = messages
-    return data
+    if title:
+        data[constants.MESSAGE_KEY_TITLE] = title
+    if collection:
+        data[constants.MESSAGE_KEY_COLLECTION] = collection
+    if collection_list:
+        data[constants.MESSAGE_KEY_COLLECTION_LIST] = collection_list
+    if items:
+        data[constants.MESSAGE_KEY_ITEM_LIST] = items
 
 
 class SafeEncoder(json.JSONEncoder):

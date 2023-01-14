@@ -26,13 +26,13 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
     name = parsed_args["name"]
     collection = StateCollection.query.filter_by(org_id=org_id, name=name).first()
     if collection is None:
-        return build_error_response("A collection with that name does not exist.")
+        return build_response(messages=["A collection with that name does not exist."])
 
     user = create_or_fetch_user(user_id, org_id)
     if set_current_collection(name, user) is None:
         return build_error_response("You do not have permission to read the specified collection.")
 
-    data = build_response(f"Your current collection has been set to *{name}*.")
+    data = build_response(messages=[f"Your current collection has been set to *{name}*."])
 
     return data
 
