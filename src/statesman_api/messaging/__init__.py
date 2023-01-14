@@ -24,10 +24,7 @@ def send_amqp_response(msg, response_data: dict, is_private: bool = False) -> bo
         "sender": os.environ.get(constants.POD, socket.gethostname()),
         "timestamp": time.time(),
         "response_data": response_data,
-        "answer": {
-            "private": is_private,
-            "data": msg,
-        },
+        "answer": msg,
     }
     body = json.dumps(body_data)
     logging.debug("body: %s", body)
