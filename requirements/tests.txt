@@ -145,14 +145,14 @@ sqlalchemy==1.4.46
     # via
     #   alembic
     #   flask-sqlalchemy
-tox==4.3.2
-    # via -r requirements/tests.in
 tomli==2.0.1
     # via
     #   coverage
     #   pyproject-api
     #   pytest
     #   tox
+tox==4.3.2
+    # via -r requirements/tests.in
 urllib3==1.26.14
     # via
     #   requests

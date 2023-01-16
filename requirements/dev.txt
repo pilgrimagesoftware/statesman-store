@@ -230,8 +230,6 @@ sqlalchemy==1.4.46
     # via
     #   alembic
     #   flask-sqlalchemy
-tox==4.3.2
-    # via -r requirements/tests.in
 tomli==2.0.1
     # via
     #   black
@@ -241,6 +239,8 @@ tomli==2.0.1
     #   pyproject-hooks
     #   pytest
     #   tox
+tox==4.3.2
+    # via -r requirements/tests.in
 typer[all]==0.7.0
     # via rstcheck
 types-docutils==0.19.1.1
