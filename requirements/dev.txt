@@ -63,8 +63,6 @@ docutils==0.18.1
     #   rstcheck-core
     #   sphinx
     #   sphinx-tabs
-exceptiongroup==1.1.0
-    # via pytest
 filelock==3.9.0
     # via
     #   tox
@@ -185,7 +183,7 @@ redis==4.4.1
     # via
     #   -r requirements/app.in
     #   flask-redis
-requests==2.28.1
+requests==2.28.2
     # via
     #   -r requirements/app.in
     #   sphinx
@@ -230,15 +228,6 @@ sqlalchemy==1.4.46
     # via
     #   alembic
     #   flask-sqlalchemy
-tomli==2.0.1
-    # via
-    #   black
-    #   build
-    #   coverage
-    #   pep517
-    #   pyproject-api
-    #   pytest
-    #   tox
 tox==4.2.6
     # via -r requirements/tests.in
 typer[all]==0.7.0
