@@ -21,7 +21,7 @@ import logging
 def execute(org_id: str, user_id: str, args: list) -> dict:
     logging.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
 
-    if len(args) != 0:
+    if len(args) > 1:
         return build_error_response("Usage: `get [<item>]`.")
 
     user = create_or_fetch_user(user_id, org_id)
