@@ -22,6 +22,7 @@ def get_collection_items(collection: StateCollection, user: User) -> list[dict]:
     logging.debug("collection: %s, user: %s", collection, user)
 
     items = StateItem.query.filter_by(collection_id=collection.id).all()
+    logging.debug("items: %s", items)
     if len(items) == 0:
         return []
 
@@ -31,6 +32,7 @@ def get_collection_items(collection: StateCollection, user: User) -> list[dict]:
     # {"text": f"_Items_:"},
 
     for item in items:
+        logging.debug("item: %s", item)
         if not check_item_permission(user, item, model_constants.PERMISSION_READ):
             logging.debug("User %s does not have permission to read item %s.", user, item)
             continue
@@ -43,6 +45,7 @@ def get_collection_items(collection: StateCollection, user: User) -> list[dict]:
         if item.default_value is not None and len(item.default_value) > 0:
             item_info["default"] = item.default_value
 
+        logging.debug("item_info: %s", item_info)
         data.append({"item": item_info})
 
     logging.debug("data: %s", data)
