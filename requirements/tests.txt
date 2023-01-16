@@ -143,7 +143,7 @@ sqlalchemy==1.4.46
     # via
     #   alembic
     #   flask-sqlalchemy
-tox==4.2.6
+tox==4.3.2
     # via -r requirements/tests.in
 urllib3==1.26.13
     # via
