@@ -131,7 +131,7 @@ python-dotenv==0.21.0
     # via -r requirements/app.in
 pyyaml==6.0
     # via -r requirements/app.in
-redis==4.4.1
+redis==4.4.2
     # via
     #   -r requirements/app.in
     #   flask-redis
