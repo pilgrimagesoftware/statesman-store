@@ -42,7 +42,11 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
         else:
             return build_error_response(f"No item found named '{item_name}'.")
     else:
-        data = add_response_data(data, items=get_collection_items(collection, user))
+        items = get_collection_items(collection, user)
+        if len(items) == 0:
+            data = add_response_data(data, messages=["The collection is empty."])
+        else:
+            data = add_response_data(data, items=items)
 
     return data
 
