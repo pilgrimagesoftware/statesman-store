@@ -3,7 +3,6 @@ __author__ = "Paul Schifferer <paul@schifferers.net>"
 - Messaging
 """
 
-from flask import current_app
 import logging, os, json, time, socket
 import pika, requests
 from statesman_api import constants
