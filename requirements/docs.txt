@@ -69,8 +69,6 @@ flask-sqlalchemy==3.0.2
     #   flask-migrate
 future==0.18.3
     # via flask-inputs
-greenlet==2.0.1
-    # via sqlalchemy
 idna==3.4
     # via requests
 imagesize==1.4.1
@@ -85,7 +83,7 @@ jsonschema==4.17.3
     # via -r requirements/app.in
 mako==1.2.4
     # via alembic
-markupsafe==2.1.1
+markupsafe==2.1.2
     # via
     #   jinja2
     #   mako

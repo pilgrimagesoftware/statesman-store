@@ -81,9 +81,7 @@ flask-sqlalchemy==3.0.2
 future==0.18.3
     # via flask-inputs
 greenlet==2.0.1
-    # via
-    #   -r requirements/tests.in
-    #   sqlalchemy
+    # via -r requirements/tests.in
 idna==3.4
     # via requests
 iniconfig==2.0.0
@@ -96,7 +94,7 @@ jsonschema==4.17.3
     # via -r requirements/app.in
 mako==1.2.4
     # via alembic
-markupsafe==2.1.1
+markupsafe==2.1.2
     # via
     #   jinja2
     #   mako
@@ -119,7 +117,7 @@ pluggy==1.0.0
     #   tox
 psycopg2==2.9.5
     # via -r requirements/app.in
-pyproject-api==1.4.0
+pyproject-api==1.5.0
     # via tox
 pyrsistent==0.19.3
     # via jsonschema
