@@ -9,7 +9,7 @@ import logging, os
 from werkzeug.exceptions import Forbidden, BadRequest, NotFound
 from flask import session, jsonify, request, current_app, Blueprint
 
-# from statesman_api.blueprints.api import blueprint
+# from statesman_store.blueprints.api import blueprint
 from statesman_store import constants
 from statesman_store.db import db
 from statesman_store.controllers.state import process_state_request, handle_ssl_check, SslCheckHandled

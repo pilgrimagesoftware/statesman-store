@@ -13,7 +13,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../src/statesman_api"))
+sys.path.insert(0, os.path.abspath("../src/statesman_store"))
 
 
 # -- Project information -----------------------------------------------------

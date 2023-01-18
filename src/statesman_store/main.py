@@ -34,7 +34,7 @@ def create_app(app_name=constants.APPLICATION_NAME):
     )
 
     app = Flask(app_name)
-    app.config.from_object("statesman_api.config.BaseConfig")
+    app.config.from_object("statesman_store.config.BaseConfig")
     # env = DotEnv(app)
     # cache.init_app(app)
 
@@ -60,7 +60,7 @@ def create_app(app_name=constants.APPLICATION_NAME):
     db.init_app(app)
     migrate = Migrate(app, db)
 
-    # from statesman_api.messaging import amqp_run
+    # from statesman_store.messaging import amqp_run
     # app.executor.submit(amqp_run)
     from statesman_store.messaging.consumer import consumer_thread
 

@@ -15,7 +15,7 @@ import logging
 def execute(org_id: str, user_id: str, args: list) -> dict:
     logging.debug("org_id: %s, user_id: %s, args: %s", org_id, user_id, args)
 
-    modules = get_package_modules("statesman_api.controllers.actions")
+    modules = get_package_modules("statesman_store.controllers.actions")
     logging.debug("modules: %s", modules)
 
     data = [
@@ -34,9 +34,9 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
             logging.debug("cmd: %s, title: %s, desc: %s, button: %s", help_cmd, help_title, help_desc, help_button)
 
             help_info = {
-                'command': help_cmd,
-                'title': help_title,
-                'desc': help_desc,
+                "command": help_cmd,
+                "title": help_title,
+                "desc": help_desc,
             }
             if help_button is not None:
                 help_info["accessory"] = {
@@ -50,4 +50,4 @@ def execute(org_id: str, user_id: str, args: list) -> dict:
 
     logging.debug("data: %s", data)
 
-    return {'data': data, 'private': True}
+    return {"data": data, "private": True}
