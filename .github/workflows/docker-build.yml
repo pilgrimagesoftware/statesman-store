@@ -40,7 +40,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/pilgrimagesoftware/statesman-api
+            ghcr.io/pilgrimagesoftware/statesman-store
           tags: |
             type=raw,value=latest
             type=raw,value=${{ steps.previoustag.outputs.tag }}
@@ -78,7 +78,7 @@ jobs:
       # - name: Scan image
       #   uses: sysdiglabs/scan-action@v1
       #   with:
-      #     image-tag: registry.sweetrpg.com/sweetrpg-library-api:latest
+      #     image-tag: registry.sweetrpg.com/sweetrpg-library-store:latest
       #     sysdig-secure-token: ${{ secrets.SYSDIG_SECURE_TOKEN }}
       - name: Create Sentry release
         uses: getsentry/action-release@v1

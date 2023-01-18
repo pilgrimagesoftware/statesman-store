@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: api
+  name: store
 
 spec:
   strategy:
@@ -15,33 +15,33 @@ spec:
     matchLabels:
       app: statesman
       version: v1
-      component: api
+      component: store
   template:
     metadata:
       labels:
         app: statesman
         version: v1
-        component: api
+        component: store
     spec:
-      serviceAccountName: api
+      serviceAccountName: store
       containers:
-        - name: api
-          image: ghcr.io/pilgrimagesoftware/statesman-api:latest
+        - name: store
+          image: ghcr.io/pilgrimagesoftware/statesman-store:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
-              name: api
+              name: store
           envFrom:
             - configMapRef:
                 name: common
             - configMapRef:
-                name: api
+                name: store
             - configMapRef:
-                name: api-env
+                name: store-env
             - secretRef:
                 name: common
             - secretRef:
-                name: api
+                name: store
           env:
             - name: POD
               valueFrom:

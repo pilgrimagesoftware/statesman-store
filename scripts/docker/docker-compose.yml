@@ -10,12 +10,12 @@ services:
     ports:
       - "5000:5000"
     networks:
-      - statesman-api
+      - statesman-store
 
   redis:
     image: redis:6
     networks:
-      - statesman-api
+      - statesman-store
 
 networks:
-  statesman-api: {}
+  statesman-store: {}

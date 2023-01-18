@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-    name: api
+    name: store
 
 spec:
     replicas: 1

@@ -3,16 +3,16 @@
 # kind: IngressRoute
 
 # metadata:
-#   name: statesman-api
+#   name: statesman-store
 
 # spec:
 #   entryPoints:
 #     - web
 #   routes:
-#     - match: Host(`api.statesman.pilgrimagesoftware.com`)
+#     - match: Host(`store.statesman.pilgrimagesoftware.com`)
 #       kind: Rule
 #       services:
-#         - name: api
+#         - name: store
 #           port: 8899
 #           passHostHeader: true
 #           responseForwarding:

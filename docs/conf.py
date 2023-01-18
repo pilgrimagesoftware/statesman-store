@@ -18,8 +18,8 @@ sys.path.insert(0, os.path.abspath("../src/statesman_api"))
 
 # -- Project information -----------------------------------------------------
 
-project = "Statesman API"
-copyright = "2022, Paul Schifferer"
+project = "Statesman Store"
+copyright = "2023, Paul Schifferer"
 author = "Paul Schifferer"
 
 

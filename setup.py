@@ -2,7 +2,7 @@ from setuptools import setup
 
 # Metadata goes in setup.cfg. These are here for GitHub's dependency graph.
 setup(
-    name="statesman-api",
+    name="statesman-store",
     install_requires=[
         "flask",
         "flask-dotenv",

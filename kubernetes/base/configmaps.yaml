@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 
 metadata:
-  name: api
+  name: store
 
 data:
   SESSION_TYPE: "redis"

@@ -8,22 +8,22 @@
 
 # spec:
 #   hosts:
-#     - api.statesman.pilgrimagesoftware.com
+#     - store.statesman.pilgrimagesoftware.com
 #   gateways:
 #     - statesman-gateway
 #   http:
 #     - route:
 #         - destination:
-#             host: api.statesman.svc.cluster.local
+#             host: store.statesman.svc.cluster.local
 #             port:
 #               number: 8899
 #   tls:
 #     - match:
 #         - port: 443
 #           sniHosts:
-#             - api.statesman.pilgrimagesoftware.com
+#             - store.statesman.pilgrimagesoftware.com
 #       route:
 #         - destination:
-#             host: api.statesman.svc.cluster.local
+#             host: store.statesman.svc.cluster.local
 #             port:
 #               number: 8899

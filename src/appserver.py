@@ -7,7 +7,7 @@ appserver.py
 import os
 
 if __name__ == "__main__":
-    from statesman_api.main import create_app
+    from statesman_store.main import create_app
 
     app = create_app()
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", "5000")), debug=True)

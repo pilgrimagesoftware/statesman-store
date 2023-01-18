@@ -15,13 +15,13 @@
 #         name: http
 #         protocol: HTTP
 #       hosts:
-#         - "*/api.statesman.pilgrimagesoftware.com"
+#         - "*/store.statesman.pilgrimagesoftware.com"
 #     - port:
 #         number: 443
 #         name: https
 #         protocol: HTTPS
 #       hosts:
-#         - "*/api.statesman.pilgrimagesoftware.com"
+#         - "*/store.statesman.pilgrimagesoftware.com"
 #       tls:
 #         mode: PASSTHROUGH
 #     # serverCertificate: /etc/istio/ingressgateway-certs/sweetrpg-io-crt.pem

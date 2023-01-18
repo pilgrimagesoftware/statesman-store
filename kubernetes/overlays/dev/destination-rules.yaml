@@ -6,7 +6,7 @@
 #   name: statesman
 
 # spec:
-#   host: api.statesman.svc.cluster.local
+#   host: store.statesman.svc.cluster.local
 #   trafficPolicy:
 #     loadBalancer:
 #       simple: LEAST_CONN

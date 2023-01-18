@@ -11,8 +11,8 @@ Statesman
    :caption: Contents:
 
 
-API Reference
--------------
+Store Reference
+---------------
 
 .. toctree::
    :maxdepth: 2

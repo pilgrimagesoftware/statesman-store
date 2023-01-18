@@ -3,7 +3,7 @@ apiVersion: policy/v1
 kind: PodDisruptionBudget
 
 metadata:
-    name: api
+    name: store
 
 spec:
     minAvailable: 1
@@ -11,4 +11,4 @@ spec:
         matchLabels:
             app: statesman
             version: v1
-            component: api
+            component: store

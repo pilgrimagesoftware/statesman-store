@@ -31,9 +31,9 @@ def get_engine():
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 
-from statesman_api.models.user import User
-from statesman_api.models.state_collection import StateCollection, StateCollectionUserPermission
-from statesman_api.models.state_item import StateItem, StateItemUserPermission
+from statesman_store.models.user import User
+from statesman_store.models.state_collection import StateCollection, StateCollectionUserPermission
+from statesman_store.models.state_item import StateItem, StateItemUserPermission
 
 config.set_main_option("sqlalchemy.url", str(get_engine().url).replace("%", "%%"))
 target_db = current_app.extensions["migrate"].db

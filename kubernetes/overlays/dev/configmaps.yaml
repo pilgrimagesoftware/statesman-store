@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 
 metadata:
-  name: api-env
+  name: store-env
 
 data:
   DEBUG: "True"
@@ -22,5 +22,5 @@ data:
   RABBITMQ_PORT: "5672"
   RABBITMQ_VHOST: "statesman"
   RABBITMQ_EXCHANGE: ""
-  RABBITMQ_USER: "statesman-api"
-  RABBITMQ_QUEUE: "api"
+  RABBITMQ_USER: "statesman-store"
+  RABBITMQ_QUEUE: "store"
