@@ -167,7 +167,7 @@ sqlalchemy==1.4.46
     #   flask-sqlalchemy
 typer[all]==0.7.0
     # via rstcheck
-types-docutils==0.19.1.1
+types-docutils==0.19.1.2
     # via rstcheck-core
 typing-extensions==4.4.0
     # via pydantic
