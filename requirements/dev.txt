@@ -63,8 +63,6 @@ docutils==0.18.1
     #   rstcheck-core
     #   sphinx
     #   sphinx-tabs
-exceptiongroup==1.1.0
-    # via pytest
 filelock==3.9.0
     # via
     #   tox
@@ -102,7 +100,9 @@ flask-sqlalchemy==3.0.2
 future==0.18.3
     # via flask-inputs
 greenlet==2.0.1
-    # via -r requirements/tests.in
+    # via
+    #   -r requirements/tests.in
+    #   sqlalchemy
 idna==3.4
     # via requests
 imagesize==1.4.1
@@ -228,16 +228,7 @@ sqlalchemy==1.4.46
     # via
     #   alembic
     #   flask-sqlalchemy
-tomli==2.0.1
-    # via
-    #   black
-    #   build
-    #   coverage
-    #   pyproject-api
-    #   pyproject-hooks
-    #   pytest
-    #   tox
-tox==4.3.2
+tox==4.3.4
     # via -r requirements/tests.in
 typer[all]==0.7.0
     # via rstcheck

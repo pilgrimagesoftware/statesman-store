@@ -42,8 +42,6 @@ coverage-badge==1.1.0
     # via -r requirements/tests.in
 distlib==0.3.6
     # via virtualenv
-exceptiongroup==1.1.0
-    # via pytest
 filelock==3.9.0
     # via
     #   tox
@@ -81,7 +79,9 @@ flask-sqlalchemy==3.0.2
 future==0.18.3
     # via flask-inputs
 greenlet==2.0.1
-    # via -r requirements/tests.in
+    # via
+    #   -r requirements/tests.in
+    #   sqlalchemy
 idna==3.4
     # via requests
 iniconfig==2.0.0
@@ -143,13 +143,7 @@ sqlalchemy==1.4.46
     # via
     #   alembic
     #   flask-sqlalchemy
-tomli==2.0.1
-    # via
-    #   coverage
-    #   pyproject-api
-    #   pytest
-    #   tox
-tox==4.3.2
+tox==4.3.4
     # via -r requirements/tests.in
 urllib3==1.26.14
     # via
