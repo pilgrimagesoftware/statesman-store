@@ -102,7 +102,9 @@ flask-sqlalchemy==3.0.2
 future==0.18.3
     # via flask-inputs
 greenlet==2.0.1
-    # via -r requirements/tests.in
+    # via
+    #   -r requirements/tests.in
+    #   sqlalchemy
 idna==3.4
     # via requests
 imagesize==1.4.1
