@@ -48,8 +48,10 @@ def create_app(app_name=constants.APPLICATION_NAME):
 
     app.register_blueprint(state_blueprint)
 
-    from statesman_api.blueprints.health import blueprint as health_blueprint
+    from statesman_api.blueprints.health import blueprint as health_blueprint, register_health_check_service_hook
+    from statesman_api.messaging.healthcheck import health_check as messaging_health_check
 
+    register_health_check_service_hook("messaging", messaging_health_check)
     app.register_blueprint(health_blueprint)
 
     from statesman_api.db import db
@@ -60,7 +62,7 @@ def create_app(app_name=constants.APPLICATION_NAME):
 
     # from statesman_api.messaging import amqp_run
     # app.executor.submit(amqp_run)
-    from statesman_api.messaging import consumer_thread
+    from statesman_api.messaging.consumer import consumer_thread
 
     app.consumer_thread = consumer_thread
 
