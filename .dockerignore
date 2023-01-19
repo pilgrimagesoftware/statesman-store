@@ -11,3 +11,4 @@ docs/
 LICENSE
 tox.ini
 *.pyc
+__pycache__/
