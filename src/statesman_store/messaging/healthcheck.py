@@ -1,6 +1,7 @@
 __author__ = "Paul Schifferer <paul@schifferers.net>"
 """
-- Messaging
+healthcheck.py
+- Messaging health check
 """
 
 import logging, os, time

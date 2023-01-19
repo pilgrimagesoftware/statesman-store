@@ -50,8 +50,10 @@ def create_app(app_name=constants.APPLICATION_NAME):
 
     from statesman_store.blueprints.health import blueprint as health_blueprint, register_health_check_service_hook
     from statesman_store.messaging.healthcheck import health_check as messaging_health_check
+    from statesman_store.db.healthcheck import health_check as db_health_check
 
     register_health_check_service_hook("messaging", messaging_health_check)
+    register_health_check_service_hook("db", db_health_check)
     app.register_blueprint(health_blueprint)
 
     from statesman_store.db import db
