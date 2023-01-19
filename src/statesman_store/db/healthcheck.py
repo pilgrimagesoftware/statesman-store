@@ -18,7 +18,7 @@ last_health_status = {
         "port": os.environ[constants.DB_PORT],
         "user": os.environ[constants.DB_USER],
         "database": os.environ[constants.DB_NAME],
-        "options": os.environ[constants.DB_OPTS],
+        "options": os.environ.get(constants.DB_OPTS, ""),
     },
     "objects": {},
 }
