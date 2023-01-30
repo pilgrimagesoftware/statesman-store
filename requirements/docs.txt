@@ -69,7 +69,7 @@ flask-sqlalchemy==3.0.2
     #   flask-migrate
 future==0.18.3
     # via flask-inputs
-greenlet==2.0.1
+greenlet==2.0.2
     # via sqlalchemy
 idna==3.4
     # via requests
