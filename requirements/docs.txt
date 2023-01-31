@@ -16,7 +16,7 @@ babel==2.11.0
     # via sphinx
 blinker==1.5
     # via sentry-sdk
-cachelib==0.10.0
+cachelib==0.10.1
     # via flask-session
 certifi==2022.12.7
     # via
@@ -147,7 +147,7 @@ sphinx-issues==3.0.1
     # via -r requirements/docs.in
 sphinx-tabs==3.4.1
     # via -r requirements/docs.in
-sphinxcontrib-applehelp==1.0.3
+sphinxcontrib-applehelp==1.0.4
     # via sphinx
 sphinxcontrib-devhelp==1.0.2
     # via sphinx
@@ -161,7 +161,7 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
-sqlalchemy==1.4.46
+sqlalchemy==2.0.0
     # via
     #   alembic
     #   flask-sqlalchemy
@@ -170,7 +170,9 @@ typer[all]==0.7.0
 types-docutils==0.19.1.2
     # via rstcheck-core
 typing-extensions==4.4.0
-    # via pydantic
+    # via
+    #   pydantic
+    #   sqlalchemy
 urllib3==1.26.14
     # via
     #   requests
