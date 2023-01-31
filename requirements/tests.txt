@@ -127,7 +127,7 @@ pytest==7.2.1
     #   pytest-cov
 pytest-cov==4.0.0
     # via -r requirements/tests.in
-python-dotenv==0.21.0
+python-dotenv==0.21.1
     # via -r requirements/app.in
 pyyaml==6.0
     # via -r requirements/app.in
