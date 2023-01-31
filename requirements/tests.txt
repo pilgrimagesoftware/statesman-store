@@ -81,9 +81,7 @@ flask-sqlalchemy==3.0.2
 future==0.18.3
     # via flask-inputs
 greenlet==2.0.2
-    # via
-    #   -r requirements/tests.in
-    #   sqlalchemy
+    # via -r requirements/tests.in
 idna==3.4
     # via requests
 iniconfig==2.0.0
@@ -139,7 +137,7 @@ redis==4.4.2
     #   flask-redis
 requests==2.28.2
     # via -r requirements/app.in
-sentry-sdk[flask]==1.12.1
+sentry-sdk[flask]==1.14.0
     # via -r requirements/app.in
 sqlalchemy==2.0.0
     # via
