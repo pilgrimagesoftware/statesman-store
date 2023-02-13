@@ -116,7 +116,7 @@ pytz==2022.7.1
     # via babel
 pyyaml==6.0
     # via -r requirements/app.in
-redis==4.4.2
+redis==4.5.1
     # via
     #   -r requirements/app.in
     #   flask-redis
