@@ -10,8 +10,6 @@ alembic==1.9.2
     # via flask-migrate
 asgiref==3.6.0
     # via -r requirements/tests.in
-async-timeout==4.0.2
-    # via redis
 attrs==22.2.0
     # via
     #   jsonschema
@@ -63,8 +61,6 @@ docutils==0.18.1
     #   rstcheck-core
     #   sphinx
     #   sphinx-tabs
-exceptiongroup==1.1.0
-    # via pytest
 filelock==3.9.0
     # via
     #   tox
@@ -181,7 +177,7 @@ pytz==2022.7.1
     # via babel
 pyyaml==6.0
     # via -r requirements/app.in
-redis==4.4.2
+redis==4.5.3
     # via
     #   -r requirements/app.in
     #   flask-redis
@@ -230,15 +226,6 @@ sqlalchemy==2.0.0
     # via
     #   alembic
     #   flask-sqlalchemy
-tomli==2.0.1
-    # via
-    #   black
-    #   build
-    #   coverage
-    #   pyproject-api
-    #   pyproject-hooks
-    #   pytest
-    #   tox
 tox==4.4.3
     # via -r requirements/tests.in
 typer[all]==0.7.0
