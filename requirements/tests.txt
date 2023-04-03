@@ -42,8 +42,6 @@ coverage-badge==1.1.0
     # via -r requirements/tests.in
 distlib==0.3.6
     # via virtualenv
-exceptiongroup==1.1.0
-    # via pytest
 filelock==3.9.0
     # via
     #   tox
@@ -133,7 +131,7 @@ python-dotenv==0.21.1
     # via -r requirements/app.in
 pyyaml==6.0
     # via -r requirements/app.in
-redis==4.4.2
+redis==4.5.4
     # via
     #   -r requirements/app.in
     #   flask-redis
@@ -145,12 +143,6 @@ sqlalchemy==2.0.0
     # via
     #   alembic
     #   flask-sqlalchemy
-tomli==2.0.1
-    # via
-    #   coverage
-    #   pyproject-api
-    #   pytest
-    #   tox
 tox==4.4.3
     # via -r requirements/tests.in
 typing-extensions==4.4.0
