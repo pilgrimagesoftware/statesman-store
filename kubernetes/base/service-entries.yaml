@@ -1,23 +1,23 @@
-# ---
-# # See more at https://istio.io/docs/reference/config/networking/service-entry/
-# apiVersion: networking.istio.io/v1alpha3
-# kind: ServiceEntry
+---
+# See more at https://istio.io/docs/reference/config/networking/service-entry/
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
 
-# metadata:
-#   name: slack
+metadata:
+  name: slack
 
-# spec:
-#   hosts:
-#     - "api.slack.com"
-#   ports:
-#     - number: 80
-#       name: http
-#       protocol: HTTP
-#     - number: 443
-#       name: https
-#       protocol: HTTPS
-#   resolution: DNS
-#   location: MESH_EXTERNAL
+spec:
+  hosts:
+    - "api.slack.com"
+  ports:
+    - number: 80
+      name: http
+      protocol: HTTP
+    - number: 443
+      name: https
+      protocol: HTTPS
+  resolution: DNS
+  location: MESH_EXTERNAL
 
 # ---
 # apiVersion: networking.istio.io/v1alpha3
@@ -37,38 +37,38 @@
 #   resolution: NONE
 #   location: MESH_EXTERNAL
 
-# ---
-# apiVersion: networking.istio.io/v1alpha3
-# kind: ServiceEntry
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
 
-# metadata:
-#   name: sentry-io
+metadata:
+  name: sentry-io
 
-# spec:
-#   hosts:
-#     - "*.sentry.io"
-#   ports:
-#     - name: https
-#       number: 443
-#       protocol: HTTPS
-#       targetPort: 443
-#   resolution: NONE
-#   location: MESH_EXTERNAL
+spec:
+  hosts:
+    - "*.sentry.io"
+  ports:
+    - name: https
+      number: 443
+      protocol: HTTPS
+      targetPort: 443
+  resolution: NONE
+  location: MESH_EXTERNAL
 
-# ---
-# apiVersion: networking.istio.io/v1alpha3
-# kind: ServiceEntry
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
 
-# metadata:
-#   name: postgres
+metadata:
+  name: postgres
 
-# spec:
-#   hosts:
-#     - "postgres.internal.dev.pilgrimagesoftware.com"
-#   ports:
-#     - name: pgsql
-#       number: 5432
-#       protocol: TCP
-#       targetPort: 5432
-#   resolution: NONE
-#   location: MESH_EXTERNAL
+spec:
+  hosts:
+    - "postgres.internal.dev.pilgrimagesoftware.com"
+  ports:
+    - name: pgsql
+      number: 5432
+      protocol: TCP
+      targetPort: 5432
+  resolution: NONE
+  location: MESH_EXTERNAL
