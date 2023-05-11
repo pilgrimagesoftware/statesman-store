@@ -1,18 +1,18 @@
-# ---
-# kind: Service
-# apiVersion: v1
+---
+kind: Service
+apiVersion: v1
 
-# metadata:
-#   name: store-v1
+metadata:
+  name: store-v1
 
-# spec:
-#   type: ClusterIP
-#   selector:
-#     app: statesman
-#     version: v1
-#     component: store
-#   ports:
-#     - name: store
-#       port: 5000
-#       targetPort: store
-#       protocol: TCP
+spec:
+  type: ClusterIP
+  selector:
+    app: statesman
+    version: v1
+    component: store
+  ports:
+    - name: store
+      port: 5000
+      targetPort: store
+      protocol: TCP

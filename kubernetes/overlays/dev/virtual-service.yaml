@@ -14,7 +14,7 @@ spec:
   http:
     - route:
         - destination:
-            host: store.statesman.svc.cluster.local
+            host: store-v1.statesman.svc.cluster.local
             port:
               number: 8899
   tls:
@@ -24,6 +24,6 @@ spec:
             - store.statesman.pilgrimagesoftware.com
       route:
         - destination:
-            host: store.statesman.svc.cluster.local
+            host: store-v1.statesman.svc.cluster.local
             port:
               number: 8899
