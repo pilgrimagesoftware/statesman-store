@@ -8,9 +8,8 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: statesman
+    app: store
     version: v1
-    component: store
   ports:
     - name: store
       port: 5000
