@@ -9,6 +9,5 @@ spec:
     minAvailable: 1
     selector:
         matchLabels:
-            app: statesman
+            app: store
             version: v1
-            component: store

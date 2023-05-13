@@ -19,6 +19,5 @@ patchesStrategicMerge:
   - replicas.yaml
 
 commonLabels:
-  app: statesman
+  app: store
   version: v1
-  component: store

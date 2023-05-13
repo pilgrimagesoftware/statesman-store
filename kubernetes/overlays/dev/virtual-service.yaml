@@ -10,7 +10,7 @@ spec:
   hosts:
     - store.statesman.pilgrimagesoftware.com
   gateways:
-    - statesman-gateway
+    - gateway
   http:
     - route:
         - destination:

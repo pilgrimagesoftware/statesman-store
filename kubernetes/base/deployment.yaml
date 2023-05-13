@@ -13,15 +13,13 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: statesman
+      app: store
       version: v1
-      component: store
   template:
     metadata:
       labels:
-        app: statesman
+        app: store
         version: v1
-        component: store
     spec:
       serviceAccountName: store
       containers:
