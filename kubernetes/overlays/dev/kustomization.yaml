@@ -15,8 +15,6 @@ resources:
   - middlewares.yaml
   - hpa.yaml
   - pdb.yaml
-patchesStrategicMerge:
-  - replicas.yaml
 
 commonLabels:
   app: store
